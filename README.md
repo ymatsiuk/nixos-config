@@ -27,9 +27,10 @@ swapon /dev/xps/swap
 git clone https://github.com/ymatsiuk/nixos-config /mnt/etc/nixos/
 ```
 3. Edit `/mnt/etc/nixos/users.nix` to adjust user. Use the following command for password hash `nix-shell -p mkpasswd --run "mkpasswd -m sha-512"`
-4. Add home-manager
+4. Add home-manager and nixos-unstable
 ```
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
 nix-channel --update
 ```
 5. Install NixOS
