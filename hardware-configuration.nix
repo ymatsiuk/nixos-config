@@ -14,7 +14,8 @@
   boot.initrd.luks.devices."xps".device = "/dev/disk/by-uuid/fd985262-6ad9-46ac-8bc3-c6074d60e300";
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelParams = [ "i915.enable_fbc=1" "i915.enable_psr=2" ];
+  # required for throttled to stop erroring
+  boot.kernelParams = [ "msr.allow_writes=on" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.tmpOnTmpfs = true;
