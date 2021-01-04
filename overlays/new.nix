@@ -131,6 +131,6 @@ stdenv.mkDerivation rec {
     homepage = https://www.appgate.com/support/software-defined-perimeter-support;
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = [ "me@example.org" ];
+    maintainers = [ "ymatsiuk" ];
   };
 }
