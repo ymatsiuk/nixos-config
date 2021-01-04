@@ -27,6 +27,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
   sound.enable = true;
 
+  nix = {
+    autoOptimiseStore = true;
+    gc.automatic = true;
+    optimise.automatic = true;
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
