@@ -38,5 +38,4 @@
   hardware.video.hidpi.enable = lib.mkDefault true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.acpilight.enable = true;
-  #TODO: add TLP, thermald, throttled
 }

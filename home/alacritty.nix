@@ -1,10 +1,6 @@
-let
-  unstable = import <nixos-unstable> {};
-in
 {
   programs.alacritty = {
     enable = true;
-    package = unstable.alacritty;
     settings = {
       window.dynamic_padding = true;
       scrolling.multiplier = 5;

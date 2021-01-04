@@ -19,7 +19,6 @@
       ./home/starship.nix
       ./home/zsh.nix
       ./modules/git.nix
-      ./modules/i3status-rust.nix
     ];
     home.packages = with pkgs ; [
       autocutsel #sync clipboard

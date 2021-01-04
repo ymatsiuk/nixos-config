@@ -7,7 +7,7 @@
       antialias = true;
     };
     enableDefaultFonts = true;
-    enableFontDir = true;
+    fontDir.enable = true;
     fonts = with pkgs; [
       font-awesome
       font-awesome_4

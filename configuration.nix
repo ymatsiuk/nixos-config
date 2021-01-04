@@ -71,6 +71,9 @@
 
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
+  services.thermald.enable = true;
+  services.throttled.enable = true;
+  services.tlp.enable = true;
   services.xserver = {
     enable = true;
     dpi = 220;
@@ -98,6 +101,6 @@
     };
   };
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "21.03";
 }
 
