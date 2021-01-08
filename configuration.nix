@@ -60,6 +60,7 @@
       git
       htop
       jq
+      openssl
       pciutils
       tree
       wget

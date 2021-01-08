@@ -22,9 +22,12 @@
     ];
     home.packages = with pkgs ; [
       autocutsel #sync clipboard
+      awscli2
       go
       google-chrome
       gsimplecal iw #i3status-rust deps
+      kubernetes-helm
+      kubectl
       lastpass-cli
       libnotify
       libsecret
@@ -33,6 +36,7 @@
       ripgrep
       scrot
       slack
+      terraform_0_13
       xclip
     ];
 
