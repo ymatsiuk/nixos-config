@@ -13,6 +13,8 @@
     };
     dotDir = ".config/zsh";
     shellAliases = {
+      vi = "nvim";
+      vim = "nvim";
       ls = "ls --group-directories-first --color=auto";
       flexpass = "secret-tool lookup lpass flexport | xclip -in";
       ympass = "secret-tool lookup lpass personal | xclip -in";
