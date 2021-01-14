@@ -23,6 +23,11 @@
     home.packages = with pkgs ; [
       autocutsel #sync clipboard
       awscli2
+      dogdns
+      eksctl
+      fluxcd
+      gitAndTools.git-remote-codecommit #AWS codeCommit
+      gnumake
       go
       google-chrome
       gsimplecal iw #i3status-rust deps
