@@ -26,6 +26,7 @@
       dogdns
       eksctl
       fluxcd
+      gitAndTools.gh
       gitAndTools.git-remote-codecommit #AWS codeCommit
       gnumake
       go
