@@ -1,27 +1,25 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   neovim = pkgs.neovim.override {
     configure = {
       customRC = builtins.readFile ./init.vim;
       plug.plugins = with pkgs.vimPlugins; [
-        vim-nix
-        gruvbox
-        vim-airline-themes
-        vim-airline
         colorizer
-        vim-go
-        vim-terraform
-        vim-packer
+        gruvbox
+        vim-airline
+        vim-airline-themes
         vim-commentary
-        vim-lastplace
         vim-fugitive
+        vim-go
+        vim-lastplace
+        vim-nix
+        vim-terraform
       ];
     };
   };
 in {
   environment = {
-    shellAliases = { vi = "nvim"; vim = "nvim"; };
     systemPackages = [ neovim ];
     variables = { EDITOR = "nvim"; VISUAL = "nvim"; };
   };

@@ -19,13 +19,21 @@
       ./home/starship.nix
       ./home/zsh.nix
       ./modules/git.nix
-      ./modules/i3status-rust.nix
     ];
     home.packages = with pkgs ; [
       autocutsel #sync clipboard
+      awscli2
+      dogdns
+      eksctl
+      fluxcd
+      gitAndTools.gh
+      gitAndTools.git-remote-codecommit #AWS codeCommit
+      gnumake
       go
       google-chrome
       gsimplecal iw #i3status-rust deps
+      kubernetes-helm
+      kubectl
       lastpass-cli
       libnotify
       libsecret
@@ -34,6 +42,7 @@
       ripgrep
       scrot
       slack
+      terraform_0_13
       xclip
     ];
 

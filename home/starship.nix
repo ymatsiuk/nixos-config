@@ -1,14 +1,13 @@
-let
-  unstable = import <nixos-unstable> {};
-in
 {
   programs.starship = {
     enable = true;
-    package = unstable.starship;
     settings = {
       add_newline = false;
-      line_break.disabled = true;
+      aws.disabled = true;
+      # git_status  -  634ms <-- facepalm.rs
+      git_status.disabled = false;
       hostname.ssh_only = false;
+      line_break.disabled = true;
       username.show_always = true;
     };
   };

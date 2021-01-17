@@ -1,10 +1,6 @@
-let
-  unstable = import <nixos-unstable> {};
-in
 {
   programs.i3status-rust = {
     enable = true;
-    package = unstable.i3status-rust;
     bars = {
       bottom = {
           blocks = [
