@@ -34,6 +34,7 @@
       gsimplecal iw #i3status-rust deps
       kubernetes-helm
       kubectl
+      kustomize
       lastpass-cli
       libnotify
       libsecret
