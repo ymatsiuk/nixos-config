@@ -2,7 +2,8 @@
 {
   imports =
     [
-      ./appgate.nix
+      # ./appgate.nix
+      ./appgate-testing.nix
       ./autocutsel.nix
       ./bluetooth.nix
       ./docker.nix
