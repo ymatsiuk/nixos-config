@@ -11,14 +11,13 @@
                json = true;
              }
              {
+               block = "uptime";
+               interval = 3600;
+             }
+             {
                block = "cpu";
                interval = 1;
                format = "{utilization}% {frequency}GHz";
-             }
-             {
-               block = "load";
-               interval = 1;
-               format = "{1m}";
              }
              {
                block = "net";

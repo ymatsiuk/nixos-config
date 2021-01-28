@@ -83,9 +83,11 @@
 
     libinput = {
       enable = true;
-      disableWhileTyping = true;
-      naturalScrolling = true;
-      accelSpeed = "0.5";
+      touchpad = {
+        disableWhileTyping = true;
+        naturalScrolling = true;
+        accelSpeed = "0.5";
+      };
     };
 
     displayManager = {

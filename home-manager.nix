@@ -22,9 +22,11 @@
     ];
     home.packages = with pkgs ; [
       autocutsel #sync clipboard
+      aws-vault
       awscli2
       dogdns
       eksctl
+      exa
       fluxcd
       gitAndTools.gh
       gitAndTools.git-remote-codecommit #AWS codeCommit
@@ -32,8 +34,8 @@
       go
       google-chrome
       gsimplecal iw #i3status-rust deps
-      kubernetes-helm
       kubectl
+      kubernetes-helm
       kustomize
       lastpass-cli
       libnotify

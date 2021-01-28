@@ -15,7 +15,8 @@
     shellAliases = {
       vi = "nvim";
       vim = "nvim";
-      ls = "ls --group-directories-first --color=auto";
+      ls = "exa --group-directories-first";
+      tree = "exa --tree";
       flexpass = "secret-tool lookup lpass flexport | xclip -in";
       ympass = "secret-tool lookup lpass personal | xclip -in";
     };
