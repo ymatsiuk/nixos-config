@@ -14,6 +14,7 @@
       ./opengl.nix
       ./picom.nix
       ./pulseaudio.nix
+      ./ssh.nix
       ./users.nix
     ];
 
