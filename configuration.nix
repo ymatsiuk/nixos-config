@@ -8,6 +8,7 @@
       ./bluetooth.nix
       ./docker.nix
       ./fonts.nix
+      ./gnome-keyring.nix
       ./hardware-configuration.nix
       ./home-manager.nix
       ./neovim.nix
@@ -73,7 +74,6 @@
   };
 
   services.fwupd.enable = true;
-  services.gnome3.gnome-keyring.enable = true;
   services.thermald.enable = true;
   services.throttled.enable = true;
   services.tlp.enable = true;
