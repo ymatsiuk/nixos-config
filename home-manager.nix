@@ -45,6 +45,7 @@
       ripgrep
       scrot
       slack
+      ssm-session-manager-plugin
       terraform_0_13
       xclip
     ];
