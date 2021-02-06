@@ -13,7 +13,7 @@
              {
                block = "custom";
                # check if local lags behind nixos-unstable
-               command = "[ $(cut -c 16- /nix/var/nix/gcroots/current-system/nixos-version) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r | cut -c 1-11) ] && echo '{\"icon\":\"weather_thunder\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"weather_thunder\",\"state\":\"Good\", \"text\": \"No\"}'";
+               command = "[ $(cut -c 16- /nix/var/nix/gcroots/current-system/nixos-version) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r | cut -c 1-11) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
                # on_click = "pkill -SIGRTMIN+0 i3status-rs";
                # signal = 0;
                interval = 300;
@@ -64,7 +64,9 @@
             icons =  {
               name = "awesome5";
               overrides = {
-                tux = " ";
+                tux = "  ";
+                upd = "  ";
+                noupd = "  ";
               };
             };
           };
