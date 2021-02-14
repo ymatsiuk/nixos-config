@@ -15,6 +15,7 @@
       ./opengl.nix
       ./picom.nix
       ./pulseaudio.nix
+      # ./security.nix
       ./ssh.nix
       ./users.nix
     ];
@@ -59,17 +60,14 @@
       coreutils
       curl
       dmidecode
-      file
       git
       htop
-      jq
       openssl
       pciutils
-      tree
       wget
 
       #HW monitor:
-      acpi cpufrequtils fio i7z lm_sensors powertop smartmontools
+      acpi cpufrequtils lm_sensors powertop smartmontools
     ];
   };
 
