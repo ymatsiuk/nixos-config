@@ -15,9 +15,10 @@
       ./opengl.nix
       ./picom.nix
       ./pulseaudio.nix
-      # ./security.nix
+      ./security.nix
       ./ssh.nix
       ./users.nix
+      ./xserver.nix
     ];
 
   networking = {
@@ -75,34 +76,6 @@
   services.thermald.enable = true;
   services.throttled.enable = true;
   services.tlp.enable = true;
-  services.xserver = {
-    enable = true;
-    dpi = 220;
-    videoDrivers = [ "modesetting" ];
-
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        naturalScrolling = true;
-        accelSpeed = "0.5";
-      };
-    };
-
-    displayManager = {
-      defaultSession = "none+i3";
-      lightdm.greeters.gtk = {
-        theme.name = "Adwaita-black";
-        cursorTheme = {
-          size = 32;
-        };
-      };
-    };
-
-    windowManager.i3 = {
-      enable = true;
-    };
-  };
 
   system.stateVersion = "21.03";
 }
