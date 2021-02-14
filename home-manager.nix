@@ -33,11 +33,14 @@
       gnumake
       go
       google-chrome
-      gsimplecal iw #i3status-rust deps
+      gsimplecal #i3status-rust dep
+      iw #i3status-rust dep
+      jq
       kubectl
       kubernetes-helm
       kustomize
       lastpass-cli
+      lf
       libnotify
       libsecret
       light
@@ -46,6 +49,7 @@
       scrot
       slack
       ssm-session-manager-plugin
+      teleport
       terraform_0_13
       xclip
     ];
