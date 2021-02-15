@@ -2,28 +2,27 @@
 {
   imports =
     [
-      ./appgate.nix
       # ./appgate-testing.nix
-      ./autocutsel.nix
+      ./appgate.nix
       ./bluetooth.nix
       ./docker.nix
       ./fonts.nix
-      ./gnome-keyring.nix
       ./hardware-configuration.nix
       ./home-manager.nix
+      ./modules/greetd.nix
       ./neovim.nix
+      ./nix.nix
       ./opengl.nix
-      ./picom.nix
+      # ./picom.nix
       ./pulseaudio.nix
-      ./security.nix
       ./ssh.nix
       ./users.nix
-      ./xserver.nix
     ];
 
+  systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     hostName = "xps";
-    interfaces.wlp2s0.useDHCP = true;
+    firewall.enable = false;
     networkmanager.enable = true;
     useDHCP = false;
   };
@@ -32,28 +31,10 @@
   i18n.defaultLocale = "en_US.UTF-8";
   sound.enable = true;
 
-  nix = {
-    autoOptimiseStore = true;
-    gc.automatic = true;
-    optimise.automatic = true;
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {
-        enableHybridCodec = true;
-      };
-    };
-  };
-
   environment = {
     homeBinInPath = true;
     shells = [ pkgs.zsh ];
     variables = {
-      GDK_SCALE = "2";
-      GDK_DPI_SCALE = "0.5";
-      _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
       LPASS_AGENT_TIMEOUT = "0";
     };
     pathsToLink = [ "/libexec" "/share/zsh" ];
@@ -68,15 +49,41 @@
       wget
 
       #HW monitor:
-      acpi cpufrequtils lm_sensors powertop smartmontools
+      acpi cpufrequtils lm_sensors
+
+      #doesn't work in chromium
+      vulkan-loader vulkan-validation-layers vulkan-tools
     ];
   };
 
+  security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
   services.fwupd.enable = true;
   services.thermald.enable = true;
   services.throttled.enable = true;
   services.tlp.enable = true;
+  services.fprintd.enable = true;
+  services.upower.enable = true;
+  services.pipewire.enable = true;
+  services.gnome3.gnome-keyring.enable = true;
 
-  system.stateVersion = "21.03";
+  programs.seahorse.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+    gtkUsePortal = true;
+  };
+  programs.sway = {
+     enable = true;
+     wrapperFeatures = {
+       base = true;
+       gtk = true;
+     };
+     extraPackages = [];
+  };
+
+  system.stateVersion = "21.05";
 }
 

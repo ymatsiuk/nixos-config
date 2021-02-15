@@ -9,7 +9,7 @@
         bold.family = "Iosevka";
         italic.family = "Iosevka";
         bold_italic.family = "Iosevka";
-        size = 7;
+        size = 12;
         draw_bold_text_with_bright_colors = true;
       };
       selection = {

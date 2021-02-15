@@ -26,7 +26,7 @@
              {
                block = "cpu";
                interval = 1;
-               format = "{utilization}% {frequency}GHz";
+               format = "{utilization} {frequency}";
              }
              {
                block = "net";
@@ -45,6 +45,7 @@
              }
              {
                block = "battery";
+               driver = "upower";
                format = "{percentage}% {time}";
              }
              {

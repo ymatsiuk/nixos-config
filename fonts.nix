@@ -5,6 +5,11 @@
     fontconfig = {
       enable = true;
       antialias = true;
+      defaultFonts = {
+        monospace = [ "Iosevka" ];
+        sansSerif = [ "Source Sans Pro" ];
+        serif = [ "Source Serif Pro" ];
+      };
     };
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -12,11 +17,8 @@
       font-awesome
       font-awesome_4
       iosevka
-      powerline-fonts
-      roboto
-      terminus_font
-      ubuntu_font_family
-      inconsolata
+      source-sans-pro
+      source-serif-pro
     ];
   };
 }
