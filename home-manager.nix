@@ -26,6 +26,7 @@
       awscli2
       dogdns
       eksctl
+      envsubst
       exa
       fluxcd
       gitAndTools.gh
@@ -33,6 +34,7 @@
       gnumake
       go
       google-chrome
+      gping
       gsimplecal #i3status-rust dep
       iw #i3status-rust dep
       jq
