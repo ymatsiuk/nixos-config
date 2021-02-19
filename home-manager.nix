@@ -17,6 +17,7 @@
       # rofi migration in progress
       # ./home/rofi.nix
       ./home/starship.nix
+      ./home/qutebrowser.nix
       ./home/zsh.nix
       ./modules/git.nix
     ];
