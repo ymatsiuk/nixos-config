@@ -6,6 +6,7 @@
       wantedBy = [ "graphical-session.target" ];
       serviceConfig = {
         Restart = "always";
+        RestartSec = 3;
         ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection CLIPBOARD";
       };
     };
@@ -14,6 +15,7 @@
       wantedBy = [ "graphical-session.target" ];
       serviceConfig = {
         Restart = "always";
+        RestartSec = 3;
         ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY";
       };
     };
