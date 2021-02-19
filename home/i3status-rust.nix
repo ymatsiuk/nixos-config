@@ -42,6 +42,7 @@
              {
                block = "sound";
                show_volume_when_muted = true;
+               on_click = "pavucontrol";
              }
              {
                block = "battery";

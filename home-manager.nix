@@ -47,6 +47,7 @@
       libsecret
       light
       patchelf
+      pavucontrol
       ripgrep
       scrot
       slack
@@ -60,6 +61,5 @@
     programs.gpg.enable = true;
     programs.htop.enable = true;
     services.network-manager-applet.enable = true;
-    services.pasystray.enable = true;
   };
 }
