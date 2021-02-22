@@ -2,9 +2,10 @@
 {
   imports =
     [
-      ./appgate.nix
-      # ./appgate-testing.nix
+      # ./appgate.nix
+      ./appgate-testing.nix
       ./autocutsel.nix
+      ./boot.nix
       ./bluetooth.nix
       ./docker.nix
       ./fonts.nix
@@ -77,6 +78,9 @@
   services.thermald.enable = true;
   services.throttled.enable = true;
   services.tlp.enable = true;
+  powerManagement.powertop.enable = true;
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.acpilight.enable = true;
 
   system.stateVersion = "21.03";
 }

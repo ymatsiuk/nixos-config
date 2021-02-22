@@ -25,20 +25,22 @@ swapon /dev/xps/swap
 2. Get the configuration
 ```
 git clone https://github.com/ymatsiuk/nixos-config /mnt/etc/nixos/
+nixos-generate-config --root /mnt
 ```
 3. Edit `/mnt/etc/nixos/users.nix` to adjust user. Use the following command for password hash `nix-shell -p mkpasswd --run "mkpasswd -m sha-512"`
 4. Add home-manager and switch to `<nixos-unstable>`
 ```
+#if we booted not unstable iso
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+#this is appgate testing repo
+nix-channel --add https://github.com/ymatsiuk/nixpkgs/archive/appgate.tar.gz appgate
 nix-channel --update
 ```
 5. Install NixOS
 ```
 nixos-install
 ```
-
-**PS**: This flow has **NOT** been tested so far. Might be that you would have to install bare system before you could actually clone this repo into `/etc/nixos`.
 
 ## Details
 

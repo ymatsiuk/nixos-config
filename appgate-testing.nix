@@ -1,5 +1,3 @@
-# sudo nix-channel --add https://github.com/ymatsiuk/nixpkgs/archive/appgate.tar.gz appgate
-# sudo nix-channel --update
 { config, pkgs, ... }:
 
 let

@@ -8,17 +8,10 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.blacklistedKernelModules = [ "psmouse" ];
-  boot.initrd.availableKernelModules = [ "aesni_intel" "ahci" "cryptd" "nvme" "sd_mod" "sr_mod" "usb_storage" "usbhid" "xhci_pci" ];
-  boot.initrd.kernelModules = [ "i915" ];
-  boot.initrd.luks.devices."xps".device = "/dev/disk/by-uuid/fd985262-6ad9-46ac-8bc3-c6074d60e300";
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # required for throttled to stop erroring
-  boot.kernelParams = [ "msr.allow_writes=on" ];
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.tmpOnTmpfs = true;
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/66407d87-26f7-47f0-8b68-b76fe31abf88";
@@ -35,8 +28,6 @@
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  powerManagement.powertop.enable = true;
+  # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.acpilight.enable = true;
 }
