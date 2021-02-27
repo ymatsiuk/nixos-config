@@ -21,6 +21,12 @@
       ./home/zsh.nix
       ./modules/git.nix
     ];
+
+    programs.fzf.enable = true;
+    programs.gpg.enable = true;
+    programs.htop.enable = true;
+    services.network-manager-applet.enable = true;
+
     home.packages = with pkgs ; [
       autocutsel #sync clipboard
       aws-vault
@@ -35,7 +41,6 @@
       gnumake
       go
       google-chrome
-      gping
       gsimplecal #i3status-rust dep
       iw #i3status-rust dep
       jq
@@ -47,20 +52,13 @@
       libnotify
       libsecret
       light
-      patchelf
       pavucontrol
       ripgrep
       scrot
-      slack
       ssm-session-manager-plugin
       teleport
       terraform_0_13
       xclip
     ];
-
-    programs.fzf.enable = true;
-    programs.gpg.enable = true;
-    programs.htop.enable = true;
-    services.network-manager-applet.enable = true;
   };
 }

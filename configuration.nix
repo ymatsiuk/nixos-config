@@ -2,8 +2,8 @@
 {
   imports =
     [
-      # ./appgate.nix
-      ./appgate-testing.nix
+      ./appgate.nix
+      # ./appgate-testing.nix
       ./autocutsel.nix
       ./boot.nix
       ./bluetooth.nix
@@ -13,18 +13,21 @@
       ./hardware-configuration.nix
       ./home-manager.nix
       ./neovim.nix
-      ./opengl.nix
+      ./intel.nix
+      ./nix.nix
       ./picom.nix
       ./pulseaudio.nix
-      ./security.nix
       ./ssh.nix
       ./users.nix
       ./xserver.nix
     ];
 
+  # faster boot
+  systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     hostName = "xps";
-    interfaces.wlp2s0.useDHCP = true;
+    firewall.enable = false;
+    # interfaces.wlp2s0.useDHCP = true;
     networkmanager.enable = true;
     useDHCP = false;
   };
@@ -32,21 +35,6 @@
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_US.UTF-8";
   sound.enable = true;
-
-  nix = {
-    autoOptimiseStore = true;
-    gc.automatic = true;
-    optimise.automatic = true;
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {
-        enableHybridCodec = true;
-      };
-    };
-  };
 
   environment = {
     homeBinInPath = true;
@@ -60,28 +48,31 @@
     };
     pathsToLink = [ "/libexec" "/share/zsh" ];
     systemPackages = with pkgs; [
+      acpi
       coreutils
+      cpufrequtils
       curl
       dmidecode
       git
-      htop
+      lm_sensors
       openssl
       pciutils
-      wget
-
-      #HW monitor:
-      acpi cpufrequtils lm_sensors powertop smartmontools
     ];
   };
 
+  security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
   services.fwupd.enable = true;
   services.thermald.enable = true;
-  services.throttled.enable = true;
-  services.tlp.enable = true;
-  powerManagement.powertop.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "ondemand";
+      TLP_DEBUG = "arg bat disk lock nm path pm ps rf run sysfs udev usb";
+    };
+  };
   hardware.cpu.intel.updateMicrocode = true;
   hardware.acpilight.enable = true;
 
-  system.stateVersion = "21.03";
+  system.stateVersion = "21.05";
 }
 

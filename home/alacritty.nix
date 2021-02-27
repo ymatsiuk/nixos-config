@@ -4,6 +4,7 @@
     settings = {
       window.dynamic_padding = true;
       scrolling.multiplier = 5;
+      env.TERM = "xterm-256color";
       font = {
         normal.family = "Iosevka";
         bold.family = "Iosevka";
