@@ -16,6 +16,7 @@
     displayManager = {
       defaultSession = "none+i3";
       lightdm.greeters.gtk = {
+        indicators = [ "~clock" "~session" "~power" ];
         theme.name = "Adwaita-black";
         cursorTheme = {
           size = 32;
@@ -27,4 +28,5 @@
       enable = true;
     };
   };
+  security.pam.services.lightdm.enableGnomeKeyring = true;
 }
