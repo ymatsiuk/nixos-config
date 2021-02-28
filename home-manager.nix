@@ -12,6 +12,7 @@
       ./home/dunst.nix
       ./home/git.nix
       ./home/gtk.nix
+      ./home/i3.nix
       ./home/i3status-rust.nix
       ./home/redshift.nix
       # rofi migration in progress
