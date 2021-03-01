@@ -1,6 +1,8 @@
+{ pkgs, ... }:
 {
   services.xserver = {
     enable = true;
+    useGlamor = true;
     dpi = 220;
     videoDrivers = [ "modesetting" ];
 
@@ -16,7 +18,7 @@
     displayManager = {
       defaultSession = "none+i3";
       lightdm.greeters.gtk = {
-        theme.name = "Adwaita-black";
+        theme.name = "gruvbox-dark-gtk";
         cursorTheme = {
           size = 32;
         };

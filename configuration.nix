@@ -25,9 +25,8 @@
   # faster boot
   systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
-    hostName = "xps";
+    hostName = "nixps";
     firewall.enable = false;
-    # interfaces.wlp2s0.useDHCP = true;
     networkmanager.enable = true;
     useDHCP = false;
   };
@@ -61,15 +60,11 @@
   };
 
   security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
+  programs.light.enable = true;
+  programs.dconf.enable = true;
   services.fwupd.enable = true;
   services.thermald.enable = true;
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "ondemand";
-      TLP_DEBUG = "arg bat disk lock nm path pm ps rf run sysfs udev usb";
-    };
-  };
+  services.tlp.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.acpilight.enable = true;
 

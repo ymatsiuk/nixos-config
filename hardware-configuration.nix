@@ -8,23 +8,23 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/66407d87-26f7-47f0-8b68-b76fe31abf88";
+    { device = "/dev/disk/by-uuid/bcde03fe-099f-4d2f-8019-5d56bb72c347";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7524-B0FE";
+    { device = "/dev/disk/by-uuid/60D0-040B";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/693b1ff9-c7cf-405b-8107-4acf11e13780"; }
+    [ { device = "/dev/disk/by-uuid/c96e5a66-6a1b-4f8f-b504-c3a0d56ad19b"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
