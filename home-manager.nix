@@ -19,6 +19,7 @@
       # ./home/rofi.nix
       ./home/starship.nix
       ./home/qutebrowser.nix
+      ./home/mpv.nix
       ./home/zsh.nix
       ./modules/git.nix
     ];
@@ -36,6 +37,7 @@
       eksctl
       envsubst
       exa
+      firefox
       fluxcd
       gitAndTools.gh
       gitAndTools.git-remote-codecommit #AWS codeCommit
@@ -52,8 +54,8 @@
       lf
       libnotify
       libsecret
-      light
       pavucontrol
+      qutebrowser
       ripgrep
       scrot
       ssm-session-manager-plugin

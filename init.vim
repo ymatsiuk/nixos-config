@@ -31,6 +31,7 @@ set backspace=2
 set clipboard=unnamed
 set clipboard^=unnamedplus
 set completeopt-=preview
+set colorcolumn=80
 set cursorline
 set encoding=utf-8
 set expandtab
@@ -52,6 +53,8 @@ set sidescrolloff=10
 set smartcase
 set smarttab
 set softtabstop=4
+set spell
+set spelllang=en
 set splitbelow
 set splitright
 set tabstop=4

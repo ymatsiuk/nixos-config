@@ -144,7 +144,7 @@
         }
       ];
       startup = [
-        { command = "light -S 25%"; always = false; notification = false; }
+        { command = "light -S 30%"; always = false; notification = false; }
         { command = "alacritty"; always = false; notification = false; }
         { command = "qutebrowser"; always = false; notification = false; }
         { command = "appgate"; always = false; notification = false; }
@@ -158,9 +158,9 @@
     };
   extraConfig =
   ''
-    set $d0 DP-4
-    set $d1 eDP-1
-    set $d2 DP-3
+    set $d0 eDP-1
+    set $d1 DP-3-1
+    set $d2 DP-3-8
     set $w1 1: 
     set $w2 2: 
     set $w3 3: 
@@ -171,13 +171,13 @@
     set $w8 8: 
     set $w9 9: 
     set $w0 10: 
-    workspace "$w1" output $d1
-    workspace "$w2" output $d1
-    workspace "$w3" output $d1
-    workspace "$w4" output $d1
-    workspace "$w5" output $d0
-    workspace "$w6" output $d0
-    workspace "$w7" output $d0
+    workspace "$w1" output $d0
+    workspace "$w2" output $d0
+    workspace "$w3" output $d0
+    workspace "$w4" output $d0
+    workspace "$w5" output $d1
+    workspace "$w6" output $d1
+    workspace "$w7" output $d1
     workspace "$w8" output $d2
     workspace "$w9" output $d2
     workspace "$w0" output $d2
