@@ -17,8 +17,8 @@
       vim = "nvim";
       ls = "exa --group-directories-first";
       tree = "exa --tree";
-      flexpass = "secret-tool lookup lpass flexport | xclip -in";
-      ympass = "secret-tool lookup lpass personal | xclip -in";
+      flexpass = "secret-tool lookup lpass flexport | wl-copy --paste-once --trim-newline";
+      ympass = "secret-tool lookup lpass personal | wl-copy --paste-once --trim-newline";
       on-gh-token = "export GITHUB_TOKEN=`lpass show --pass github.com`";
       off-gh-token = "unset GITHUB_TOKEN";
     };

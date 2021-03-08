@@ -2,27 +2,23 @@
 {
   imports =
     [
-      ./appgate.nix
       # ./appgate-testing.nix
-      ./autocutsel.nix
-      ./boot.nix
+      ./appgate.nix
       ./bluetooth.nix
+      ./boot.nix
       ./docker.nix
       ./fonts.nix
-      ./gnome-keyring.nix
       ./hardware-configuration.nix
       ./home-manager.nix
+      ./modules/greetd.nix
       ./neovim.nix
-      ./intel.nix
       ./nix.nix
-      ./picom.nix
+      ./opengl.nix
       ./pulseaudio.nix
       ./ssh.nix
       ./users.nix
-      ./xserver.nix
     ];
 
-  # faster boot
   systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     hostName = "nixps";
@@ -39,34 +35,55 @@
     homeBinInPath = true;
     shells = [ pkgs.zsh ];
     variables = {
-      GDK_SCALE = "2";
-      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      GDK_DPI_SCALE = "0.5";
-      _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
       LPASS_AGENT_TIMEOUT = "0";
     };
     pathsToLink = [ "/libexec" "/share/zsh" ];
     systemPackages = with pkgs; [
-      acpi
       coreutils
-      cpufrequtils
       curl
       dmidecode
       git
-      lm_sensors
+      htop
       openssl
       pciutils
+      #doesn't work in chromium
+      vulkan-loader vulkan-validation-layers vulkan-tools
     ];
   };
 
   security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
-  programs.light.enable = true;
-  programs.dconf.enable = true;
+  services.fprintd.enable = true;
   services.fwupd.enable = true;
+  services.gnome3.gnome-keyring.enable = true;
+  services.pipewire.enable = true;
   services.thermald.enable = true;
+  # services.throttled.enable = true; #Your CPU model is not supported.
   services.tlp.enable = true;
-  hardware.cpu.intel.updateMicrocode = true;
+  services.upower.enable = true;
+
+  programs.light.enable = true;
+  programs.seahorse.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+    gtkUsePortal = true;
+  };
+  programs.sway = {
+     enable = true;
+     wrapperFeatures = {
+       base = true;
+       gtk = true;
+     };
+     extraPackages = with pkgs; [];
+  };
+
   hardware.acpilight.enable = true;
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableRedistributableFirmware = true;
+  powerManagement.powertop.enable = true;
 
   system.stateVersion = "21.05";
 }

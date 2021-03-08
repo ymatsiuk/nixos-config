@@ -5,10 +5,7 @@
       bottom = {
           blocks = [
             {
-              block = "bluetooth";
-              mac = "CC:98:8B:93:08:1F";
-              label = " WH-1000XM3";
-            }
+              block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; label = " WH-1000XM3"; }
             {
               block = "toggle";
               text = "aptxHD";
@@ -25,48 +22,18 @@
             }
             {
               block = "custom";
-              # check if local lags behind nixos-unstable
               command = "[ $(cut -c 16- /nix/var/nix/gcroots/current-system/nixos-version) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r | cut -c 1-11) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
-              # on_click = "pkill -SIGRTMIN+0 i3status-rs";
-              # signal = 0;
               interval = 300;
               json = true;
             }
-            {
-              block = "uptime";
-              interval = 300;
-            }
-            {
-              block = "cpu";
-              interval = 1;
-              format = "{utilization}% {frequency}GHz";
-            }
-            {
-              block = "net";
-              device = "wlp0s20f3";
-              ssid = true ;
-              signal_strength = true;
-            }
+            { block = "uptime"; }
+            { block = "cpu"; format = "{utilization} {frequency}"; }
+            { block = "net"; device = "wlp0s20f3"; ssid = true ; signal_strength = true; }
             { block = "backlight"; }
-            {
-              block = "temperature";
-              collapsed = false;
-            }
-            {
-              block = "sound";
-              show_volume_when_muted = true;
-              on_click = "pavucontrol";
-            }
-            {
-              block = "battery";
-              format = "{percentage}% {time}";
-            }
-            {
-              block = "time";
-              interval = 60;
-              format = "%a %d/%m %R";
-              on_click = "gsimplecal";
-            }
+            { block = "temperature"; collapsed = false; }
+            { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
+            { block = "battery"; driver = "upower"; }
+            { block = "time"; on_click = "gsimplecal"; }
           ];
           settings = {
             theme =  {
@@ -81,6 +48,7 @@
                 tux = "  ";
                 upd = "  ";
                 noupd = "  ";
+                volume_muted = "  ";
               };
             };
           };

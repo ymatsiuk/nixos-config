@@ -9,59 +9,25 @@
   home-manager.users.ymatsiuk = { pkgs, ... }: {
     imports = [
       ./home/alacritty.nix
-      ./home/dunst.nix
+      ./home/chromium.nix
+      # ./home/dunst.nix
+      ./home/firefox.nix
       ./home/git.nix
       ./home/gtk.nix
-      ./home/i3.nix
       ./home/i3status-rust.nix
-      ./home/redshift.nix
+      ./home/mako.nix
+      ./home/mpv.nix
+      ./home/qutebrowser.nix
       # rofi migration in progress
       # ./home/rofi.nix
       ./home/starship.nix
-      ./home/qutebrowser.nix
-      ./home/mpv.nix
+      ./home/sway.nix
+      ./home/gammastep.nix
       ./home/zsh.nix
       ./modules/git.nix
     ];
-
     programs.fzf.enable = true;
     programs.gpg.enable = true;
     programs.htop.enable = true;
-    services.network-manager-applet.enable = true;
-
-    home.packages = with pkgs ; [
-      autocutsel #sync clipboard
-      aws-vault
-      awscli2
-      dogdns
-      eksctl
-      envsubst
-      exa
-      firefox
-      fluxcd
-      gitAndTools.gh
-      gitAndTools.git-remote-codecommit #AWS codeCommit
-      gnumake
-      go
-      google-chrome
-      gsimplecal #i3status-rust dep
-      iw #i3status-rust dep
-      jq
-      kubectl
-      kubernetes-helm
-      kustomize
-      lastpass-cli
-      lf
-      libnotify
-      libsecret
-      pavucontrol
-      qutebrowser
-      ripgrep
-      scrot
-      ssm-session-manager-plugin
-      teleport
-      terraform_0_13
-      xclip
-    ];
   };
 }
