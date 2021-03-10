@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     "-Dlayershell=enabled"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "GTK based greeter for greetd, to be run under cage or similar";
     homepage = "https://git.sr.ht/~kennylevinsen/gtkgreet";
     license = licenses.gpl3Plus;

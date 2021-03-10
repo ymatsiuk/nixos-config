@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  security.sudo.wheelNeedsPassword = false; #must go away
   users = {
     mutableUsers = false;
     users = {

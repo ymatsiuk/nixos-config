@@ -8,6 +8,7 @@
       ./boot.nix
       ./docker.nix
       ./fonts.nix
+      ./fprintd.nix
       ./hardware-configuration.nix
       ./home-manager.nix
       ./modules/greetd.nix
@@ -52,7 +53,6 @@
   };
 
   security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
-  services.fprintd.enable = true;
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
   services.pipewire.enable = true;
