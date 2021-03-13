@@ -2,7 +2,6 @@
 {
   imports =
     [
-      # ./appgate-testing.nix
       ./appgate.nix
       ./bluetooth.nix
       ./boot.nix
@@ -15,7 +14,6 @@
       ./neovim.nix
       ./nix.nix
       ./opengl.nix
-      ./pulseaudio.nix
       ./ssh.nix
       ./users.nix
     ];
@@ -55,9 +53,13 @@
   security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
-  services.pipewire.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
   services.thermald.enable = true;
-  # services.throttled.enable = true; #Your CPU model is not supported.
   services.tlp.enable = true;
   services.upower.enable = true;
 
@@ -83,6 +85,7 @@
   hardware.acpilight.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
   powerManagement.powertop.enable = true;
 
   system.stateVersion = "21.05";

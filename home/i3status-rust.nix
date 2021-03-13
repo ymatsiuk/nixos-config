@@ -9,9 +9,15 @@
             {
               block = "toggle";
               text = "aptxHD";
-              command_state = "pactl list short sinks | grep bluez_sink.CC_98_8B_93_08_1F.a2dp_sink";
-              command_on = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F a2dp_sink_aptx_hd";
-              command_off = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F headset_head_unit";
+              # TODO: use conditionals
+              #pulseaudio
+              # command_state = "pactl list short sinks | grep bluez_sink.CC_98_8B_93_08_1F.a2dp_sink";
+              # command_on = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F a2dp_sink_aptx_hd";
+              # command_off = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F headset_head_unit";
+              #pipewire
+              command_state = "pactl list short sinks | grep bluez_output.CC_98_8B_93_08_1F.a2dp-sink";
+              command_on = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F a2dp-sink";
+              command_off = "pactl set-card-profile bluez_card.CC_98_8B_93_08_1F headset-head-unit";
               interval = 5;
             }
             {

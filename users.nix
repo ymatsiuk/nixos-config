@@ -36,6 +36,7 @@
           libsecret #alias dep
           lm_sensors #i3status-rust dep
           neofetch
+          pulseaudio #i3status-rust dep
           pavucontrol #i3status-rust dep
           ripgrep
           ssm-session-manager-plugin
