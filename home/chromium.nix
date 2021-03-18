@@ -3,8 +3,7 @@
   programs.chromium = {
     enable = true;
     package = pkgs.chromium.override({
-      enableVaapi = true;
-      commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu-rasterization --ignore-gpu-blocklist --enable-zero-copy"; # --disable-gpu-driver-bug-workarounds --enable-accelerated-video-decode";
+      commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland --flag-switches-begin --enable-gpu-rasterization --enable-zero-copy --ignore-gpu-blocklist --enable-features=UseOzonePlatform,NativeNotifications,VaapiVideoDecoder,Vulkan,WebRTCPipeWireCapturer --flag-switches-end";
     });
     extensions = [
       { id = "opldbaajfdlmdiililehillijmbdbhob"; } #gocleary
