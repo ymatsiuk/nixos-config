@@ -33,8 +33,6 @@ nixos-generate-config --root /mnt
 #if we booted not unstable iso
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-#this is appgate testing repo
-nix-channel --add https://github.com/ymatsiuk/nixpkgs/archive/appgate.tar.gz appgate
 nix-channel --update
 ```
 5. Install NixOS
