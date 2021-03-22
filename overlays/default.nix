@@ -15,4 +15,6 @@ self: super:
 
   bluez-master = super.callPackage ./bluez-master { };
   pipewire-bluez-master = super.callPackage ./pipewire-bluez-master { };
+
+  firmwareLinuxNonfree = super.callPackage ./firmware-linux-nonfree { };
 }
