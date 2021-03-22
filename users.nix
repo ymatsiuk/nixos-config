@@ -33,11 +33,13 @@
           kustomize
           lastpass-cli
           lf
+          libnotify
           libsecret #alias dep
           lm_sensors #i3status-rust dep
           neofetch
           pulseaudio #i3status-rust dep
           pavucontrol #i3status-rust dep
+          playerctl
           ripgrep
           ssm-session-manager-plugin
           sway-contrib.grimshot #sway dep

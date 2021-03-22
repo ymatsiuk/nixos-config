@@ -7,7 +7,7 @@
     borderSize = 8;
     defaultTimeout = 10000;
     enable = true;
-    font = "Iosevka 10";
+    font = "Iosevka 12";
     layer = "overlay";
     textColor = "#ebdbb2";
  };

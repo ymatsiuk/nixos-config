@@ -34,6 +34,9 @@ in
         in
           lib.mkOptionDefault {
             "${mod}+Shift+e" = "exit";
+            "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+            "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+            "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
             "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
             "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
             "XF86AudioMute" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -41,8 +44,6 @@ in
             "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5%";
             "--release Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
             "--release ${mod}+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-            # TODO: playerctl
-            # "XF86AudioPlay" = "";
           };
       colors = {
         focused = {
@@ -88,7 +89,7 @@ in
           position = "bottom";
           extraConfig =
           "
-            tray_output none
+            tray_output eDP-1
           ";
           colors = {
             background = "#3c3836";
