@@ -1,8 +1,20 @@
-# NixOS on Dell XPS 13 (9370)
+# NixOS on Dell XPS 13
+
+Available combinations are:
+* [Wayland + sway on XPS 13 9310](https://github.com/ymatsiuk/nixos-config/tree/xps13/9310%2Fsway) (my current active setup)
+* [Xorg + i3 on XPS 13 9310](https://github.com/ymatsiuk/nixos-config/tree/xps13/9310%2Fi3)
+* [Wayland + sway on XPS 13 9370](https://github.com/ymatsiuk/nixos-config/tree/xps13/9370%2Fsway)
+* [Xorg + i3 on XPS 13 9370](https://github.com/ymatsiuk/nixos-config/tree/xps13/9370%2Fi3)
+
+9370 configuration is not supported anymore as I don't own this device.
+The branches preserved only for historical purpose.
+`9310/sway` is my daily driver (Xorg is no longer supported and left for potential
+fallback in case of urgent need or annoying behavior, that I'm now thinking about
+will not likely be the case)
 
 ## Installation
 
-1. Boot from **NixOS** live USB preferrably
+1. Boot from **NixOS** live USB preferably
 ```
 parted /dev/nvme0n1 -- mklabel gpt
 parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 512MiB
@@ -45,21 +57,33 @@ nixos-install
 What's inside:
 1. NixOS:
     * latest available kernel
-    * latest hardware support ( `mem_sleep_default=deep` is removed as it's fixed in kernel ) for all available hardware ( bluethooth, video, cpu ) with focus on powersave. There is still potential for tuning, but it works the way I expect it to.
-    * docker, pulseaudio, fonts (my main font is Iosevka), neovim (gruvbox + some plugins I use), few system packages I fins useful to have for all users in the system, Xorg with tuned touchpad (libinput), lightDM and i3wm.
+    * latest `nix` with `flakes` support #TODO: migrate to flakes
+    * custom overlays:
+      * [greetd](https://github.com/NixOS/nixpkgs/pull/102242)
+      * [libfprint](https://github.com/NixOS/nixpkgs/pull/104915)
+      * `bluez-master` + `pipewire-bluez-master` + `firmwareLinuxNonfree` = fix for headphones disconnects mentioned in [pipewire](https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/732#note_849446), [bluez](https://github.com/bluez/bluez/issues/102) and caused mainly by firmware, reported in [#212387](https://bugzilla.kernel.org/show_bug.cgi?id=212387)
+      * [howdy](https://github.com/NixOS/nixpkgs/issues/76928#issuecomment-733990484)
+    * modules:
+      * `docker`
+      * `pipewire`
+      * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
+      * `neovim` (gruvbox theme)
+      * `appgate-sdp` proprietary VPN client
+      * `xdg-portal` for sharing the screen under Wayland
 
 2. Home-Manager:
-    * alacritty
-    * dunst
-    * git
-    * gtk
-    * i3status-rust
-    * redshift
-    * starship
-    * rofi (currently commented out, work in progress)
-    * zsh (zplug for plugins)
-    * autocutsel to sync clipboard [details](https://specifications.freedesktop.org/clipboards-spec/clipboards-latest.txt) and xclip
-    * htop, fzf, gpg, nm-applet, pasystray
-
-What's missing:
-  * i3 config is missing so far (yet to decide wether I want it to be managed by hm or not)
+    * `alacritty` (gruvbox theme)
+    * `chromium` with extensions and Wayland/Pipewire support
+    * `dmenu-wl` might be replaced with `rofi` in future
+    * `firefox` with Wayland support
+    * `gammastep`
+    * `git` includes extension for signing keys
+    * `gtk` #TODO: add gruvbox theme
+    * `i3status-rust` (gruvbox theme + toggle to switch between HFP/A2DP)
+    * `mako` (gruvbox theme)
+    * `mpris-proxy` for WH-1000XM3 media buttons support
+    * `mpv`
+    * `qutebrowser`
+    * `starship`
+    * `sway` (gruvbox theme)
+    * `zsh` (zplug for plugins)
