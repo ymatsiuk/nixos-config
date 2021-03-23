@@ -61,7 +61,6 @@ What's inside:
     * custom overlays:
       * [greetd](https://github.com/NixOS/nixpkgs/pull/102242)
       * [libfprint](https://github.com/NixOS/nixpkgs/pull/104915)
-      * `bluez-master` + `pipewire-bluez-master` + `firmwareLinuxNonfree` = fix for headphones disconnects mentioned in [pipewire](https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/732#note_849446), [bluez](https://github.com/bluez/bluez/issues/102) and caused mainly by firmware, reported in [#212387](https://bugzilla.kernel.org/show_bug.cgi?id=212387)
       * [howdy](https://github.com/NixOS/nixpkgs/issues/76928#issuecomment-733990484)
     * modules:
       * `docker`

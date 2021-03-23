@@ -13,8 +13,5 @@ self: super:
   howdy = super.callPackage ./howdy { };
   pam_python = super.callPackage ./pam_python { };
 
-  bluez-master = super.callPackage ./bluez-master { };
-  pipewire-bluez-master = super.callPackage ./pipewire-bluez-master { };
-
   firmwareLinuxNonfree = super.callPackage ./firmware-linux-nonfree { };
 }
