@@ -15,6 +15,7 @@
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 2;
   boot.loader.timeout = 1;
   boot.tmpOnTmpfs = true;
 }
