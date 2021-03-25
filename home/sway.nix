@@ -131,9 +131,21 @@ in
         };
       };
       output = {
+        DP-5 = {
+          pos = "1440 0";
+          subpixel = "rgb";
+          disable = ""; #disable output on start
+        };
+        DP-6 = {
+          pos = "0 0";
+          transform = "90";
+          subpixel = "rgb";
+          disable = ""; #disable output on start
+        };
         eDP-1 = {
           subpixel = "rgb";
           scale = "2";
+          pos = "1440 1440";
         };
       };
       window = {
@@ -155,7 +167,7 @@ in
       startup = [
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
-        { command = "alacritty"; always = false; }
+        { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
         { command = "${pkgs.appgate-sdp}/bin/appgate"; always = false; }
         { command = "chromium"; always = false; }
         { command = "${pkgs.light}/bin/light -S 35%"; always = false; }

@@ -1,3 +1,18 @@
+{ pkgs, ... }:
+let
+  swayOutputIsActive = pkgs.writeShellScript "swayOutputIsActive.sh" ''
+    ${pkgs.sway}/bin/swaymsg -t get_outputs | ${pkgs.jq}/bin/jq -rc '.[] | select(.name | contains("'$1'")) | select(.active == true)'
+  '';
+  a2dpIsActive = pkgs.writeShellScript "a2dpIsActive.sh" ''
+    ${pkgs.pulseaudio}/bin/pactl list sinks short | ${pkgs.gnugrep}/bin/egrep -o "bluez_output[[:alnum:]._]+.a2dp-sink"
+  '';
+  bluezCard = pkgs.writeShellScript "bluezCard.sh" ''
+    ${pkgs.pulseaudio}/bin/pactl list cards short | ${pkgs.gnugrep}/bin/egrep -o "bluez_card[[:alnum:]._]+"
+  '';
+  setProfile = pkgs.writeShellScript "setProfile.sh" ''
+    ${pkgs.pulseaudio}/bin/pactl set-card-profile $(${bluezCard}) $1
+  '';
+in
 {
   programs.i3status-rust = {
     enable = true;
@@ -5,18 +20,8 @@
       bottom = {
           blocks = [
             {
-              block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; label = " WH-1000XM3"; }
-            {
-              block = "toggle";
-              text = "A2DP/HSP";
-              command_state = "pactl list sinks short | egrep -o \"bluez_output[[:alnum:]._]+.a2dp-sink\"";
-              command_on = "pactl set-card-profile $(pactl list cards short | egrep -o \"bluez_card[[:alnum:]._]+\") a2dp-sink-aptx_hd";
-              command_off = "pactl set-card-profile $(pactl list cards short | egrep -o \"bluez_card[[:alnum:]._]+\") headset-head-unit";
-              interval = 5;
-            }
-            {
               block = "custom";
-              command = "echo '{\"icon\":\"tux\", \"text\": \"'$(uname -r)'\"}'";
+              command = "echo '{\"icon\":\"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
               interval = "once";
               json = true;
             }
@@ -26,14 +31,38 @@
               interval = 300;
               json = true;
             }
+            {
+              block = "toggle";
+              text = "DP-6";
+              command_state = "${swayOutputIsActive} DP-6";
+              command_on = "${pkgs.sway}/bin/swaymsg output DP-6 enable";
+              command_off = "${pkgs.sway}/bin/swaymsg output DP-6 disable";
+            }
+            {
+              block = "toggle";
+              text = "DP-5";
+              command_state = "${swayOutputIsActive} DP-5";
+              command_on = "${pkgs.sway}/bin/swaymsg output DP-5 enable";
+              command_off = "${pkgs.sway}/bin/swaymsg output DP-5 disable";
+            }
+            {
+              block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; label = " WH-1000XM3"; }
+            {
+              block = "toggle";
+              text = "A2DP/HSP";
+              command_state = "${a2dpIsActive}";
+              command_on = "${setProfile} a2dp-sink-aptx_hd";
+              command_off = "${setProfile} headset-head-unit";
+              interval = 5;
+            }
             { block = "uptime"; }
             { block = "cpu"; format = "{utilization} {frequency}"; }
             { block = "net"; device = "wlp0s20f3"; ssid = true ; signal_strength = true; }
             { block = "backlight"; }
             { block = "temperature"; collapsed = false; }
-            { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
+            { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
             { block = "battery"; driver = "upower"; }
-            { block = "time"; on_click = "gsimplecal"; }
+            { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
           ];
           settings = {
             theme =  {

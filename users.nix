@@ -16,7 +16,6 @@
           aws-vault
           awscli2
           capitaine-cursors #sway/gtk dep
-          dmenu-wayland #sway dep
           dogdns
           eksctl
           exa
@@ -25,7 +24,6 @@
           gitAndTools.git-remote-codecommit #AWS codeCommit
           gnumake
           go
-          gsimplecal #i3status-rust dep
           iw #i3status-rust dep
           jq
           kubectl
@@ -34,24 +32,17 @@
           lastpass-cli
           lf
           libnotify
-          libsecret #alias dep
           lm_sensors #i3status-rust dep
-          neofetch
           pulseaudio #i3status-rust dep
-          pavucontrol #i3status-rust dep
-          playerctl
           ripgrep
           ssm-session-manager-plugin
-          sway-contrib.grimshot #sway dep
-          swayidle #sway dep
-          swaylock #sway dep
           teleport
           terraform_0_13
           wdisplays #sway dep
           wev #sway dep
           wf-recorder #sway
           wl-clipboard #sway dep
-          xdg-utils #appgate dep
+          xdg-utils #appgate dep TODO: move into appgate-sdp runtimne
         ];
       };
     };

@@ -13,13 +13,13 @@
     };
     dotDir = ".config/zsh";
     shellAliases = {
-      vi = "nvim";
-      vim = "nvim";
-      ls = "exa --group-directories-first";
-      tree = "exa --tree";
-      flexpass = "secret-tool lookup lpass flexport | wl-copy --paste-once --trim-newline";
-      ympass = "secret-tool lookup lpass personal | wl-copy --paste-once --trim-newline";
-      on-gh-token = "export GITHUB_TOKEN=`lpass show --pass github.com`";
+      vi = "${pkgs.neovim}/bin/nvim";
+      vim = "${pkgs.neovim}/bin/nvim";
+      ls = "${pkgs.exa}/bin/exa --group-directories-first";
+      tree = "${pkgs.exa}/bin/exa --tree";
+      flexpass = "${pkgs.libsecret}/bin/secret-tool lookup lpass flexport | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
+      ympass = "${pkgs.libsecret}/bin/secret-tool lookup lpass personal | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
+      on-gh-token = "export GITHUB_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --pass github.com`";
       off-gh-token = "unset GITHUB_TOKEN";
     };
     zplug = {
