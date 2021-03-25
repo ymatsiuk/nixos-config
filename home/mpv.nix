@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.mpv = {
     enable = true;
@@ -7,5 +8,8 @@
       profile = "gpu-hq";
       gpu-context = "wayland";
     };
+    scripts = [
+      pkgs.mpvScripts.mpris
+    ];
   };
 }
