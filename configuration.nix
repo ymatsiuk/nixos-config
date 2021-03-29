@@ -33,9 +33,6 @@
   environment = {
     homeBinInPath = true;
     shells = [ pkgs.zsh ];
-    variables = {
-      LPASS_AGENT_TIMEOUT = "0";
-    };
     pathsToLink = [ "/libexec" "/share/zsh" ];
     systemPackages = with pkgs; [
       coreutils
