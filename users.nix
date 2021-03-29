@@ -33,6 +33,7 @@
           lf
           libnotify
           lm_sensors #i3status-rust dep
+          nixpkgs-fmt
           pulseaudio #i3status-rust dep
           ripgrep
           ssm-session-manager-plugin

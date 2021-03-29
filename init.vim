@@ -21,8 +21,8 @@ syntax on
 
 " Remove trailing white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
-" Reload xrdb om write
-autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+" Format with nixpkgs-fmt on write
+autocmd BufWritePost *nix !nixpkgs-fmt %
 
 set autoread
 set autoindent
