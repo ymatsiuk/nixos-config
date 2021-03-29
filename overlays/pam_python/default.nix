@@ -1,6 +1,7 @@
 { stdenv, python2, python2Packages, fetchurl, pam }:
 let outPath = placeholder "out";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "pam-python";
   version = "1.0.7";
   src = fetchurl {

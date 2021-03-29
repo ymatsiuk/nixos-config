@@ -23,7 +23,8 @@ let
     (p: [ p.face_recognition (p.opencv4.override { enableGtk3 = true; }) ]);
 
   outPath = placeholder "out";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "howdy";
   version = "2.5.1";
   nativeBuildInputs = [ bzip2 ];
@@ -39,25 +40,29 @@ in stdenv.mkDerivation rec {
   '';
 
   dontBuild = true;
-  installPhase = let
-    libDir = "${outPath}/lib/security/howdy";
-    inherit (lib) mapAttrsToList concatStrings;
-  in ''
-       mkdir -p ${outPath}/share/licenses/howdy
-       install -Dm644 LICENSE ${outPath}/share/licenses/howdy/LICENSE
-       mkdir -p ${libDir}
-    	 cp -r src/* ${libDir}
-       rm -rf ${libDir}/pam-config
-       rm -f ${libDir}/dlib-data/*
-       ${
-         concatStrings (mapAttrsToList (n: v: ''
-           bzip2 -dc ${v} > ${libDir}/dlib-data/${n}
-         '') data)
-       }
-    	 mkdir -p ${outPath}/bin
-    	 ln -s ${libDir}/cli.py ${outPath}/bin/howdy
-    	 chmod +x ${outPath}/bin/howdy
-    	 mkdir -p "${outPath}/share/bash-completion/completions"
-    	 cp autocomplete/howdy "${outPath}/share/bash-completion/completions/howdy"
-     '';
+  installPhase =
+    let
+      libDir = "${outPath}/lib/security/howdy";
+      inherit (lib) mapAttrsToList concatStrings;
+    in
+    ''
+             mkdir -p ${outPath}/share/licenses/howdy
+             install -Dm644 LICENSE ${outPath}/share/licenses/howdy/LICENSE
+             mkdir -p ${libDir}
+             cp -r src/* ${libDir}
+             rm -rf ${libDir}/pam-config
+             rm -f ${libDir}/dlib-data/*
+             ${
+               concatStrings (mapAttrsToList
+      (n: v: ''
+                 bzip2 -dc ${v} > ${libDir}/dlib-data/${n}
+               '')
+      data)
+             }
+             mkdir -p ${outPath}/bin
+             ln -s ${libDir}/cli.py ${outPath}/bin/howdy
+             chmod +x ${outPath}/bin/howdy
+             mkdir -p "${outPath}/share/bash-completion/completions"
+             cp autocomplete/howdy "${outPath}/share/bash-completion/completions/howdy"
+    '';
 }

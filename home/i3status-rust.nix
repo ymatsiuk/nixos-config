@@ -18,69 +18,72 @@ in
     enable = true;
     bars = {
       bottom = {
-          blocks = [
-            {
-              block = "custom";
-              command = "echo '{\"icon\":\"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
-              interval = "once";
-              json = true;
-            }
-            {
-              block = "custom";
-              command = "[ $(cut -c 16- /nix/var/nix/gcroots/current-system/nixos-version) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r | cut -c 1-11) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
-              interval = 300;
-              json = true;
-            }
-            {
-              block = "toggle";
-              text = "DP-6";
-              command_state = "${swayOutputIsActive} DP-6";
-              command_on = "${pkgs.sway}/bin/swaymsg output DP-6 enable";
-              command_off = "${pkgs.sway}/bin/swaymsg output DP-6 disable";
-            }
-            {
-              block = "toggle";
-              text = "DP-5";
-              command_state = "${swayOutputIsActive} DP-5";
-              command_on = "${pkgs.sway}/bin/swaymsg output DP-5 enable";
-              command_off = "${pkgs.sway}/bin/swaymsg output DP-5 disable";
-            }
-            {
-              block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; label = " WH-1000XM3"; }
-            {
-              block = "toggle";
-              text = "A2DP/HSP";
-              command_state = "${a2dpIsActive}";
-              command_on = "${setProfile} a2dp-sink-aptx_hd";
-              command_off = "${setProfile} headset-head-unit";
-              interval = 5;
-            }
-            { block = "uptime"; }
-            { block = "cpu"; format = "{utilization} {frequency}"; }
-            { block = "net"; device = "wlp0s20f3"; ssid = true ; signal_strength = true; }
-            { block = "backlight"; }
-            { block = "temperature"; collapsed = false; }
-            { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
-            { block = "battery"; driver = "upower"; }
-            { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
-          ];
-          settings = {
-            theme =  {
-              name = "gruvbox-dark";
-              overrides = {
-                idle_bg = "#3c3836";
-              };
-            };
-            icons =  {
-              name = "awesome5";
-              overrides = {
-                tux = "  ";
-                upd = "  ";
-                noupd = "  ";
-                volume_muted = "  ";
-              };
+        blocks = [
+          {
+            block = "custom";
+            command = "echo '{\"icon\":\"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
+            interval = "once";
+            json = true;
+          }
+          {
+            block = "custom";
+            command = "[ $(cut -c 16- /nix/var/nix/gcroots/current-system/nixos-version) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r | cut -c 1-11) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
+            interval = 300;
+            json = true;
+          }
+          {
+            block = "toggle";
+            text = "DP-6";
+            command_state = "${swayOutputIsActive} DP-6";
+            command_on = "${pkgs.sway}/bin/swaymsg output DP-6 enable";
+            command_off = "${pkgs.sway}/bin/swaymsg output DP-6 disable";
+          }
+          {
+            block = "toggle";
+            text = "DP-5";
+            command_state = "${swayOutputIsActive} DP-5";
+            command_on = "${pkgs.sway}/bin/swaymsg output DP-5 enable";
+            command_off = "${pkgs.sway}/bin/swaymsg output DP-5 disable";
+          }
+          {
+            block = "bluetooth";
+            mac = "CC:98:8B:93:08:1F";
+            label = " WH-1000XM3";
+          }
+          {
+            block = "toggle";
+            text = "A2DP/HSP";
+            command_state = "${a2dpIsActive}";
+            command_on = "${setProfile} a2dp-sink-aptx_hd";
+            command_off = "${setProfile} headset-head-unit";
+            interval = 5;
+          }
+          { block = "uptime"; }
+          { block = "cpu"; format = "{utilization} {frequency}"; }
+          { block = "net"; device = "wlp0s20f3"; ssid = true; signal_strength = true; }
+          { block = "backlight"; }
+          { block = "temperature"; collapsed = false; }
+          { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
+          { block = "battery"; driver = "upower"; }
+          { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
+        ];
+        settings = {
+          theme = {
+            name = "gruvbox-dark";
+            overrides = {
+              idle_bg = "#3c3836";
             };
           };
+          icons = {
+            name = "awesome5";
+            overrides = {
+              tux = "  ";
+              upd = "  ";
+              noupd = "  ";
+              volume_muted = "  ";
+            };
+          };
+        };
         icons = "awesome5";
         theme = "gruvbox-dark";
       };

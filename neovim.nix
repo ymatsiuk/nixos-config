@@ -18,7 +18,8 @@ let
       ];
     };
   };
-in {
+in
+{
   environment = {
     systemPackages = [ neovim ];
     variables = { EDITOR = "nvim"; VISUAL = "nvim"; };

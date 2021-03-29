@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 {
   boot.blacklistedKernelModules = [ "psmouse" ];
   boot.initrd.kernelModules = [ "i915" ];

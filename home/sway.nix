@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...}:
+{ pkgs, lib, config, ... }:
 
 let
   lockCmd = "${pkgs.swaylock}/bin/swaylock --daemonize --show-failed-attempts --indicator-caps-lock --color '#282828'";
@@ -7,9 +7,9 @@ let
     timeout 600 "swaymsg 'output * dpms off'" \
     resume "swaymsg 'output * dpms on'" \
     before-sleep "${lockCmd}"'';
-  gsettings="${pkgs.glib}/bin/gsettings";
+  gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
-  gnomeSchema="org.gnome.desktop.interface";
+  gnomeSchema = "org.gnome.desktop.interface";
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
     ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
     ${gsettings} set ${gnomeSchema} icon-theme ${gtkSettings.gtk.iconTheme.name}
@@ -19,7 +19,7 @@ in
 {
   wayland.windowManager.sway = {
     enable = true;
-    wrapperFeatures.gtk = true ;
+    wrapperFeatures.gtk = true;
     config = {
       gaps = {
         smartBorders = "on";
@@ -32,19 +32,19 @@ in
         let
           mod = config.wayland.windowManager.sway.config.modifier;
         in
-          lib.mkOptionDefault {
-            "${mod}+Shift+e" = "exit";
-            "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-            "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-            "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-            "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-            "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-            "XF86AudioMute" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-            "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5%";
-            "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5%";
-            "--release Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-            "--release ${mod}+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-          };
+        lib.mkOptionDefault {
+          "${mod}+Shift+e" = "exit";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioMute" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5%";
+          "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5%";
+          "--release Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "--release ${mod}+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+        };
       colors = {
         focused = {
           background = "#b16286";
@@ -88,7 +88,7 @@ in
           fonts = [ "Iosevka 10" ];
           position = "bottom";
           extraConfig =
-          "
+            "
             tray_output eDP-1
           ";
           colors = {
@@ -152,8 +152,8 @@ in
         titlebar = false;
         hideEdgeBorders = "smart";
         commands = [
-          { command = "floating enable"; criteria = { app_id = "gsimplecal"; } ; }
-          { command = "floating enable"; criteria = { app_id = "chromium"; } ; }
+          { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
+          { command = "floating enable"; criteria = { app_id = "chromium"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
@@ -174,10 +174,9 @@ in
         { command = "qutebrowser"; always = false; }
       ];
     };
-  extraConfig =
-  ''
-    seat seat0 xcursor_theme "capitaine-cursors"
-    seat seat0 hide_cursor 60000
-  '';
+    extraConfig = ''
+      seat seat0 xcursor_theme "capitaine-cursors"
+      seat seat0 hide_cursor 60000
+    '';
   };
 }

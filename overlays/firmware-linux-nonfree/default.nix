@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-    rev = "refs/tags/" + lib.replaceStrings ["-"] [""] version;
+    rev = "refs/tags/" + lib.replaceStrings [ "-" ] [ "" ] version;
     sha256 = "sha256-ZQ2gbWq6XEqF5Cz8NsMGccevccDmXOymiavM/t1YZeU=";
   };
 

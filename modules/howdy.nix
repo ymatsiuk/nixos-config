@@ -18,7 +18,8 @@ let
   '';
   pam-rule = pkgs.lib.mkDefault (pkgs.lib.mkBefore
     "auth sufficient ${pkgs.pam_python}/lib/security/pam_python.so ${config.services.howdy.package}/lib/security/howdy/pam.py");
-in {
+in
+{
   options = {
     services.howdy = {
       enable = mkOption {

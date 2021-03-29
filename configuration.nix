@@ -45,12 +45,15 @@
       htop
       openssl
       pciutils
+
       #doesn't work in chromium
-      vulkan-loader vulkan-validation-layers vulkan-tools
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-tools
     ];
   };
 
-  security.pki.certificates = [(builtins.readFile /etc/ssl/certs/flexport.pem)];
+  security.pki.certificates = [ (builtins.readFile /etc/ssl/certs/flexport.pem) ];
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
   security.rtkit.enable = true;
@@ -74,12 +77,12 @@
     gtkUsePortal = true;
   };
   programs.sway = {
-     enable = true;
-     wrapperFeatures = {
-       base = true;
-       gtk = true;
-     };
-     extraPackages = with pkgs; [];
+    enable = true;
+    wrapperFeatures = {
+      base = true;
+      gtk = true;
+    };
+    extraPackages = with pkgs; [ ];
   };
 
   hardware.acpilight.enable = true;

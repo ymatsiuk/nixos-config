@@ -38,6 +38,6 @@
         foreground = "#ebdbb2";
         timeout = 10;
       };
-   };
- };
+    };
+  };
 }

@@ -34,11 +34,11 @@
         }
         {
           name = "lib/git";
-          tags = ["from:oh-my-zsh"];
+          tags = [ "from:oh-my-zsh" ];
         }
         {
           name = "plugins/git";
-          tags = ["from:oh-my-zsh"];
+          tags = [ "from:oh-my-zsh" ];
         }
       ];
     };

@@ -29,25 +29,31 @@ in
     };
   };
 
-  config = let
-    profiles = cfg.profiles;
-  in {
-    programs.git = {
-      userName = profiles."${cfg.defaultProfile}".name;
-      userEmail = profiles."${cfg.defaultProfile}".email;
-      signing = {
-        key = profiles."${cfg.defaultProfile}".signingKey;
-      };
-      includes = flatten (mapAttrsToList (name: profile: map (dir: {
-        condition = "gitdir:${dir}";
-        contents = {
-          user = {
-            name = profile.name;
-            email = profile.email;
-            signingKey = profile.signingKey;
-          };
+  config =
+    let
+      profiles = cfg.profiles;
+    in
+    {
+      programs.git = {
+        userName = profiles."${cfg.defaultProfile}".name;
+        userEmail = profiles."${cfg.defaultProfile}".email;
+        signing = {
+          key = profiles."${cfg.defaultProfile}".signingKey;
         };
-      }) profile.dirs) profiles);
+        includes = flatten (mapAttrsToList
+          (name: profile: map
+            (dir: {
+              condition = "gitdir:${dir}";
+              contents = {
+                user = {
+                  name = profile.name;
+                  email = profile.email;
+                  signingKey = profile.signingKey;
+                };
+              };
+            })
+            profile.dirs)
+          profiles);
+      };
     };
-  };
 }

@@ -10,5 +10,5 @@
     font = "Iosevka 12";
     layer = "overlay";
     textColor = "#ebdbb2";
- };
+  };
 }

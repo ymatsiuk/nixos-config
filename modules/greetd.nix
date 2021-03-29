@@ -55,7 +55,7 @@ in
     };
 
     startLimitIntervalSec = 30;
-    restartTriggers = lib.mkForce [];
+    restartTriggers = lib.mkForce [ ];
     restartIfChanged = false;
     stopIfChanged = false;
   };
