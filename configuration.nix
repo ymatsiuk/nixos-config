@@ -3,7 +3,6 @@
   imports =
     [
       ./appgate.nix
-      ./bluetooth.nix
       ./boot.nix
       ./docker.nix
       ./fonts.nix
@@ -83,9 +82,10 @@
   };
 
   hardware.acpilight.enable = true;
+  hardware.bluetooth = { enable = true; powerOnBoot = true; };
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
   hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
   powerManagement.powertop.enable = true;
 
   system.stateVersion = "21.05";
