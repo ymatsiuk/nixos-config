@@ -27,7 +27,7 @@ in
       vt = 7
 
       [default_session]
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${swayRun}"
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swayRun}"
       user = "greeter"
 
       [initial_session]
@@ -46,7 +46,7 @@ in
     ];
     aliases = [ "greetd.service" ];
     serviceConfig = {
-      ExecStart = lib.mkForce "${pkgs.greetd}/bin/greetd";
+      ExecStart = lib.mkForce "${pkgs.greetd.greetd}/bin/greetd";
       IgnoreSIGPIPE = "no";
       SendSIGHUP = "yes";
       TimeoutStopSec = "30s";
