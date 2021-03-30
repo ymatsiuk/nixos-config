@@ -2,9 +2,7 @@
 {
   imports =
     [
-      ./appgate.nix
       ./boot.nix
-      ./docker.nix
       ./fonts.nix
       ./fprintd.nix
       ./hardware-configuration.nix
@@ -17,7 +15,6 @@
       ./users.nix
     ];
 
-  systemd.services.NetworkManager-wait-online.enable = false;
   networking = {
     hostName = "nixps";
     firewall.enable = false;
@@ -27,7 +24,6 @@
 
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_US.UTF-8";
-  sound.enable = true;
 
   environment = {
     homeBinInPath = true;
@@ -49,10 +45,27 @@
     ];
   };
 
+  hardware.acpilight.enable = true;
+  hardware.bluetooth = { enable = true; powerOnBoot = true; };
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+
+  powerManagement.powertop.enable = true;
+  programs.appgate-sdp.enable = true;
+  programs.light.enable = true;
+  programs.seahorse.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures = { base = true; gtk = true; };
+    extraPackages = with pkgs; [ ];
+  };
+
   security.pki.certificates = [ (builtins.readFile /etc/ssl/certs/flexport.pem) ];
+  security.rtkit.enable = true;
+
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -62,8 +75,13 @@
   services.tlp.enable = true;
   services.upower.enable = true;
 
-  programs.light.enable = true;
-  programs.seahorse.enable = true;
+  sound.enable = true;
+
+  system.stateVersion = "21.05";
+
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  virtualisation.docker = { enable = true; enableOnBoot = true; };
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -72,22 +90,5 @@
     ];
     gtkUsePortal = true;
   };
-  programs.sway = {
-    enable = true;
-    wrapperFeatures = {
-      base = true;
-      gtk = true;
-    };
-    extraPackages = with pkgs; [ ];
-  };
-
-  hardware.acpilight.enable = true;
-  hardware.bluetooth = { enable = true; powerOnBoot = true; };
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
-  powerManagement.powertop.enable = true;
-
-  system.stateVersion = "21.05";
 }
 

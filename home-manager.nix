@@ -10,7 +10,6 @@
     imports = [
       ./home/alacritty.nix
       ./home/chromium.nix
-      # ./home/dunst.nix
       ./home/firefox.nix
       ./home/git.nix
       ./home/gtk.nix
