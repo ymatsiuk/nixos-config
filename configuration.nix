@@ -48,8 +48,18 @@
   hardware.acpilight.enable = true;
   hardware.bluetooth = { enable = true; powerOnBoot = true; };
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
+  hardware.firmware = with pkgs; [
+    sof-firmware
+    (firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
+      version = "2020-12-18";
+      outputHash = "sha256-hgTfrOmKKpVK+qGuaFtFURLCwcG/cCiT4UYx7qCw+9w=";
+      # the following is not respected:
+      # src = oldAttrs.src.overrideAttrs (oldAttrs: rec {
+      #   inherit version;
+      #   sha256 = "sha256-ZQ2gbWq6XEqF5Cz8NsMGccevccDmXOymiavM/t1YZeU=";
+      # });
+    }))
+  ];
 
   powerManagement.powertop.enable = true;
   programs.appgate-sdp.enable = true;

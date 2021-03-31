@@ -6,6 +6,4 @@ self: super:
 
   howdy = super.callPackage ./howdy { };
   pam_python = super.callPackage ./pam_python { };
-
-  firmwareLinuxNonfree = super.callPackage ./firmware-linux-nonfree { };
 }
