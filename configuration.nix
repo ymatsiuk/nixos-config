@@ -7,7 +7,7 @@
       ./fprintd.nix
       ./hardware-configuration.nix
       ./home-manager.nix
-      ./modules/greetd.nix
+      ./greetd.nix
       ./neovim.nix
       ./nix.nix
       ./opengl.nix
@@ -34,7 +34,6 @@
       curl
       dmidecode
       git
-      htop
       openssl
       pciutils
 

@@ -1,70 +1,105 @@
 { config, lib, pkgs, ... }:
+with lib;
+
 let
-  waylandEnablement = pkgs.writeShellScript "wayland-enablement" ''
-    export MOZ_ENABLE_WAYLAND=1
-    export CLUTTER_BACKEND=wayland
-    export QT_QPA_PLATFORM=wayland-egl
-    export ECORE_EVAS_ENGINE=wayland-egl
-    export ELM_ENGINE=wayland_egl
-    export SDL_VIDEODRIVER=wayland
-    export _JAVA_AWT_WM_NONREPARENTING=1
-    export NO_AT_BRIDGE=1
-  '';
-  swayRun = pkgs.writeShellScript "sway-run" ''
-    export XDG_SESSION_TYPE=wayland
-    export XDG_SESSION_DESKTOP=sway
-    export XDG_CURRENT_DESKTOP=sway
-
-    source ${waylandEnablement}
-
-    exec ${pkgs.systemd}/bin/systemd-cat --identifier=sway ${pkgs.sway}/bin/sway --debug $@
-  '';
+  cfg = config.services.greetd;
+  tty = "tty${toString cfg.vt}";
+  settingsFormat = pkgs.formats.toml { };
 in
 {
-  environment.etc = {
-    "greetd/config.toml".text = ''
-      [terminal]
-      vt = 7
+  options.services.greetd = {
+    enable = mkEnableOption "greetd";
 
-      [default_session]
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swayRun}"
-      user = "greeter"
-
-      [initial_session]
-      command = "${swayRun}"
-      user = "ymatsiuk"
-    '';
-  };
-
-  systemd.services.display-manager = lib.mkForce {
-    enable = lib.mkForce true;
-    description = "Greetd";
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "systemd-user-sessions.service" ];
-    after = [
-      "systemd-user-sessions.service"
-    ];
-    aliases = [ "greetd.service" ];
-    serviceConfig = {
-      ExecStart = lib.mkForce "${pkgs.greetd.greetd}/bin/greetd";
-      IgnoreSIGPIPE = "no";
-      SendSIGHUP = "yes";
-      TimeoutStopSec = "30s";
-      KeyringMode = "shared";
-      StartLimitBurst = lib.mkForce "5";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.greetd.greetd;
+      defaultText = "pkgs.greetd.greetd";
+      description = "The greetd package that should be used.";
     };
 
-    startLimitIntervalSec = 30;
-    restartTriggers = lib.mkForce [ ];
-    restartIfChanged = false;
-    stopIfChanged = false;
+    settings = mkOption {
+      type = settingsFormat.type;
+      example = literalExample ''
+        {
+          default_session = {
+            command = "''${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+            user = "greeter";
+          };
+        }
+      '';
+      description = ''
+        greetd configuration (<link xlink:href="https://man.sr.ht/~kennylevinsen/greetd/">documentation</link>)
+        as a Nix attribute set.
+      '';
+    };
+
+    vt = mkOption {
+      type = types.int;
+      default = 1;
+      description = ''
+        The virtual console (tty) that greetd should use. This option also disables getty on that tty.
+      '';
+    };
+
+    restart = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Wether to restart greetd when it terminates (e.g. on failure).
+        This is usually desirable so a user can always log in, but should be disabled when using 'settings.initial_session' (autologin),
+        because every restart will trigger the autologin again.
+      '';
+    };
+  };
+  config = mkIf cfg.enable {
+
+    services.greetd.settings.terminal.vt = mkDefault cfg.vt;
+
+    security.pam.services.greetd = {
+      allowNullPassword = true;
+      startSession = true;
+    };
+
+    # This prevents nixos-rebuild from killing greetd by activating getty again
+    systemd.services."autovt@${tty}".enable = false;
+
+    systemd.services.greetd = {
+      unitConfig = {
+        Wants = [
+          "systemd-user-sessions.service"
+        ];
+        After = [
+          "systemd-user-sessions.service"
+          "plymouth-quit-wait.service"
+          "getty@${tty}.service"
+        ];
+        Conflicts = [
+          "getty@${tty}.service"
+        ];
+      };
+
+      serviceConfig = {
+        ExecStart = "${pkgs.greetd.greetd}/bin/greetd --config ${settingsFormat.generate "greetd.toml" cfg.settings}";
+
+        # Defaults from greetd upstream configuration
+        IgnoreSIGPIPE = false;
+        SendSIGHUP = true;
+        TimeoutStopSec = "30s";
+        KeyringMode = "shared";
+      } // optionalAttrs cfg.restart {
+        Restart = "always";
+      };
+
+      # Don't kill a user session when using nixos-rebuild
+      restartIfChanged = false;
+
+      wantedBy = [ "graphical.target" ];
+    };
+
+    systemd.defaultUnit = "graphical.target";
+
+    users.users."${cfg.settings.default_session.user}".isSystemUser = true;
   };
 
-  users.users.greeter.isSystemUser = true;
-
-  security.pam.services.greetd = {
-    allowNullPassword = true;
-    startSession = true;
-    enableGnomeKeyring = true;
-  };
+  meta.maintainers = with maintainers; [ queezle ];
 }
