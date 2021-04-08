@@ -8,7 +8,6 @@
       ./hardware-configuration.nix
       ./home-manager.nix
       ./greetd.nix
-      ./neovim.nix
       ./nix.nix
       ./opengl.nix
       ./ssh.nix

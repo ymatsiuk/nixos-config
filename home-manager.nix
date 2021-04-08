@@ -14,6 +14,7 @@
       ./home/git.nix
       ./home/gtk.nix
       ./home/i3status-rust.nix
+      ./home/neovim.nix
       ./home/mako.nix
       ./home/mpris-proxy.nix
       ./home/mpv.nix
