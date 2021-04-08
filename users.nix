@@ -43,7 +43,6 @@
           wev #sway dep
           wf-recorder #sway
           wl-clipboard #sway dep
-          xdg-utils #appgate dep TODO: move into appgate-sdp runtimne
         ];
       };
     };
