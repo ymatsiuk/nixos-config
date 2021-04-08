@@ -21,11 +21,6 @@ let
   '';
 in
 {
-  imports =
-    [
-      ./modules/greetd.nix
-    ];
-
   services.greetd = {
     enable = true;
     restart = false;
