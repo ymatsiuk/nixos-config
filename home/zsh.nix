@@ -12,9 +12,6 @@
       path = ".config/zsh/zsh_history";
     };
     dotDir = ".config/zsh";
-    envExtra = ''
-      LPASS_AGENT_TIMEOUT="0"
-    '';
     shellAliases = {
       vi = "${pkgs.neovim}/bin/nvim";
       vim = "${pkgs.neovim}/bin/nvim";

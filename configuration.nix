@@ -28,6 +28,7 @@
     homeBinInPath = true;
     shells = [ pkgs.zsh ];
     pathsToLink = [ "/libexec" "/share/zsh" ];
+    variables = { LPASS_AGENT_TIMEOUT = "0"; };
     systemPackages = with pkgs; [
       coreutils
       curl
