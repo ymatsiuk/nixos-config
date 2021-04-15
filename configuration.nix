@@ -28,7 +28,11 @@
     homeBinInPath = true;
     shells = [ pkgs.zsh ];
     pathsToLink = [ "/libexec" "/share/zsh" ];
-    variables = { LPASS_AGENT_TIMEOUT = "0"; };
+    variables = {
+      LPASS_AGENT_TIMEOUT = "0";
+      MANPAGER = "nvim +Man!";
+      EDITOR = "nvim";
+    };
     systemPackages = with pkgs; [
       coreutils
       curl
@@ -52,11 +56,6 @@
     (firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
       version = "2020-12-18";
       outputHash = "sha256-hgTfrOmKKpVK+qGuaFtFURLCwcG/cCiT4UYx7qCw+9w=";
-      # the following is not respected:
-      # src = oldAttrs.src.overrideAttrs (oldAttrs: rec {
-      #   inherit version;
-      #   sha256 = "sha256-ZQ2gbWq6XEqF5Cz8NsMGccevccDmXOymiavM/t1YZeU=";
-      # });
     }))
   ];
 
