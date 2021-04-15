@@ -18,18 +18,12 @@ in
 
     services.fprintd = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable fprintd daemon and PAM module for fingerprint readers handling.
-        '';
-      };
+      enable = mkEnableOption "fprintd daemon and PAM module for fingerprint readers handling";
 
       package = mkOption {
         type = types.package;
         default = fprintdPkg;
-        defaultText = "pkgs.fprintd and if tod.enable=`true` then pkgs.fprintd-tod";
+        defaultText = "if cfg.tod.enable then pkgs.fprintd-tod else pkgs.fprintd";
         description = ''
           fprintd package to use.
         '';
@@ -41,8 +35,7 @@ in
 
         driver = mkOption {
           type = types.package;
-          default = pkgs.libfprint-2-tod1-goodix;
-          defaultText = "pkgs.libfprint-2-tod1-goodix";
+          example = literalExample "pkgs.libfprint-2-tod1-goodix";
           description = ''
             Touch OEM Drivers (TOD) package to use.
           '';
@@ -56,11 +49,11 @@ in
 
   config = mkIf cfg.enable {
 
-    services.dbus.packages = [ fprintdPkg ];
+    services.dbus.packages = [ cfg.package ];
 
-    environment.systemPackages = [ fprintdPkg ];
+    environment.systemPackages = [ cfg.package ];
 
-    systemd.packages = [ fprintdPkg ];
+    systemd.packages = [ cfg.package ];
 
     systemd.services.fprintd.environment = mkIf cfg.tod.enable {
       FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}";

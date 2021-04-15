@@ -73,6 +73,13 @@
   security.rtkit.enable = true;
   security.tpm2.enable = true;
 
+  services.fprintd = {
+    enable = true;
+    tod = {
+      driver = pkgs.libfprint-2-tod1-goodix;
+      enable = true;
+    };
+  };
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
   services.pipewire = {
