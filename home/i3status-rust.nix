@@ -55,7 +55,7 @@ in
             text = "A2DP/HSP";
             command_state = "${a2dpIsActive}";
             command_on = "${setProfile} a2dp-sink-aptx_hd";
-            command_off = "${setProfile} headset-head-unit";
+            command_off = "${setProfile} headset-head-unit-cvsd";
             interval = 5;
           }
           { block = "uptime"; }

@@ -154,25 +154,27 @@ in
         hideEdgeBorders = "smart";
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
-          { command = "floating enable"; criteria = { app_id = "chromium"; }; }
+          { command = "floating enable"; criteria = { title = "zoom"; }; }
+          { command = "floating enable"; criteria = { title = "Settings"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
+          { command = "floating enable, inhibit_idle visible"; criteria = { class = "bluejeans-v2"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)"; }; }
-          { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)"; }; }
+          { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }
           { command = "move container to workspace 2"; criteria = { app_id = "^(?i)org.qutebrowser.qutebrowser$"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "^(?i)Chromium-browser$"; }; }
-          { command = "move container to workspace 4"; criteria = { app_id = "^(?i)Firefox$"; }; }
+          { command = "move container to workspace 3"; criteria = { app_id = "^(?i)Firefox$"; }; }
         ];
       };
       startup = [
         { command = "${idleCmd}"; }
+        { command = "dbus-update-activation-environment --systemd DISPLAY"; } #workaround
         { command = "${importGsettings}"; always = true; }
         { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
-        { command = "${pkgs.appgate-sdp}/bin/appgate"; always = false; }
-        { command = "chromium"; always = false; }
+        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=firefox firefox"; always = false; }
         { command = "${pkgs.light}/bin/light -S 35%"; always = false; }
-        { command = "qutebrowser"; always = false; }
+        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=qutebrowser qutebrowser"; always = false; }
+        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=appgate appgate"; always = false; }
       ];
     };
     extraConfig = ''
