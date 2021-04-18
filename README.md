@@ -59,15 +59,16 @@ What's inside:
     * latest available kernel
     * latest `nix` with `flakes` support #TODO: migrate to flakes
     * custom overlays:
-      * [greetd](https://github.com/NixOS/nixpkgs/pull/102242)
-      * [libfprint](https://github.com/NixOS/nixpkgs/pull/104915)
       * [howdy](https://github.com/NixOS/nixpkgs/issues/76928#issuecomment-733990484)
+      * `teleport-ent`
     * modules:
-      * `docker`
-      * `pipewire`
-      * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
-      * `neovim` (gruvbox theme)
       * `appgate-sdp` proprietary VPN client
+      * `docker`
+      * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
+      * `fprintd` (TOD support + Goodix driver)
+      * `greetd` (tuigreet)
+      * `neovim` (gruvbox theme)
+      * `pipewire`
       * `xdg-portal` for sharing the screen under Wayland
 
 2. Home-Manager:
