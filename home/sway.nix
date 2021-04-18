@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  lockCmd = "${pkgs.swaylock}/bin/swaylock --daemonize --show-failed-attempts --indicator-caps-lock --color '#282828'";
+  lockCmd = "${pkgs.swaylock-effects}/bin/swaylock --daemonize --screenshots --indicator --effect-pixel 10";
   idleCmd = ''${pkgs.swayidle}/bin/swayidle -w \
     timeout 300 "${lockCmd}" \
     timeout 600 "swaymsg 'output * dpms off'" \
@@ -154,11 +154,10 @@ in
         hideEdgeBorders = "smart";
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
-          { command = "floating enable"; criteria = { title = "zoom"; }; }
-          { command = "floating enable"; criteria = { title = "Settings"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
+          { command = "floating enable, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(Settings)"; }; }
+          { command = "floating enable, inhibit_idle visible, move container to workspace 2"; criteria = { class = "bluejeans-v2"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
-          { command = "floating enable, inhibit_idle visible"; criteria = { class = "bluejeans-v2"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)"; }; }
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }

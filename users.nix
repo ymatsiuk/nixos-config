@@ -15,6 +15,7 @@
         packages = with pkgs ; [
           aws-vault
           awscli2
+          bluejeans-gui
           capitaine-cursors #sway/gtk dep
           dogdns
           eksctl
@@ -37,12 +38,13 @@
           pulseaudio #i3status-rust dep
           ripgrep
           ssm-session-manager-plugin
-          teleport
+          teleport-ent
           terraform_0_13
           wdisplays #sway dep
           wev #sway dep
           wf-recorder #sway
           wl-clipboard #sway dep
+          zoom-us
         ];
       };
     };
