@@ -4,7 +4,6 @@
     [
       ./boot.nix
       ./fonts.nix
-      ./fprintd.nix
       ./hardware-configuration.nix
       ./home-manager.nix
       ./greetd.nix
