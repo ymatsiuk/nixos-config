@@ -40,11 +40,9 @@ git clone https://github.com/ymatsiuk/nixos-config /mnt/etc/nixos/
 nixos-generate-config --root /mnt
 ```
 3. Edit `/mnt/etc/nixos/users.nix` to adjust user. Use the following command for password hash `nix-shell -p mkpasswd --run "mkpasswd -m sha-512"`
-4. Add home-manager and switch to `<nixos-unstable>`
+4. Switch to `<nixos-unstable>`
 ```
-#if we booted not unstable iso
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
 ```
 5. Install NixOS
