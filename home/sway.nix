@@ -155,7 +155,7 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
-          { command = "floating enable, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(Settings)"; }; }
+          { command = "floating enable, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(^Settings$)"; }; }
           { command = "floating enable, inhibit_idle visible, move container to workspace 2"; criteria = { class = "bluejeans-v2"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
