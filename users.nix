@@ -15,7 +15,6 @@
         packages = with pkgs ; [
           aws-vault
           awscli2
-          bluejeans-gui
           capitaine-cursors #sway/gtk dep
           dogdns
           eksctl
@@ -36,6 +35,7 @@
           lm_sensors #i3status-rust dep
           nixpkgs-fmt
           pulseaudio #i3status-rust dep
+          procps
           ripgrep
           ssm-session-manager-plugin
           teleport-ent
