@@ -10,6 +10,7 @@ let
   gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
   gnomeSchema = "org.gnome.desktop.interface";
+  systemdRun = "${pkgs.systemd}/bin/systemd-run --user --scope --collect --quiet --unit=sway-$(${pkgs.systemd}/bin/systemd-id128 new) ${pkgs.systemd}/bin/systemd-cat";
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
     ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
     ${gsettings} set ${gnomeSchema} icon-theme ${gtkSettings.gtk.iconTheme.name}
@@ -35,16 +36,21 @@ in
         in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86AudioMute" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5%";
-          "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5%";
-          "--release Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-          "--release ${mod}+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "${mod}+Shift+a" = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate";
+          "${mod}+Shift+b" = "exec ${systemdRun} --identifier=bluejeans ${pkgs.bluejeans-gui}/bin/bluejeans";
+          "${mod}+Shift+f" = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox";
+          "${mod}+Shift+s" = "exec ${systemdRun} --identifier=qutebrowser ${pkgs.qutebrowser}/bin/qutebrowser";
+          "${mod}+Shift+z" = "exec ${systemdRun} --identifier=zoom ${pkgs.zoom}/bin/zoom";
+          "XF86AudioPlay" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioRaiseVolume" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86AudioLowerVolume" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioMute" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86MonBrightnessDown" = "exec ${systemdRun} --identifier=light ${pkgs.light}/bin/light -U 5%";
+          "XF86MonBrightnessUp" = "exec ${systemdRun} --identifier=light ${pkgs.light}/bin/light -A 5%";
+          "--release Print" = "exec ${systemdRun} --identifier=grimshot ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "--release ${mod}+Print" = "exec ${systemdRun} --identifier=grimshot ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
         };
       colors = {
         focused = {
@@ -155,25 +161,28 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
-          { command = "floating enable, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(^Settings$)"; }; }
-          { command = "floating enable, inhibit_idle visible, move container to workspace 2"; criteria = { class = "bluejeans-v2"; }; }
+          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)org.qutebrowser.qutebrowser$"; }; }
+          { command = "move container to workspace 3"; criteria = { app_id = "^(?i)firefox$"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
+          # browser screen sharing
           { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)"; }; }
+          # browser zoom|meet|bluejeans
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }
-          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)org.qutebrowser.qutebrowser$"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "^(?i)Firefox$"; }; }
+          # meeting apps
+          { command = "floating enable, inhibit_idle visible, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(^Settings$)"; }; }
+          { command = "floating enable, inhibit_idle visible, move container to workspace 5"; criteria = { class = "bluejeans-v2"; }; }
         ];
       };
       startup = [
         { command = "${idleCmd}"; }
-        { command = "dbus-update-activation-environment --systemd DISPLAY"; } #workaround
+        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY"; } #workaround
         { command = "${importGsettings}"; always = true; }
         { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
-        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=firefox firefox"; always = false; }
-        { command = "${pkgs.light}/bin/light -S 35%"; always = false; }
-        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=qutebrowser qutebrowser"; always = false; }
-        { command = "exec ${pkgs.systemd}/bin/systemd-cat --identifier=appgate appgate"; always = false; }
+        { command = "exec ${systemdRun} --identifier=mako ${pkgs.mako}/bin/mako"; always = false; }
+        { command = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate"; always = false; }
+        { command = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox"; always = false; }
+        { command = "exec ${systemdRun} --identifier=qutebrowser ${pkgs.qutebrowser}/bin/qutebrowser"; always = false; }
       ];
     };
     extraConfig = ''
