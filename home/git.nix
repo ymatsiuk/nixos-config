@@ -24,6 +24,14 @@
       };
     };
 
+    delta = {
+      enable = true;
+      options = {
+        features = "side-by-side";
+        syntax-theme = "none";
+      };
+    };
+
     signing = { signByDefault = true; };
     extraConfig = {
       pull = { rebase = false; };
