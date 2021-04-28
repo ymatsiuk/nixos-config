@@ -176,10 +176,9 @@ in
       };
       startup = [
         { command = "${idleCmd}"; }
-        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY"; } #workaround
+        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK"; } #workaround
         { command = "${importGsettings}"; always = true; }
         { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
-        { command = "exec ${systemdRun} --identifier=mako ${pkgs.mako}/bin/mako"; always = false; }
         { command = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate"; always = false; }
         { command = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox"; always = false; }
         { command = "exec ${systemdRun} --identifier=qutebrowser ${pkgs.qutebrowser}/bin/qutebrowser"; always = false; }
