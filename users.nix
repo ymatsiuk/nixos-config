@@ -38,7 +38,8 @@
           procps
           ripgrep
           ssm-session-manager-plugin
-          teleport-ent
+          teleport.client
+          teleport-ent.tctl
           terraform_0_13
           wdisplays #sway dep
           wev #sway dep
