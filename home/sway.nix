@@ -26,7 +26,9 @@ in
       gaps = {
         smartBorders = "on";
       };
-      fonts = [ "Iosevka" ];
+      fonts = {
+        names = [ "Iosevka" ];
+      };
       modifier = "Mod4";
       menu = "${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i";
       terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -92,7 +94,10 @@ in
       bars = [
         {
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
-          fonts = [ "Iosevka 10" ];
+          fonts = {
+            names = [ "Iosevka" ];
+            size = 10.0;
+          };
           position = "bottom";
           extraConfig =
             "
