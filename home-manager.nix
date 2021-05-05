@@ -2,7 +2,7 @@
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/nix-community/home-manager";
-    rev = "6aa6556bcab6dc0f6398b4daa8404d788fd7a6a2";
+    rev = "64c5228c0828fff0c94c1d42f7225115c299ae08";
     ref = "master";
   };
 in
@@ -15,7 +15,6 @@ in
   home-manager.users.ymatsiuk = { pkgs, ... }: {
     imports = [
       ./home/alacritty.nix
-      ./home/chromium.nix
       ./home/firefox.nix
       ./home/git.nix
       ./home/gtk.nix
