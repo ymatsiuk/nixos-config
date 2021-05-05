@@ -4,11 +4,12 @@
     [
       ./boot.nix
       ./fonts.nix
+      ./greetd.nix
       ./hardware-configuration.nix
       ./home-manager.nix
-      ./greetd.nix
       ./nix.nix
       ./opengl.nix
+      ./pipewire.nix
       ./ssh.nix
       ./users.nix
     ];
@@ -85,11 +86,6 @@
   };
   services.fwupd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;
