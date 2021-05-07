@@ -2,6 +2,7 @@
 {
   imports =
     [
+      ./appgate.nix
       ./boot.nix
       ./fonts.nix
       ./greetd.nix
@@ -64,7 +65,6 @@
   ];
 
   powerManagement.powertop.enable = true;
-  programs.appgate-sdp.enable = true;
   programs.light.enable = true;
   programs.seahorse.enable = true;
   programs.sway = {
