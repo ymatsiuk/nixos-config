@@ -10,8 +10,6 @@
 
       " Remove trailing white spaces on save
       autocmd BufWritePre * :%s/\s\+$//e
-      " Format with nixpkgs-fmt on write
-      autocmd BufWritePost *nix !nixpkgs-fmt %
 
       set autoread
       set autoindent
@@ -122,17 +120,38 @@
         '';
       }
       {
+        plugin = vim-airline-themes;
+        config = ''
+          let g:airline_theme='gruvbox'
+        '';
+      }
+      {
         plugin = gruvbox;
         config = ''
           colorscheme gruvbox
         '';
       }
+      {
+        plugin = vim-nix;
+        config = ''
+          " Format with nixpkgs-fmt on write
+          autocmd BufWritePost *.nix !nixpkgs-fmt %
+        '';
+      }
+      {
+        plugin = fzf-vim;
+        config = ''
+          nnoremap <A-f> :BLines<CR>
+          nnoremap <C-f> :Rg
+          nnoremap <C-g> :GFiles<CR>
+          nnoremap <C-o> :Buffers<CR>
+          nnoremap <C-p> :Files<CR>
+        '';
+      }
       colorizer
-      vim-airline-themes
       vim-commentary
       vim-fugitive
       vim-lastplace
-      vim-nix
       vim-terraform
     ];
   };
