@@ -71,9 +71,8 @@ What's inside:
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
-    * `chromium` with extensions and Wayland/Pipewire support
     * `dmenu-wl` might be replaced with `rofi` in future
-    * `firefox` with Wayland support
+    * `firefox` with Wayland support (screen sharing via pipewire)
     * `gammastep`
     * `git` includes extension for signing keys
     * `gtk` #TODO: add gruvbox theme
@@ -81,7 +80,6 @@ What's inside:
     * `mako` (gruvbox theme)
     * `mpris-proxy` for WH-1000XM3 media buttons support
     * `mpv`
-    * `qutebrowser`
     * `starship`
     * `sway` (gruvbox theme)
     * `zsh` (zplug for plugins)

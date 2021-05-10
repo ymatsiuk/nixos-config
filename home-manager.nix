@@ -23,7 +23,6 @@ in
       ./home/mako.nix
       ./home/mpris-proxy.nix
       ./home/mpv.nix
-      ./home/qutebrowser.nix
       # rofi migration in progress
       # ./home/rofi.nix
       ./home/starship.nix
