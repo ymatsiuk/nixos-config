@@ -34,5 +34,6 @@ in
     programs.fzf.enable = true;
     programs.gpg.enable = true;
     programs.htop.enable = true;
+    xdg.userDirs.enable = true;
   };
 }
