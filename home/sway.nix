@@ -41,7 +41,7 @@ in
           "${mod}+Shift+a" = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate";
           "${mod}+Shift+b" = "exec ${systemdRun} --identifier=bluejeans ${pkgs.bluejeans-gui}/bin/bluejeans";
           "${mod}+Shift+f" = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox";
-          "${mod}+Shift+s" = "exec ${systemdRun} --identifier=qutebrowser ${pkgs.qutebrowser}/bin/qutebrowser";
+          "${mod}+Shift+s" = "exec ${systemdRun} --identifier=slack ${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
           "${mod}+Shift+z" = "exec ${systemdRun} --identifier=zoom ${pkgs.zoom}/bin/zoom";
           "XF86AudioPlay" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl play-pause";
           "XF86AudioNext" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl next";
@@ -166,7 +166,7 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "mpv"; }; }
-          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)org.qutebrowser.qutebrowser$"; }; }
+          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
           { command = "move container to workspace 3"; criteria = { app_id = "^(?i)firefox$"; }; }
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
@@ -186,7 +186,7 @@ in
         { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
         { command = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate"; always = false; }
         { command = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox"; always = false; }
-        { command = "exec ${systemdRun} --identifier=qutebrowser ${pkgs.qutebrowser}/bin/qutebrowser"; always = false; }
+        { command = "exec ${systemdRun} --identifier=slack ${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland"; always = false; }
       ];
     };
     extraConfig = ''
