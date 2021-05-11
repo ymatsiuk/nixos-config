@@ -9,12 +9,15 @@
           matches = [
             { device.name = "~bluez_card.*"; }
           ];
-          actions.update-props.bluez5.auto-connect = [
-            "hfp_hf"
-            "hsp_hs"
-            "a2dp_sink"
-            "a2dp_source"
-          ];
+          actions.update-props.bluez5 = {
+            # msbc-support = true;
+            auto-connect = [
+              "hfp_hf"
+              "hsp_hs"
+              "a2dp_sink"
+              "a2dp_source"
+            ];
+          };
         }
         {
           matches = [
