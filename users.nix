@@ -22,8 +22,6 @@
           fluxcd
           gitAndTools.gh
           gitAndTools.git-remote-codecommit #AWS codeCommit
-          gnumake
-          go
           iw #i3status-rust dep
           jq
           kubectl
