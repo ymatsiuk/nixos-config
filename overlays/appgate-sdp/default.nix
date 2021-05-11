@@ -1,17 +1,14 @@
 { alsaLib
-, autoPatchelfHook
 , at-spi2-atk
 , at-spi2-core
 , atk
-, bash
+, autoPatchelfHook
 , cairo
-, coreutils
 , cups
 , curl
 , dbus
 , dnsmasq
 , dpkg
-, e2fsprogs
 , expat
 , fetchurl
 , gdk-pixbuf
@@ -21,25 +18,14 @@
 , iproute2
 , krb5
 , lib
-, mesa
 , libdrm
-, libX11
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libxkbcommon
 , libsecret
 , libuuid
 , libxcb
+, libxkbcommon
 , lttng-ust
 , makeWrapper
+, mesa
 , networkmanager
 , nspr
 , nss
@@ -51,6 +37,7 @@
 , stdenv
 , systemd
 , xdg-utils
+, xorg
 , zlib
 }:
 with lib;
@@ -70,30 +57,32 @@ let
     gtk3
     icu
     krb5
-    mesa
     libdrm
-    libX11
-    libXScrnSaver
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    libXtst
-    libxkbcommon
     libsecret
     libuuid
     libxcb
+    libxkbcommon
     lttng-ust
+    mesa
     nspr
     nss
     openssl
     pango
     stdenv.cc.cc
     systemd
+    xorg.libX11
+    xorg.libXScrnSaver
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libxkbfile
+    xorg.libxshmfence
     zlib
   ];
 in
