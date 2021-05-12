@@ -55,11 +55,11 @@
   hardware.firmware = with pkgs; [
     sof-firmware
     (firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
-      outputHash = "sha256-8DKcz+b6VXiJerPaIcn4AhVjSp01qkDmwpIxKoVzCxA=";
+      outputHash = "sha256-yrygxx8Q9/Z1LXkotkWI/N/6W/p+LwbpoX+bYOjiiww=";
       src = pkgs.fetchgit {
         url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-        rev = "ecdfcf8e2ca15f5682ab94fd30ba29fb869b24a";
-        sha256 = "sha256-JD7Nrb0KzOQ/fpQeI4+m5Q7Xi7pc2Lf5WzNM931UY+o=";
+        rev = "fba3a4db35d2b20cd10717557665b656329edacc";
+        sha256 = "sha256-vGPty0+ZzGzRbbyVm27nEbdPRtxe88Kh2A3hOpxUsAQ=";
       };
     }))
   ];
