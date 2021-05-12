@@ -176,7 +176,7 @@ in
           { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           # browser screen sharing
-          { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)"; }; }
+          { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)|(Slack call)"; }; }
           # browser zoom|meet|bluejeans
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }
           # meeting apps

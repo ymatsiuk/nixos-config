@@ -33,6 +33,7 @@
       LPASS_AGENT_TIMEOUT = "0";
       MANPAGER = "nvim +Man!";
       EDITOR = "nvim";
+      NIXPKGS_ALLOW_UNFREE = "1";
     };
     systemPackages = with pkgs; [
       coreutils
@@ -85,7 +86,7 @@
     };
   };
   services.fwupd.enable = true;
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;

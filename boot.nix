@@ -15,6 +15,7 @@
     };
   });
   boot.kernelParams = [
+    "quiet"
     # "mem_sleep_default=deep"
     # "drm.debug=0x1e"
     # "log_buf_len=1M"
