@@ -10,7 +10,12 @@ let
   gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
   gnomeSchema = "org.gnome.desktop.interface";
-  systemdRun = "${pkgs.systemd}/bin/systemd-run --user --scope --collect --quiet --unit=sway-$(${pkgs.systemd}/bin/systemd-id128 new) ${pkgs.systemd}/bin/systemd-cat";
+  systemdRun = { pkg, bin ? pkg.pname, args ? "" }: ''
+    ${pkgs.systemd}/bin/systemd-run --user --scope --collect --quiet \
+    --unit=${bin}-$(${pkgs.systemd}/bin/systemd-id128 new) \
+    ${pkgs.systemd}/bin/systemd-cat --identifier=${bin} \
+    ${lib.makeBinPath [ pkg ]}/${bin} ${args}
+  '';
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
     ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
     ${gsettings} set ${gnomeSchema} icon-theme ${gtkSettings.gtk.iconTheme.name}
@@ -38,21 +43,21 @@ in
         in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
-          "${mod}+Shift+a" = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate";
-          "${mod}+Shift+b" = "exec ${systemdRun} --identifier=bluejeans ${pkgs.bluejeans-gui}/bin/bluejeans";
-          "${mod}+Shift+f" = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox";
-          "${mod}+Shift+s" = "exec ${systemdRun} --identifier=slack ${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
-          "${mod}+Shift+z" = "exec ${systemdRun} --identifier=zoom ${pkgs.zoom}/bin/zoom";
-          "XF86AudioPlay" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${systemdRun} --identifier=playerctl ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioRaiseVolume" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86AudioLowerVolume" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86AudioMute" = "exec ${systemdRun} --identifier=pactl ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86MonBrightnessDown" = "exec ${systemdRun} --identifier=light ${pkgs.light}/bin/light -U 5%";
-          "XF86MonBrightnessUp" = "exec ${systemdRun} --identifier=light ${pkgs.light}/bin/light -A 5%";
-          "--release Print" = "exec ${systemdRun} --identifier=grimshot ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-          "--release ${mod}+Print" = "exec ${systemdRun} --identifier=grimshot ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
+          "${mod}+Shift+b" = "exec ${systemdRun { pkg = pkgs.bluejeans-gui; } }";
+          "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; } }";
+          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }";
+          "${mod}+Shift+z" = "exec ${systemdRun { pkg = pkgs.zoom; bin = "zoom";} }";
+          "XF86AudioPlay" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "play-pause";} }";
+          "XF86AudioNext" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "next";} }";
+          "XF86AudioPrev" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "previous";} }";
+          "XF86AudioRaiseVolume" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-volume @DEFAULT_SINK@ +5%";} }";
+          "XF86AudioLowerVolume" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-volume @DEFAULT_SINK@ -5%";} }";
+          "XF86AudioMute" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-mute @DEFAULT_SINK@ toggle";} }";
+          "XF86MonBrightnessDown" = "exec ${systemdRun { pkg = pkgs.light; args = "-U 5%";} }";
+          "XF86MonBrightnessUp" = "exec ${systemdRun { pkg = pkgs.light; args = "-A 5%";} }";
+          "--release Print" = "exec ${systemdRun { pkg = pkgs.sway-contrib.grimshot; args = "--notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";} }";
+          "--release ${mod}+Print" = "exec ${systemdRun { pkg = pkgs.sway-contrib.grimshot; args = "--notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";} }";
         };
       colors = {
         focused = {
@@ -183,10 +188,10 @@ in
         { command = "${idleCmd}"; }
         { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK"; } #workaround
         { command = "${importGsettings}"; always = true; }
-        { command = "${pkgs.alacritty}/bin/alacritty"; always = false; }
-        { command = "exec ${systemdRun} --identifier=appgate ${pkgs.appgate-sdp}/bin/appgate"; always = false; }
-        { command = "exec ${systemdRun} --identifier=firefox ${pkgs.firefox}/bin/firefox"; always = false; }
-        { command = "exec ${systemdRun} --identifier=slack ${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland"; always = false; }
+        { command = "${pkgs.alacritty}/bin/alacritty"; }
+        { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
+        { command = "${systemdRun { pkg = pkgs.firefox;} }"; }
+        { command = "${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }"; }
       ];
     };
     extraConfig = ''
