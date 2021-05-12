@@ -14,16 +14,5 @@
   };
   nixpkgs.overlays = [
     (import ./overlays/default.nix)
-
-    (self: super: {
-      xdg-desktop-portal-wlr = super.xdg-desktop-portal-wlr.overrideAttrs
-        (oldAttrs: rec {
-          nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-          postInstall = ''
-            wrapProgram $out/libexec/xdg-desktop-portal-wlr --prefix PATH ":" ${lib.makeBinPath [ pkgs.slurp ]}
-          '';
-        });
-    })
-
   ];
 }
