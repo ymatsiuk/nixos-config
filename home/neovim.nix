@@ -141,11 +141,11 @@
       {
         plugin = fzf-vim;
         config = ''
-          nnoremap <A-f> :BLines<CR>
-          nnoremap <C-f> :Rg
-          nnoremap <C-g> :GFiles<CR>
-          nnoremap <C-o> :Buffers<CR>
-          nnoremap <C-p> :Files<CR>
+          nnoremap <A-l> :BLines<CR>
+          nnoremap <A-r> :Rg
+          nnoremap <A-g> :GFiles<CR>
+          nnoremap <A-b> :Buffers<CR>
+          nnoremap <A-f> :Files<CR>
         '';
       }
       colorizer
