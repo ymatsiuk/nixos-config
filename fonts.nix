@@ -15,7 +15,6 @@
     fontDir.enable = true;
     fonts = with pkgs; [
       font-awesome
-      font-awesome_4
       iosevka
       source-sans-pro
       source-serif-pro
