@@ -16,18 +16,16 @@ in
     imports = [
       ./home/alacritty.nix
       ./home/firefox.nix
+      ./home/gammastep.nix
       ./home/git.nix
       ./home/gtk.nix
       ./home/i3status-rust.nix
-      ./home/neovim.nix
       ./home/mako.nix
       ./home/mpris-proxy.nix
       ./home/mpv.nix
-      # rofi migration in progress
-      # ./home/rofi.nix
+      ./home/neovim.nix
       ./home/starship.nix
       ./home/sway.nix
-      ./home/gammastep.nix
       ./home/zsh.nix
       ./modules/git.nix
     ];

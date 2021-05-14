@@ -71,7 +71,7 @@ What's inside:
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
-    * `dmenu-wl` might be replaced with `rofi` in future
+    * `dmenu-wl` dmenu with Wayland support
     * `firefox` with Wayland support (screen sharing via pipewire)
     * `gammastep`
     * `git` includes extension for signing keys
