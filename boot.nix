@@ -3,17 +3,7 @@
   boot.blacklistedKernelModules = [ "psmouse" ];
   boot.initrd.kernelModules = [ "i915" ];
   boot.initrd.luks.devices."nixps".device = "/dev/disk/by-uuid/2f7823b9-9e81-4813-8721-55e5000f2c7f";
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_testing.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-        url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-        sha256 = "sha256-EzcUqHqLDtGVlYeopa/5+vR90PyP7qwIzKQI9+OSh40=";
-      };
-      version = "5.12.3";
-      modDirVersion = "5.12.3";
-    };
-  });
+  boot.kernelPackages = pkgs.linuxPackages_5_12;
   boot.kernelParams = [
     "quiet"
     # "mem_sleep_default=deep"
@@ -21,8 +11,8 @@
     # "log_buf_len=1M"
     # "intel_iommu=off"
     # "iommu=off"
-    # "i915.mitigations=off"
-    # "mitigations=off"
+    "i915.mitigations=off"
+    "mitigations=off"
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
