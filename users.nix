@@ -28,8 +28,6 @@
           kubernetes-helm
           kustomize
           lastpass-cli
-          lf
-          libnotify
           lm_sensors #i3status-rust dep
           nixpkgs-fmt
           pulseaudio #i3status-rust dep
@@ -39,8 +37,6 @@
           teleport.client
           teleport-ent.tctl
           terraform_0_13
-          wdisplays #sway dep
-          wev #sway dep
           wf-recorder #sway
           wl-clipboard #sway dep
           zoom-us
