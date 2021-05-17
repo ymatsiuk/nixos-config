@@ -6,11 +6,10 @@
   boot.kernelPackages = pkgs.linuxPackages_5_12;
   boot.kernelParams = [
     "quiet"
-    # "mem_sleep_default=deep"
-    # "drm.debug=0x1e"
-    # "log_buf_len=1M"
-    # "intel_iommu=off"
-    # "iommu=off"
+    "i915.modeset=1"
+    "i915.enable_fbc=1"
+    "i915.enable_guc=2"
+    "i915.psr_safest_params=1"
     "i915.mitigations=off"
     "mitigations=off"
   ];
