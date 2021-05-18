@@ -21,8 +21,8 @@ in
         blocks = [
           {
             block = "custom";
-            command = "echo '{\"icon\":\"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
-            interval = "once";
+            command = "[[ $(${pkgs.coreutils}/bin/uname -r) == $(${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup 'table[id=latest] td[id=latest_link] text{}' | ${pkgs.coreutils}/bin/tr -d '[:space:]') ]] && echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}' || echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
+            interval = 600;
             json = true;
           }
           {
@@ -77,10 +77,10 @@ in
           icons = {
             name = "awesome5";
             overrides = {
-              tux = "  ";
-              upd = "  ";
-              noupd = "  ";
-              volume_muted = "  ";
+              tux = "";
+              upd = "";
+              noupd = "";
+              volume_muted = "";
             };
           };
         };
