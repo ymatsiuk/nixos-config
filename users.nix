@@ -36,7 +36,7 @@
           pulseaudio #i3status-rust dep
           ripgrep
           ssm-session-manager-plugin
-          # teleport-ent.tctl
+          teleport-ent.tctl
           teleport.client
           terraform_0_13
           vulkan-loader

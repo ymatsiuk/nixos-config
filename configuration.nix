@@ -7,7 +7,6 @@
       ./fonts.nix
       ./greetd.nix
       ./hardware-configuration.nix
-      ./home-manager.nix
       ./nix.nix
       ./opengl.nix
       ./pipewire.nix
@@ -35,19 +34,6 @@
       EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
-    systemPackages = with pkgs; [
-      coreutils
-      curl
-      dmidecode
-      git
-      openssl
-      pciutils
-
-      #doesn't work in chromium
-      vulkan-loader
-      vulkan-validation-layers
-      vulkan-tools
-    ];
   };
 
   hardware.acpilight.enable = true;
@@ -64,7 +50,6 @@
     extraPackages = with pkgs; [ ];
   };
 
-  security.pki.certificates = [ (builtins.readFile /etc/ssl/certs/flexport.pem) ];
   security.rtkit.enable = true;
   security.tpm2.enable = true;
 
