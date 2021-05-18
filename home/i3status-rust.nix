@@ -60,7 +60,7 @@ in
           }
           { block = "uptime"; }
           { block = "cpu"; format = "{utilization} {frequency}"; }
-          { block = "net"; device = "wlp0s20f3"; format = "{signal_strength}"; }
+          { block = "net"; format = "{signal_strength}"; }
           { block = "backlight"; }
           { block = "temperature"; collapsed = false; }
           { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }

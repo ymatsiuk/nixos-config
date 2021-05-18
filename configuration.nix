@@ -18,6 +18,7 @@
     hostName = "nixps";
     firewall.enable = false;
     networkmanager.enable = true;
+    networkmanager.wifi.backend = "iwd";
     useDHCP = false;
   };
 
@@ -69,8 +70,6 @@
   sound.enable = true;
 
   system.stateVersion = "21.05";
-
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   virtualisation.docker = { enable = true; enableOnBoot = true; };
   xdg.portal = {
