@@ -16,6 +16,7 @@
           aws-vault
           awscli2
           capitaine-cursors #sway/gtk dep
+          checkov
           dogdns
           eksctl
           exa
@@ -30,13 +31,17 @@
           lastpass-cli
           lm_sensors #i3status-rust dep
           nixpkgs-fmt
-          pulseaudio #i3status-rust dep
+          openssl
           procps
+          pulseaudio #i3status-rust dep
           ripgrep
           ssm-session-manager-plugin
+          # teleport-ent.tctl
           teleport.client
-          teleport-ent.tctl
           terraform_0_13
+          vulkan-loader
+          vulkan-tools
+          vulkan-validation-layers
           wf-recorder #sway
           wl-clipboard #sway dep
           zoom-us
