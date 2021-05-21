@@ -21,6 +21,7 @@
           eksctl
           exa
           fluxcd
+          gcc
           gitAndTools.gh
           gitAndTools.git-remote-codecommit #AWS codeCommit
           gnumake
