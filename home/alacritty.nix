@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -16,8 +17,19 @@
       selection = {
         save_to_clipboard = true;
       };
-      mouse = {
-        url.modifiers = "Alt";
+      hints = {
+        alphabet = "jfkdls;ahgurieowpq";
+        enabled = [
+          {
+            regex = "(https:|http:|git:|ftp:)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\\\s{-}\\\\^⟨⟩`]+";
+            command = "${pkgs.xdg-utils}/bin/xdg-open";
+            post_processing = true;
+            mouse = {
+              enabled = true;
+              mods = "Alt";
+            };
+          }
+        ];
       };
       colors = {
         primary = {
