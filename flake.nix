@@ -43,9 +43,13 @@
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
 
-    devShell.x86_64-linux = with inputs.nixpkgs.legacyPackages.x86_64-linux;
+    devShell.x86_64-linux = with inputs.self.packages.x86_64-linux;
       mkShell {
         buildInputs = [
+          gcc
+          gnumake
+          go_1_15
+          kubebuilder
           nixUnstable
         ];
       };
