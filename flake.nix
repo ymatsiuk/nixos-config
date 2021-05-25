@@ -39,6 +39,7 @@
 
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
+      kubebuilder = final.callPackage ./overlays/kubebuilder { };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
