@@ -6,7 +6,7 @@
   # boot.kernelPackages = pkgs.linuxPackages_5_12;
   boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_testing.override {
     argsOverride = rec {
-      version = "5.13.0-drm-tip-0b2064a";
+      version = "5.13.0-drm-tip-a097044";
       modDirVersion = "5.13.0-rc3";
       extraMeta.branch = "5.13";
       ignoreConfigErrors = true;
@@ -20,8 +20,8 @@
       '';
       src = pkgs.fetchgit {
         url = "git://anongit.freedesktop.org/drm-tip";
-        rev = "0b2064a4b2783bffdaf30e49bf40c38f6abae3ec";
-        sha256 = "sha256-dCrGL3Ghzc2SBTssi0ULaYIhmJ1fEzuwzLhqRJhUOzU=";
+        rev = "a097044faf3426c57ab9b419e2b1f28618d1e026";
+        sha256 = "sha256-6DrqxYmFDLgNS9eeq1JJTpb/97w0s2Pe9ei1mhQM1LU=";
       };
     };
   });
