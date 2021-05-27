@@ -3,34 +3,6 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      window.dynamic_padding = true;
-      scrolling.multiplier = 5;
-      env.TERM = "xterm-256color";
-      font = {
-        normal.family = "Iosevka";
-        bold.family = "Iosevka";
-        italic.family = "Iosevka";
-        bold_italic.family = "Iosevka";
-        size = 12;
-        draw_bold_text_with_bright_colors = true;
-      };
-      selection = {
-        save_to_clipboard = true;
-      };
-      hints = {
-        alphabet = "jfkdls;ahgurieowpq";
-        enabled = [
-          {
-            regex = "(https:|http:|git:|ftp:)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\\\s{-}\\\\^⟨⟩`]+";
-            command = "${pkgs.xdg-utils}/bin/xdg-open";
-            post_processing = true;
-            mouse = {
-              enabled = true;
-              mods = "Alt";
-            };
-          }
-        ];
-      };
       colors = {
         primary = {
           background = "0x282828";
@@ -57,6 +29,26 @@
           white = "0xebdbb2";
         };
       };
+      env.TERM = "xterm-256color";
+      font = {
+        normal.family = "Iosevka";
+        bold.family = "Iosevka";
+        italic.family = "Iosevka";
+        bold_italic.family = "Iosevka";
+        size = 12;
+        draw_bold_text_with_bright_colors = true;
+      };
+      hints = {
+        alphabet = "jfkdls;ahgurieowpq";
+        enabled = [{
+          regex = "(https:|http:|git:|ftp:)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\\\s{-}\\\\^⟨⟩`]+";
+          command = "${pkgs.xdg-utils}/bin/xdg-open";
+          post_processing = true;
+          mouse = { enabled = true; mods = "Alt"; };
+        }];
+      };
+      scrolling.multiplier = 5;
+      selection.save_to_clipboard = true;
     };
   };
 }
