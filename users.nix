@@ -36,6 +36,7 @@
           procps
           pulseaudio #i3status-rust dep
           ripgrep
+          slack
           ssm-session-manager-plugin
           teleport-ent.tctl
           teleport.client
