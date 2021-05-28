@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "kubebuilder";
-  version = "3.0.0";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
     repo = "kubebuilder";
     rev = "v${version}";
-    sha256 = "sha256-LU+lt+OV+ob5sjkLVAa1yw9q5iGh32abZOVZ2qBtxhU=";
+    sha256 = "sha256-yPgg3IdBvE8gMFgXpHmYVcXtYWYAoHIeNFTRy4RzhS4=";
   };
 
-  vendorSha256 = "sha256-kX577a9J/aaS2LWDN+P2Hp2zL4KIKIWfM/7XeuRBqrs=";
+  vendorSha256 = "sha256-lpyU6FYsv0ZjCQLhis1zVCkvdonZZWKU5FrqCUpqvn8=";
 
   subPackages = [ "cmd" ];
 

@@ -49,7 +49,7 @@
         buildInputs = [
           gcc
           gnumake
-          go_1_15
+          go_1_16
           kubebuilder
           nixUnstable
         ];
