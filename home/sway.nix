@@ -186,7 +186,7 @@ in
       };
       startup = [
         { command = "${idleCmd}"; }
-        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK"; } #workaround
+        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${importGsettings}"; always = true; }
         { command = "${pkgs.alacritty}/bin/alacritty"; }
         { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
