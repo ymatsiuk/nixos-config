@@ -40,6 +40,15 @@
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
+      # overlay my custom firmware and kernel here
+      firmware = final.callPackage ./overlays/firmware { };
+      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
+      linux_drm_tip = final.callPackage ./overlays/kernel {
+        kernelPatches = [
+          final.kernelPatches.bridge_stp_helper
+          final.kernelPatches.request_key_helper
+        ];
+      };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;

@@ -40,18 +40,7 @@
   hardware.acpilight.enable = true;
   hardware.bluetooth = { enable = true; powerOnBoot = true; };
   hardware.cpu.intel.updateMicrocode = true;
-  # hardware.firmware = with pkgs; [ sof-firmware firmwareLinuxNonfree ];
-  hardware.firmware = with pkgs; [
-    sof-firmware
-    (firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
-      outputHash = "sha256-3BH22//C2ZQxQX7fUezYuoWm0qf8rAshUXfbxq+/KtU=";
-      src = pkgs.fetchgit {
-        url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-        rev = "f8462923ed8fc874f770b8c6dfad49d39b381f14";
-        sha256 = "sha256-//Gv3TRM7dAE0gVpEuPchcTOBHb9VKTKyF8HlhKqmw0=";
-      };
-    }))
-  ];
+  hardware.firmware = with pkgs; [ sof-firmware firmware ];
 
   powerManagement.powertop.enable = true;
   programs.light.enable = true;
