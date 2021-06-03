@@ -7,7 +7,6 @@
       ./fonts.nix
       ./greetd.nix
       ./hardware-configuration.nix
-      ./monitoring.nix
       ./nix.nix
       ./opengl.nix
       ./pipewire.nix
