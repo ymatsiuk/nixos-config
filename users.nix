@@ -33,6 +33,7 @@
           lm_sensors #i3status-rust dep
           nixpkgs-fmt
           openssl
+          packer
           procps
           pulseaudio #i3status-rust dep
           ripgrep

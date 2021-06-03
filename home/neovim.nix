@@ -150,9 +150,14 @@
       }
       colorizer
       vim-commentary
-      vim-fugitive
       vim-lastplace
-      vim-terraform
+      {
+        plugin = vim-terraform;
+        config = ''
+          " Treat packer files as terraform type
+          autocmd BufRead,BufNewFile *.pkr.hcl set filetype=terraform
+        '';
+      }
     ];
   };
 }
