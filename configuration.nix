@@ -64,13 +64,7 @@
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.thermald.enable = true;
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    };
-  };
+  services.tlp.enable = true;
   services.upower.enable = true;
 
   sound.enable = true;
