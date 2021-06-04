@@ -14,7 +14,7 @@ buildLinux (args // rec {
   '';
   src = fetchgit {
     url = "git://anongit.freedesktop.org/drm-tip";
-    rev = "14fc8c382389c84c90e7a21f01bd67513daa9778";
-    sha256 = "sha256-ExyIiA9xdMeVEFNWHohpFgbQGWqIGIkn8fmu8Y4I6jY=";
+    rev = "99d9e3635d8b313fccd271472e0583fb1ba97913";
+    sha256 = "sha256-nlrQfuuNVj/ZIXv3Alf8yU5bAwZCBFB9iWSsUsIpVhQ=";
   };
 } // (args.argsOverride or { }))
