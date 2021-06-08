@@ -18,11 +18,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1623015085,
-        "narHash": "sha256-UB+xeEL03L63IkRONFx9fIqdjALe1qbeKgFM/d+HSak=",
+        "lastModified": 1623103231,
+        "narHash": "sha256-ns6p4FYqdMHmcaZZjNC1HhxApfxKlpAPbvbOzhiLbas=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "afb5fd962cdd122b70a7c0f3ad78c8ec6a75766b",
+        "rev": "aa36e2d6b481a54b95fbddbecb76076e0f38eb89",
         "type": "github"
       },
       "original": {
@@ -57,7 +57,7 @@
     },
     "teleport-ent": {
       "locked": {
-        "narHash": "sha256-7pXwSu7/7JCdBQWXANA4Y+6sGw36MFw0b/CClLzpUG8=",
+        "narHash": "sha256-KNHjse2+lpD92Lb9d3pXJubpTY3Fp8ENlZkMQ3Ve2YE=",
         "path": "/home/ymatsiuk/nixos/teleport-ent",
         "type": "path"
       },
