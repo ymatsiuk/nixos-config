@@ -60,7 +60,6 @@
           gnumake
           go_1_16
           golangci-lint
-          kubebuilder
           nixUnstable
         ];
       };

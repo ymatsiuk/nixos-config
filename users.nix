@@ -26,6 +26,7 @@
           iw #i3status-rust dep
           jq
           kind
+          kubebuilder
           kubectl
           kubernetes-helm
           kustomize
