@@ -12,6 +12,9 @@ let
   setProfile = pkgs.writeShellScript "setProfile.sh" ''
     ${pkgs.pulseaudio}/bin/pactl set-card-profile $(${bluezCard}) $1
   '';
+  latestKernel = "table[id=latest] td[id=latest_link] text{}";
+  mainlineKernel = "table[id=releases] tr:first-child strong text{}";
+  kernel = mainlineKernel;
 in
 {
   programs.i3status-rust = {
@@ -21,7 +24,7 @@ in
         blocks = [
           {
             block = "custom";
-            command = "[[ $(${pkgs.coreutils}/bin/uname -r) == $(${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup 'table[id=latest] td[id=latest_link] text{}' | ${pkgs.coreutils}/bin/tr -d '[:space:]') ]] && echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}' || echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
+            command = "[[ $(${pkgs.coreutils}/bin/uname -r) == $(${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup '${kernel}' | ${pkgs.coreutils}/bin/tr -d '[:space:]') ]] && echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}' || echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
             interval = 600;
             json = true;
           }
