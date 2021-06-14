@@ -31,7 +31,6 @@
   };
 
   environment = {
-    homeBinInPath = true;
     shells = [ pkgs.zsh ];
     pathsToLink = [ "/libexec" "/share/zsh" ];
     variables = {
@@ -42,7 +41,6 @@
     };
   };
 
-  hardware.acpilight.enable = true;
   hardware.bluetooth = { enable = true; powerOnBoot = true; };
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [ sof-firmware firmware ];
