@@ -12,13 +12,8 @@
       ./pipewire.nix
       ./ssh.nix
       ./users.nix
+      ./modules/howdy.nix
     ];
-
-  programs.ccache = {
-    enable = true;
-    cacheDir = "/var/cache/ccache";
-    packageNames = [ "linux_drm_tip" ];
-  };
 
   networking = {
     hostName = "nixps";
@@ -72,6 +67,10 @@
   };
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.howdy = {
+    enable = true;
+    device = "/dev/video2";
+  };
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;

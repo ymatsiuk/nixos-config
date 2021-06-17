@@ -39,8 +39,10 @@
 
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
+      howdy = final.callPackage ./overlays/howdy { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
       lastpass-cli = final.callPackage ./overlays/lastpass-cli { enableGitCredentials = true; };
+      pam_python = final.callPackage ./overlays/pam_python { };
       # overlay my custom firmware and kernel here
       firmware = final.callPackage ./overlays/firmware { };
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
