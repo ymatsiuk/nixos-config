@@ -14,6 +14,12 @@
       ./users.nix
     ];
 
+  programs.ccache = {
+    enable = true;
+    cacheDir = "/var/cache/ccache";
+    packageNames = [ "linux_drm_tip" ];
+  };
+
   networking = {
     hostName = "nixps";
     firewall.enable = false;
