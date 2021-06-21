@@ -41,7 +41,6 @@
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
       howdy = final.callPackage ./overlays/howdy { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
-      lastpass-cli = final.callPackage ./overlays/lastpass-cli { enableGitCredentials = true; };
       pam_python = final.callPackage ./overlays/pam_python { };
       # overlay my custom firmware and kernel here
       firmware = final.callPackage ./overlays/firmware { };
