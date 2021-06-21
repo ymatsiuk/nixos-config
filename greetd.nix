@@ -16,10 +16,10 @@ in
 {
   services.greetd = {
     enable = true;
-    restart = false;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swayRun}";
+        # command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swayRun}";
+        command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${swayRun}";
         user = "greeter";
       };
       initial_session = {
