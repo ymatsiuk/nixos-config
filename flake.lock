@@ -57,7 +57,7 @@
     },
     "teleport-ent": {
       "locked": {
-        "narHash": "sha256-KNHjse2+lpD92Lb9d3pXJubpTY3Fp8ENlZkMQ3Ve2YE=",
+        "narHash": "sha256-lZq3JbmvjjYGpN9/yuxqzKMey59FbNdQziDqngX2wzM=",
         "path": "/home/ymatsiuk/nixos/teleport-ent",
         "type": "path"
       },
