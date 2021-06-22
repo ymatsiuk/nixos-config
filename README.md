@@ -57,7 +57,6 @@ What's inside:
     * latest available kernel
     * latest `nix` with `flakes` support
     * custom overlays:
-      * [howdy](https://github.com/NixOS/nixpkgs/issues/76928#issuecomment-733990484)
       * `teleport-ent`
     * modules:
       * `appgate-sdp` proprietary VPN client
