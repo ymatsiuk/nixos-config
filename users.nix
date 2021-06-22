@@ -23,6 +23,8 @@
           fluxcd
           gitAndTools.gh
           gitAndTools.git-remote-codecommit #AWS codeCommit
+          go
+          golangci-lint
           iw #i3status-rust dep
           jq
           kind

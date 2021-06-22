@@ -58,8 +58,6 @@
         buildInputs = [
           gcc
           gnumake
-          go_1_16
-          golangci-lint
           nixUnstable
         ];
       };
