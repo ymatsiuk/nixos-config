@@ -39,6 +39,7 @@
 
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
+      slack = final.callPackage ./overlays/slack { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
       # overlay my custom firmware and kernel here
       firmware = final.callPackage ./overlays/firmware { };
