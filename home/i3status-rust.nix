@@ -12,9 +12,13 @@ let
   setProfile = pkgs.writeShellScript "setProfile.sh" ''
     ${pkgs.pulseaudio}/bin/pactl set-card-profile $(${bluezCard}) $1
   '';
-  latestKernel = "table[id=latest] td[id=latest_link] text{}";
-  mainlineKernel = "table[id=releases] tr:first-child strong text{}";
-  kernel = mainlineKernel;
+
+  # FOMO: detect if there is a newer kernel version available:
+  # fetch latest available kernel version from kernel.org and compare it against local version
+  upstream = "${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup 'table[id=releases] tr:first-child strong text{}' | ${pkgs.coreutils}/bin/tr -d '[:space:]'";
+  local = "KERN=$(${pkgs.coreutils}/bin/uname -r) && [[ \${KERN: -1} == 0 ]] && echo \${KERN%.*} || echo \${KERN}";
+  noNewKernelMessage = "'{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
+  newKernelMessage = "'{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
 in
 {
   programs.i3status-rust = {
@@ -24,7 +28,7 @@ in
         blocks = [
           {
             block = "custom";
-            command = "[[ $(${pkgs.coreutils}/bin/uname -r) == $(${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup '${kernel}' | ${pkgs.coreutils}/bin/tr -d '[:space:]') ]] && echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}' || echo '{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
+            command = "[[ $(${local}) == $(${upstream}) ]] && echo ${noNewKernelMessage} || echo ${newKernelMessage}";
             interval = 600;
             json = true;
           }
