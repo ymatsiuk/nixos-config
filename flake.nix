@@ -43,7 +43,14 @@
       wireless-regdb = final.callPackage ./overlays/wireless-regdb { };
       # overlay my custom firmware and kernel here
       firmware = final.callPackage ./overlays/firmware { };
-      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
+      # linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
+      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
+      linux_5_13 = final.callPackage ./overlays/kernel/linux-5.13.nix {
+        kernelPatches = [
+          final.kernelPatches.bridge_stp_helper
+          final.kernelPatches.request_key_helper
+        ];
+      };
       linux_drm_tip = final.callPackage ./overlays/kernel {
         kernelPatches = [
           final.kernelPatches.bridge_stp_helper
