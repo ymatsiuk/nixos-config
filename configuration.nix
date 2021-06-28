@@ -46,7 +46,7 @@
   hardware.firmware = with pkgs; [
     sof-firmware
     firmwareLinuxNonfree
-    wireless-regdb
+    master.wireless-regdb
   ];
 
   powerManagement.powertop.enable = true;
