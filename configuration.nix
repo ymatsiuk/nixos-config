@@ -43,7 +43,11 @@
 
   hardware.bluetooth = { enable = true; powerOnBoot = true; };
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.firmware = with pkgs; [ sof-firmware firmware wireless-regdb ];
+  hardware.firmware = with pkgs; [
+    sof-firmware
+    firmwareLinuxNonfree
+    wireless-regdb
+  ];
 
   powerManagement.powertop.enable = true;
   programs.light.enable = true;

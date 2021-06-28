@@ -5,10 +5,7 @@
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom="NL"
   '';
-  boot.kernelParams = [
-    "quiet"
-    "i915.enable_guc=2"
-  ];
+  boot.kernelParams = [ "quiet" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 2;
