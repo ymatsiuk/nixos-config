@@ -2,7 +2,6 @@
   imports = [
     ./home/alacritty.nix
     ./home/firefox.nix
-    ./home/foot.nix
     ./home/gammastep.nix
     ./home/git.nix
     ./home/gtk.nix
