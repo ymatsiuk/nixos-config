@@ -40,6 +40,7 @@
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
+      wireless-regdb = final.callPackage ./overlays/wireless-regdb { };
       # overlay my custom firmware and kernel here
       firmware = final.callPackage ./overlays/firmware { };
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
