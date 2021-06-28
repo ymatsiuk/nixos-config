@@ -6,6 +6,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    master.url = "github:nixos/nixpkgs/master";
     teleport-ent.url = "path:/home/ymatsiuk/nixos/teleport-ent";
   };
 
@@ -40,7 +41,6 @@
     overlay = final: prev: {
       appgate-sdp = final.callPackage ./overlays/appgate-sdp { };
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
-      wireless-regdb = final.callPackage ./overlays/wireless-regdb { };
       # overlay my custom firmware and kernel here
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
       linux_5_13 = final.callPackage ./overlays/kernel/linux-5.13.nix {
@@ -48,6 +48,11 @@
           final.kernelPatches.bridge_stp_helper
           final.kernelPatches.request_key_helper
         ];
+      };
+      # make pkgs from `master` available via overlay
+      master = import inputs.master {
+        system = final.system;
+        config = final.config;
       };
     };
 
