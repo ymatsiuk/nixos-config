@@ -45,7 +45,8 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
     sof-firmware
-    firmwareLinuxNonfree
+    drm-firmware
+    git-firmware
     master.wireless-regdb
   ];
 

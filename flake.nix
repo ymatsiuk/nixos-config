@@ -41,13 +41,10 @@
     overlay = final: prev: {
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
       # overlay my custom firmware and kernel here
-      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
-      linux_5_13 = final.callPackage ./overlays/kernel/linux-5.13.nix {
-        kernelPatches = [
-          final.kernelPatches.bridge_stp_helper
-          final.kernelPatches.request_key_helper
-        ];
-      };
+      drm-firmware = final.callPackage ./overlays/firmware/drm.nix { };
+      git-firmware = final.callPackage ./overlays/firmware/git.nix { };
+      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
+      linux_drm_tip = final.callPackage ./overlays/kernel/drm_tip.nix { };
       # make pkgs from `master` available via overlay
       master = import inputs.master {
         system = final.system;
