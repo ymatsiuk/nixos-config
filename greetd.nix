@@ -19,7 +19,7 @@ in
     restart = false;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swayRun}";
+        command = "${lib.makeBinPath [pkgs.greetd.tuigreet] }/tuigreet --time --cmd ${swayRun}";
         user = "greeter";
       };
       initial_session = {
