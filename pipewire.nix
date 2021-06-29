@@ -4,16 +4,23 @@
     alsa.enable = true;
     pulse.enable = true;
     media-session.config.bluez-monitor = {
+      properties = {
+        bluez5.enable-msbc = true;
+        bluez5.headset-roles = [
+          "hsp_hs"
+          "hfp_ag"
+        ];
+      };
       rules = [
         {
           matches = [
             { device.name = "~bluez_card.*"; }
           ];
           actions.update-props.bluez5 = {
-            # msbc-support = true;
+            msbc-support = true;
             auto-connect = [
-              "hfp_hf"
               "hsp_hs"
+              "hfp_ag"
               "a2dp_sink"
               "a2dp_source"
             ];
