@@ -43,7 +43,7 @@ in
         in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
-          "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.master.appgate-sdp; bin = "appgate";} }";
+          "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
           "${mod}+Shift+b" = "exec ${systemdRun { pkg = pkgs.bluejeans-gui; } }";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; } }";
           "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }";
@@ -189,7 +189,7 @@ in
         { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${importGsettings}"; always = true; }
         { command = "${pkgs.alacritty}/bin/alacritty"; }
-        { command = "${systemdRun { pkg = pkgs.master.appgate-sdp; bin = "appgate";} }"; }
+        { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
         { command = "${systemdRun { pkg = pkgs.firefox;} }"; }
         { command = "${systemdRun { pkg = pkgs.slack; args = "--enable-logging --enable-features=UseOzonePlatform --ozone-platform=wayland";} }"; }
       ];
