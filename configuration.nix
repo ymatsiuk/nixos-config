@@ -46,7 +46,7 @@
     sof-firmware
     drm-firmware
     git-firmware
-    master.wireless-regdb
+    wireless-regdb
   ];
 
   powerManagement.powertop.enable = true;
