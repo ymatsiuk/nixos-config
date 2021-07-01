@@ -14,11 +14,8 @@
         hashedPassword = "$6$qKPriFgsR5Qi$LusDW9UOXt0DylMTL6K7D7N63Ol7KCZwLBd8kF5dD7W28N2jnSfWxwDZCvES1z7Sa1wCRgzkweMnyuAMo5kec.";
         packages = with pkgs ; [
           aws-vault
-          awscli2
+          master.awscli2
           capitaine-cursors #sway/gtk dep
-          checkov
-          dogdns
-          eksctl
           exa
           fluxcd
           gitAndTools.gh
