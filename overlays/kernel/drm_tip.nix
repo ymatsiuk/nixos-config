@@ -1,9 +1,9 @@
 { lib, buildPackages, fetchgit, perl, buildLinux, nixosTests, modDirVersionArg ? null, ... } @ args:
 buildLinux
   (args // rec {
-    version = "5.13.0-drm_tip";
-    modDirVersion = "5.13.0";
-    extraMeta.branch = "5.13";
+    version = "5.14.0-drm_tip";
+    modDirVersion = "5.14.0-rc1";
+    extraMeta.branch = "5.14";
     ignoreConfigErrors = true;
     enableParallelBuilding = true;
     kernelPatches = [ ];
@@ -16,7 +16,7 @@ buildLinux
     '';
     src = fetchgit {
       url = "git://anongit.freedesktop.org/drm-tip";
-      rev = "3d3ff5917ce204b783f4847c14e8839fde358a3a";
-      sha256 = "sha256-wJeAkAErWgz9tpLBP6YzUJ9VMDhZ87ruHlNlUIahLto=";
+      rev = "ea6974acd4fe82ca98cc1390b21af67d63c22471";
+      sha256 = "sha256-tDPMSBbw+8pKnreHdXT1DJThzXtms843MZtmHOORHVA=";
     };
   } // (args.argsOverride or { }))
