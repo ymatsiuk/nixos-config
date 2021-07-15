@@ -16,6 +16,7 @@
           aws-vault
           master.awscli2
           capitaine-cursors #sway/gtk dep
+          docker-compose
           exa
           fluxcd
           gitAndTools.gh
