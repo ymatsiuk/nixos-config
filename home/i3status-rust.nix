@@ -16,7 +16,7 @@ let
   # FOMO: detect if there is a newer kernel version available:
   # fetch latest available kernel version from kernel.org and compare it against local version
   upstream = "${pkgs.curl}/bin/curl -Ls https://www.kernel.org | ${pkgs.pup}/bin/pup 'table[id=releases] tr:first-child strong text{}' | ${pkgs.coreutils}/bin/tr -d '[:space:]'";
-  local = "KERN=$(${pkgs.coreutils}/bin/uname -r) && [[ \${KERN: -1} == 0 ]] && echo \${KERN%.*} || echo \${KERN}";
+  local = "KERN=$(${pkgs.coreutils}/bin/uname -r | sed 's/\.0-/-/') && [[ \${KERN: -1} == 0 ]] && echo \${KERN%.*} || echo \${KERN}";
   noNewKernelMessage = "'{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
   newKernelMessage = "'{\"icon\":\"tux\", \"text\":\"'$(${pkgs.coreutils}/bin/uname -r)'\", \"state\": \"Info\"}'";
 in
