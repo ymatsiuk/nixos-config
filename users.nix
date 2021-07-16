@@ -14,13 +14,15 @@
         hashedPassword = "$6$qKPriFgsR5Qi$LusDW9UOXt0DylMTL6K7D7N63Ol7KCZwLBd8kF5dD7W28N2jnSfWxwDZCvES1z7Sa1wCRgzkweMnyuAMo5kec.";
         packages = with pkgs ; [
           aws-vault
-          master.awscli2
+          awscli2
           capitaine-cursors #sway/gtk dep
           docker-compose
           exa
           fluxcd
+          gcc
           gitAndTools.gh
           gitAndTools.git-remote-codecommit #AWS codeCommit
+          gnumake
           go
           golangci-lint
           iw #i3status-rust dep
