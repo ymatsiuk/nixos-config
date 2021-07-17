@@ -4,12 +4,12 @@ stdenvNoCC.mkDerivation rec {
   version = "master";
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-    rev = "d79c26779d459063b8052b7fe0a48bce4e08d0d9";
-    sha256 = "sha256-ThsEpKjh3uBuXpWnkRvqH0p4WkkHimLUNXAC6Z8gBIU=";
+    rev = "b7c134f0d3491113958276d631b4e69771a6c5be";
+    sha256 = "sha256-xk6tbmMrHWBsX6kjOCDs6v0Eslq10b0bW7Bi4bCyt6A=";
   };
   installFlags = [ "DESTDIR=$(out)" ];
   dontFixup = true;
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = "sha256-d/TuDVsRi0URnoqYzJ89fTBpq9m3oxDYFs5pgzThzCo=";
+  outputHash = "sha256-C6pcR2Zo0h7K5JgfIZmeE01hm9Ufy+tkjPtSLyQEhzw=";
 }
