@@ -44,7 +44,7 @@
           ssm-session-manager-plugin
           teleport-ent.tctl
           teleport.client
-          terraform_0_13
+          terraform
           vulkan-loader
           vulkan-tools
           vulkan-validation-layers
