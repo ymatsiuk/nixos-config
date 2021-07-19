@@ -2,7 +2,7 @@
 buildLinux
   (args // rec {
     version = "5.14.0-drm_tip";
-    modDirVersion = "5.14.0-rc1";
+    modDirVersion = "5.14.0-rc2";
     extraMeta.branch = "5.14";
     ignoreConfigErrors = true;
     enableParallelBuilding = true;
@@ -16,7 +16,7 @@ buildLinux
     '';
     src = fetchgit {
       url = "git://anongit.freedesktop.org/drm-tip";
-      rev = "2a9c85f62543f4707a136162460429efd7c87ab9";
-      sha256 = "sha256-FNlbPs8OgsIvpyeKxSwl3dMSld0TshjckCHQ7rtezGI=";
+      rev = "0da7e60301374bc5d2d53573b061cad7f6e2959e";
+      sha256 = "sha256-dj4mIQhYBNkcab99Kzxdz3ghRhjJNn+M/2EcvdP+Lug=";
     };
   } // (args.argsOverride or { }))
