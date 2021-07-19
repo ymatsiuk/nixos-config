@@ -2,8 +2,14 @@
 {
   gtk = {
     enable = true;
-    theme.name = "Adwaita-dark";
-    iconTheme.name = "Adwaita";
+    theme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark";
+    };
+    iconTheme = {
+      package = pkgs.gruvbox-dark-icons-gtk;
+      name = "gruvbox-dark";
+    };
     gtk2.extraConfig = ''
       gtk-cursor-theme-size = 16
       gtk-cursor-theme-name = "capitaine-cursors"
