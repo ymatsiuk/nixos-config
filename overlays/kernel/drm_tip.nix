@@ -1,22 +1,20 @@
-{ lib, buildPackages, fetchgit, perl, buildLinux, nixosTests, modDirVersionArg ? null, ... } @ args:
-buildLinux
-  (args // rec {
-    version = "5.14.0-drm_tip";
-    modDirVersion = "5.14.0-rc2";
-    extraMeta.branch = "5.14";
-    ignoreConfigErrors = true;
-    enableParallelBuilding = true;
-    kernelPatches = [ ];
-    extraConfig = ''
-      CONFIG_DEBUG_LIST y
-      CONFIG_SOFTLOCKUP_DETECTOR y
-      CONFIG_HARDLOCKUP_DETECTOR y
-      CONFIG_DETECT_HUNG_TASK y
-      CONFIG_WQ_WATCHDOG y
-    '';
-    src = fetchgit {
-      url = "git://anongit.freedesktop.org/drm-tip";
-      rev = "0da7e60301374bc5d2d53573b061cad7f6e2959e";
-      sha256 = "sha256-dj4mIQhYBNkcab99Kzxdz3ghRhjJNn+M/2EcvdP+Lug=";
-    };
-  } // (args.argsOverride or { }))
+{ lib, fetchgit, buildLinux, ... } @ args:
+buildLinux (args // rec {
+  version = "5.14-rc2";
+  modDirVersion = builtins.replaceStrings [ "-" ] [ ".0-" ] version;
+  extraMeta.branch = lib.versions.majorMinor version;
+  kernelPatches = [ ];
+  structuredExtraConfig = with lib.kernel; {
+    DEBUG_LIST = yes;
+    SOFTLOCKUP_DETECTOR = yes;
+    HARDLOCKUP_DETECTOR = yes;
+    DETECT_HUNG_TASK = yes;
+    WQ_WATCHDOG = yes;
+    IDE = lib.mkForce (option no);
+  };
+  src = fetchgit {
+    url = "git://anongit.freedesktop.org/drm-tip";
+    rev = "eac5f37741ad4cc0f6698bbae25734167c2a771b";
+    sha256 = "sha256-IBn5yuI+4LeaSrjPOrBe77c09bNTin8QkiFir8G/yqM=";
+  };
+} // (args.argsOverride or { }))
