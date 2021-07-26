@@ -21,8 +21,6 @@
       ympass = "${pkgs.libsecret}/bin/secret-tool lookup lpass personal | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
       on-gh-token = "export GITHUB_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --pass github.com`";
       off-gh-token = "unset GITHUB_TOKEN";
-      on-personal-pd-token = "export PAGERDUTY_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --note PD_TOKEN_PERSONAL`";
-      off-personal-pd-token = "unset PAGERDUTY_TOKEN";
       on-pd-token = "export PAGERDUTY_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --note PD_TOKEN`";
       off-pd-token = "unset PAGERDUTY_TOKEN";
       nixdev = "${pkgs.nixUnstable}/bin/nix develop github:ymatsiuk/nixos-config -c zsh";
