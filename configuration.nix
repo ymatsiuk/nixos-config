@@ -46,6 +46,7 @@
     sof-firmware
     firmwareLinuxNonfree
     wireless-regdb
+    drm-firmware
   ];
 
   powerManagement.powertop.enable = true;

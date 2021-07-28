@@ -41,6 +41,8 @@
     overlay = final: prev: {
       kubebuilder = final.callPackage ./overlays/kubebuilder { };
       # overlay my custom firmware and kernel here
+      # git-firmware = final.callPackage ./overlays/firmware/git.nix { };
+      drm-firmware = final.callPackage ./overlays/firmware/drm.nix { };
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_drm_tip);
       linux_drm_tip = final.callPackage ./overlays/kernel/drm_tip.nix { };
       # make pkgs from `master` available via overlay
