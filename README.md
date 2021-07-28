@@ -74,7 +74,7 @@ What's inside:
     * `firefox` with Wayland support (screen sharing via pipewire)
     * `gammastep`
     * `git` includes extension for signing keys
-    * `gtk` #TODO: add gruvbox theme
+    * `gtk` (gruvbox theme)
     * `i3status-rust` (gruvbox theme + toggle to switch between HFP/A2DP)
     * `mako` (gruvbox theme)
     * `mpris-proxy` for WH-1000XM3 media buttons support
