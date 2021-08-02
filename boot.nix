@@ -7,7 +7,7 @@
   '';
   boot.kernelParams = [
     "quiet"
-    "i915.enable_guc=2"
+    # "i915.enable_guc=2"
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
