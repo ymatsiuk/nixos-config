@@ -64,11 +64,11 @@ What's inside:
       * `appgate-sdp` proprietary VPN client
       * `docker`
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
-      * `fprintd` (TOD support + Goodix driver)
+      * `fprintd-tod` (slow; poor integration with swaylock - disabled)
       * `greetd` (tuigreet)
       * `neovim` (gruvbox theme)
       * `pipewire`
-      * `xdg-portal` for sharing the screen under Wayland
+      * `xdg-portal` (screen sharing)
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
@@ -81,6 +81,6 @@ What's inside:
     * `mako` (gruvbox theme)
     * `mpris-proxy` for WH-1000XM3 media buttons support
     * `mpv`
-    * `starship`
+    * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
-    * `zsh` (zplug for plugins)
+    * `zsh` (with zplug for plugins)

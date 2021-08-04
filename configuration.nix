@@ -64,7 +64,7 @@
   security.tpm2.enable = true;
 
   services.fprintd = {
-    enable = true;
+    enable = false;
     tod = {
       driver = pkgs.libfprint-2-tod1-goodix;
       enable = true;
