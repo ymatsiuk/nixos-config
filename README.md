@@ -54,7 +54,9 @@ nixos-install
 
 What's inside:
 1. NixOS:
-    * latest available kernel
+    * [`drm-tip`](https://cgit.freedesktop.org/drm-tip) kernel
+      * latest intel [drm firmware](https://cgit.freedesktop.org/drm/drm-firmware)
+      * latest iwlwifi [firmware](https://chromium.googlesource.com/chromiumos/third_party/linux-firmware)
     * latest `nix` with `flakes` support
     * custom overlays:
       * `teleport-ent`

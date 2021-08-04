@@ -47,6 +47,7 @@
     firmwareLinuxNonfree
     wireless-regdb
     drm-firmware
+    git-firmware
   ];
 
   powerManagement.powertop.enable = true;
