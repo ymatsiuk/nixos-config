@@ -8,7 +8,6 @@
     ./home/i3status-rust.nix
     ./home/mako.nix
     ./home/mpris-proxy.nix
-    ./home/mpv.nix
     ./home/neovim.nix
     ./home/starship.nix
     ./home/sway.nix

@@ -80,7 +80,6 @@ What's inside:
     * `i3status-rust` (gruvbox theme + toggle to switch between HFP/A2DP)
     * `mako` (gruvbox theme)
     * `mpris-proxy` for WH-1000XM3 media buttons support
-    * `mpv`
     * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
     * `zsh` (with zplug for plugins)
