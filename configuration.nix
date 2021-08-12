@@ -50,7 +50,6 @@
     git-firmware
   ];
 
-  powerManagement.powertop.enable = true;
   programs.appgate-sdp.enable = true;
   programs.light.enable = true;
   programs.seahorse.enable = true;
