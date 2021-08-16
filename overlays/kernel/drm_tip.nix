@@ -1,6 +1,6 @@
 { lib, fetchgit, buildLinux, ... } @ args:
 buildLinux (args // rec {
-  version = "5.14-rc5";
+  version = "5.14-rc6";
   modDirVersion = builtins.replaceStrings [ "-" ] [ ".0-" ] version;
   extraMeta.branch = lib.versions.majorMinor version;
   kernelPatches = [ ];
@@ -14,7 +14,7 @@ buildLinux (args // rec {
   };
   src = fetchgit {
     url = "git://anongit.freedesktop.org/drm-tip";
-    rev = "7a2a60f961bd7bcc00aacb1d590a2b11ff2a93bd";
-    sha256 = "sha256-YBZcaBVxPCk/QcuecW5eDe4ENwlKIG55lmhQD/Ro8B0=";
+    rev = "029f8ff4156268d7abc8acde2eddd3041c7a94e4";
+    sha256 = "sha256-rOQlXVq1SdHU+IlHbrWAR55baRjgC6/Ivu88ylWAE1E=";
   };
 } // (args.argsOverride or { }))
