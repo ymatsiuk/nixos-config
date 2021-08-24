@@ -1,14 +1,24 @@
 {
   "nodes": {
     "flexport": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "narHash": "sha256-SYKzdpfQt4hE2DucoS0SdfCmMCTQuj3KJ6v1Loe9hwc=",
-        "path": "/home/ymatsiuk/nixos/flexport",
-        "type": "path"
+        "lastModified": 1629800842,
+        "narHash": "sha256-v4JTugtV79sa3QOPbur9lnytLjYN3DdsMrBsQI0Fvdg=",
+        "ref": "main",
+        "rev": "f568aae89817d128ba64c494ea5a998db071a7ef",
+        "revCount": 1,
+        "type": "git",
+        "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
       },
       "original": {
-        "path": "/home/ymatsiuk/nixos/flexport",
-        "type": "path"
+        "ref": "main",
+        "type": "git",
+        "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
       }
     },
     "home-manager": {
@@ -28,22 +38,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "master": {
-      "locked": {
-        "lastModified": 1629788769,
-        "narHash": "sha256-nKIVCgV9fc0yQL2kRj5vJVhWg8YBq03Mp9XDhrjQlhE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "dcc8b48d58ffaab7086f7ee03b3ca0536e5558be",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -67,20 +61,7 @@
       "inputs": {
         "flexport": "flexport",
         "home-manager": "home-manager",
-        "master": "master",
-        "nixpkgs": "nixpkgs",
-        "teleport-ent": "teleport-ent"
-      }
-    },
-    "teleport-ent": {
-      "locked": {
-        "narHash": "sha256-5oiaz6Xi2Ol2S8QzPKOEK+zTysiwLaZ9XNJp8zGw9vY=",
-        "path": "/home/ymatsiuk/nixos/teleport-ent",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/ymatsiuk/nixos/teleport-ent",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

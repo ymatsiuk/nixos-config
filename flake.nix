@@ -2,12 +2,12 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    flexport.url = "path:/home/ymatsiuk/nixos/flexport";
+    flexport.inputs.nixpkgs.follows = "nixpkgs";
+    flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
+    # master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    master.url = "github:nixos/nixpkgs/master";
-    teleport-ent.url = "path:/home/ymatsiuk/nixos/teleport-ent";
   };
 
   outputs = inputs: {
@@ -17,7 +17,7 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          inputs.flexport.nixosModules.flexport
+          inputs.flexport.nixosModules.ca
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -28,7 +28,7 @@
             config.nixpkgs = {
               overlays = [
                 inputs.self.overlay
-                inputs.teleport-ent.overlay
+                inputs.flexport.overlay
               ];
               config = { allowUnfree = true; };
             };
@@ -42,7 +42,7 @@
       # overlay my custom firmware and kernel here
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
       # make pkgs from `master` available via overlay:
-      master = import inputs.master { system = final.system; config = final.config; };
+      # master = import inputs.master { system = final.system; config = final.config; };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
