@@ -54,9 +54,7 @@ nixos-install
 
 What's inside:
 1. NixOS:
-    * [`drm-tip`](https://cgit.freedesktop.org/drm-tip) kernel
-      * latest intel [drm firmware](https://cgit.freedesktop.org/drm/drm-firmware)
-      * latest iwlwifi [firmware](https://chromium.googlesource.com/chromiumos/third_party/linux-firmware)
+    * latest stable kernel
     * latest `nix` with `flakes` support
     * custom overlays:
       * `teleport-ent`
@@ -64,7 +62,6 @@ What's inside:
       * `appgate-sdp` proprietary VPN client
       * `docker`
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
-      * `fprintd-tod` (slow; poor integration with swaylock - disabled)
       * `greetd` (tuigreet)
       * `neovim` (gruvbox theme)
       * `pipewire`

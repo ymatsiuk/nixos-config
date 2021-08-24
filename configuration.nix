@@ -46,8 +46,6 @@
     sof-firmware
     firmwareLinuxNonfree
     wireless-regdb
-    drm-firmware
-    git-firmware
   ];
 
   programs.appgate-sdp.enable = true;
