@@ -6,7 +6,6 @@
     flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    # master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
@@ -39,10 +38,7 @@
     };
 
     overlay = final: prev: {
-      # overlay my custom firmware and kernel here
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
-      # make pkgs from `master` available via overlay:
-      # master = import inputs.master { system = final.system; config = final.config; };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
