@@ -20,6 +20,19 @@ in
       bottom = {
         blocks = [
           {
+            block = "custom";
+            command = "echo '{\"icon\": \"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
+            interval = "once";
+            json = true;
+          }
+          { block = "uptime"; }
+          {
+            block = "custom";
+            command = "[ $(nixos-version --revision) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r ) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
+            interval = 300;
+            json = true;
+          }
+          {
             block = "toggle";
             text = "DP-6";
             command_state = "${swayOutputIsActive} DP-6";
