@@ -38,7 +38,9 @@
     };
 
     overlay = final: prev: {
-      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_5_13);
+      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_custom);
+      linux_custom = final.callPackage ./overlays/kernel.nix { };
+      chromiumos-firmware = final.callPackage ./overlays/chromiumos-firmware.nix { };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;

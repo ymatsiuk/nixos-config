@@ -46,6 +46,8 @@
     sof-firmware
     firmwareLinuxNonfree
     wireless-regdb
+
+    chromiumos-firmware
   ];
 
   programs.appgate-sdp.enable = true;
