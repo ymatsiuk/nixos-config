@@ -40,7 +40,11 @@
     };
   };
 
-  hardware.bluetooth = { enable = true; powerOnBoot = true; };
+  hardware.bluetooth = {
+    enable = true;
+    hsphfpd.enable = true;
+    package = pkgs.bluezFull;
+  };
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
     sof-firmware
