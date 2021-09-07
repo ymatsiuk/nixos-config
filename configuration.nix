@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports =
     [
@@ -8,7 +8,6 @@
       ./hardware-configuration.nix
       ./nix.nix
       ./opengl.nix
-      ./pipewire.nix
       ./ssh.nix
       ./users.nix
     ];
@@ -40,11 +39,21 @@
     };
   };
 
+
   hardware.bluetooth = {
     enable = true;
-    hsphfpd.enable = true;
-    package = pkgs.bluezFull;
+    # only available in bluez>5.61
+    # settings = {
+    #   General = {
+    #     Experimental = true;
+    #   };
+    # };
   };
+  systemd.services.bluetooth.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.bluez}/libexec/bluetooth/bluetoothd ${lib.escapeShellArgs [ "-f" "/etc/bluetooth/main.conf" "-E" "-d" ]}"
+  ];
+
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
     sof-firmware
@@ -68,6 +77,7 @@
 
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.pipewire = { enable = true; pulse.enable = true; };
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;
