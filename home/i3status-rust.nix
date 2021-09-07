@@ -49,20 +49,19 @@ in
           {
             block = "bluetooth";
             mac = "CC:98:8B:93:08:1F";
-            label = " WH-1000XM3";
           }
           {
             block = "toggle";
             text = "A2DP/HSP";
             command_state = "${a2dpIsActive}";
             command_on = "${setProfile} a2dp-sink-aptx_hd";
-            command_off = "${setProfile} headset-head-unit-cvsd";
+            command_off = "${setProfile} headset-head-unit";
             interval = 5;
           }
           { block = "cpu"; format = "{utilization} {frequency}"; }
           { block = "net"; format = "{signal_strength}"; }
           { block = "backlight"; }
-          { block = "temperature"; collapsed = false; }
+          { block = "temperature"; collapsed = false; format = "{average}"; }
           { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
           { block = "battery"; driver = "upower"; }
           { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
