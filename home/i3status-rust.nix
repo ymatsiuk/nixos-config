@@ -61,7 +61,7 @@ in
           { block = "cpu"; format = "{utilization} {frequency}"; }
           { block = "net"; format = "{signal_strength}"; }
           { block = "backlight"; }
-          { block = "temperature"; collapsed = false; format = "{average}"; }
+          { block = "temperature"; driver = "sysfs"; collapsed = false; format = "{average}"; }
           { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
           { block = "battery"; driver = "upower"; }
           { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }

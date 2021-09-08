@@ -32,7 +32,6 @@
           kubernetes-helm
           kustomize
           lastpass-cli
-          lm_sensors #i3status-rust dep
           nixpkgs-fmt
           openssl
           packer
