@@ -4,13 +4,12 @@ stdenvNoCC.mkDerivation rec {
   version = "master";
   src = fetchgit {
     url = "https://chromium.googlesource.com/chromiumos/third_party/linux-firmware";
-    rev = "c9d3bcd57565947b40df3b6372dad69d4009c929";
-    sha256 = "sha256-2Baae62PD9U8KyRF4m12W0uiTZzx8KNqcDZ3/Gjkv48=";
+    rev = "44c379f0966963cbcddb18986bd8cbf689919984";
+    sha256 = "sha256-uB7QQTzhrrsjCeT2fFyxlq2uqt90x9nHenu9Tm8sK/E=";
   };
   installFlags = [ "DESTDIR=$(out)" ];
   dontFixup = true;
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = "sha256-vN1fv7WD5Vn5vJiZXR9NdAks3h41YMM9hr5PI/KT4+A=";
+  outputHash = "sha256-H4aPrlexCx5Sggg8gnhAb9+9GtAkv1GS1A1uhnZhqcg=";
 }
-
