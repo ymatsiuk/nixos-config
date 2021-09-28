@@ -18,6 +18,7 @@
           capitaine-cursors #sway/gtk dep
           docker-compose
           exa
+          firefox
           fluxcd
           gcc
           gitAndTools.gh
