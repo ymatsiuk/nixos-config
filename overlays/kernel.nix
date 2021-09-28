@@ -10,12 +10,11 @@ buildLinux (args // rec {
     HARDLOCKUP_DETECTOR = yes;
     DETECT_HUNG_TASK = yes;
     WQ_WATCHDOG = yes;
-    IDE = lib.mkForce (option no);
     CIFS_WEAK_PW_HASH = lib.mkForce (option no);
   };
   src = fetchgit {
     url = "git://anongit.freedesktop.org/drm-tip";
-    rev = "ea28c76e2817bbaf31c243973dac23ed6c280946";
-    sha256 = "sha256-XsFTSpp11VWssoz58yzE12AJ5RBco81SMbxkeiglWaE=";
+    rev = "7006e15e0a109ce092026c4b576fe8a206e8b756";
+    sha256 = "sha256-4eqE7QIoh066okBwT0Ch/tDKA+L5F5O7+6QMwhXBzrg=";
   };
 } // (args.argsOverride or { }))
