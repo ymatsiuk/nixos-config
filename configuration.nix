@@ -79,7 +79,6 @@
   services.gnome.gnome-keyring.enable = true;
   services.pipewire = { enable = true; pulse.enable = true; };
   services.thermald.enable = true;
-  services.tlp.enable = true;
   services.upower.enable = true;
 
   sound.enable = true;
