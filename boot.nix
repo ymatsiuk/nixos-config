@@ -5,6 +5,7 @@
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom="NL"
     options iwlwifi power_save=1
+    options snd_hda_intel power_save=1
   '';
   boot.kernelParams = [
     "quiet"
