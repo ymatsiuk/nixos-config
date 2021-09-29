@@ -43,16 +43,12 @@
   hardware.bluetooth = {
     enable = true;
     # only available in bluez>5.61
-    # settings = {
-    #   General = {
-    #     Experimental = true;
-    #   };
-    # };
+    settings = {
+      General = {
+        Experimental = true;
+      };
+    };
   };
-  systemd.services.bluetooth.serviceConfig.ExecStart = [
-    ""
-    "${pkgs.bluez}/libexec/bluetooth/bluetoothd ${lib.escapeShellArgs [ "-f" "/etc/bluetooth/main.conf" "-E" "-d" ]}"
-  ];
 
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
