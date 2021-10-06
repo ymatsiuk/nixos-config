@@ -50,6 +50,12 @@
           wf-recorder #sway
           wl-clipboard #sway dep
           zoom-us
+
+          gopls
+          rnix-lsp
+          nodePackages.pyright
+          rubyPackages.solargraph
+          terraform-ls
         ];
       };
     };
