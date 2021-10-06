@@ -17,6 +17,7 @@
         modules = [
           ./configuration.nix
           inputs.flexport.nixosModules.ca
+          inputs.flexport.nixosModules.appgate-sdp
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

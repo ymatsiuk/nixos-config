@@ -57,7 +57,6 @@
     wireless-regdb
   ];
 
-  programs.appgate-sdp.enable = true;
   programs.light.enable = true;
   programs.seahorse.enable = true;
   programs.sway = {
