@@ -8,7 +8,6 @@
       ./hardware-configuration.nix
       ./nix.nix
       ./opengl.nix
-      ./ssh.nix
       ./users.nix
     ];
 
