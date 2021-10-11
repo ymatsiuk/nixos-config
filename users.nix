@@ -54,6 +54,7 @@
           gopls
           rnix-lsp
           nodePackages.pyright
+          nodePackages.bash-language-server
           rubyPackages.solargraph
           terraform-ls
         ];
