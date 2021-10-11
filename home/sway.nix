@@ -104,10 +104,6 @@ in
             size = 10.0;
           };
           position = "bottom";
-          extraConfig =
-            "
-            tray_output eDP-1
-          ";
           colors = {
             background = "#3c3836";
             separator = "#666666";
@@ -145,24 +141,6 @@ in
           middle_emulation = "enabled";
           natural_scroll = "enabled";
           tap = "enabled";
-        };
-      };
-      output = {
-        DP-5 = {
-          pos = "1440 0";
-          subpixel = "rgb";
-          disable = ""; #disable output on start
-        };
-        DP-6 = {
-          pos = "0 0";
-          transform = "90";
-          subpixel = "rgb";
-          disable = ""; #disable output on start
-        };
-        eDP-1 = {
-          subpixel = "rgb";
-          scale = "2";
-          pos = "1440 1440";
         };
       };
       window = {
