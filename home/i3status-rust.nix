@@ -22,13 +22,13 @@ in
             interval = "once";
             json = true;
           }
-          { block = "uptime"; }
           {
             block = "custom";
             command = "[ $(nixos-version --revision) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r ) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
             interval = 300;
             json = true;
           }
+          { block = "uptime"; }
           {
             block = "bluetooth";
             mac = "CC:98:8B:93:08:1F";
