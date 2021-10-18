@@ -169,7 +169,7 @@ in
         { command = "${pkgs.alacritty}/bin/alacritty"; }
         { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
-        { command = "${systemdRun { pkg = pkgs.slack; args = "--enable-logging --enable-features=UseOzonePlatform --ozone-platform=wayland";} }"; }
+        { command = "${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }"; }
       ];
     };
     extraConfig = ''
