@@ -2,6 +2,7 @@
 , at-spi2-atk
 , at-spi2-core
 , atk
+, autoPatchelfHook
 , cairo
 , cups
 , curl
@@ -31,14 +32,14 @@
 , nspr
 , nss
 , pango
+, pipewire
 , stdenv
 , systemd
 , undmg
 , xdg-utils
 , xorg
 , forceWayland ? false
-, wayland ? null
-, pipewire ? null
+, enablePipewire ? false
 }:
 
 let
@@ -94,87 +95,82 @@ let
 
     passthru.updateScript = ./update.sh;
 
-    rpath = lib.makeLibraryPath
-      ([
-        alsa-lib
-        at-spi2-atk
-        at-spi2-core
-        atk
-        cairo
-        cups
-        curl
-        dbus
-        expat
-        fontconfig
-        freetype
-        gdk-pixbuf
-        glib
-        gnome2.GConf
-        gtk3
-        libGL
-        libappindicator-gtk3
-        libdrm
-        libnotify
-        libpulseaudio
-        libuuid
-        libxcb
-        libxkbcommon
-        mesa
-        nspr
-        nss
-        pango
-        stdenv.cc.cc
-        systemd
-        xorg.libX11
-        xorg.libXScrnSaver
-        xorg.libXcomposite
-        xorg.libXcursor
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXi
-        xorg.libXrandr
-        xorg.libXrender
-        xorg.libXtst
-        xorg.libxkbfile
-        xorg.libxshmfence
-      ] ++ lib.optionals forceWayland [
-        wayland
-        pipewire
-      ]) + ":${stdenv.cc.cc.lib}/lib64";
+    rpath = lib.makeLibraryPath [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gnome2.GConf
+      gtk3
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libnotify
+      libpulseaudio
+      libuuid
+      libxcb
+      libxkbcommon
+      mesa
+      nspr
+      nss
+      pango
+      pipewire
+      stdenv.cc.cc
+      systemd
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxkbfile
+      xorg.libxshmfence
+    ] + ":${stdenv.cc.cc.lib}/lib64";
 
     buildInputs = [
       gtk3 # needed for GSETTINGS_SCHEMAS_PATH
     ];
 
-    nativeBuildInputs = [ dpkg makeWrapper nodePackages.asar ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      makeWrapper
+      nodePackages.asar
+    ];
 
-    dontUnpack = true;
+    autoPatchelfIgnoreMissingDeps = true;
+
     dontBuild = true;
-    dontPatchELF = true;
+
+    unpackPhase = ''
+      # deb file contains a setuid binary, so 'dpkg -x' doesn't work here
+      dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner
+    '';
 
     installPhase = ''
       runHook preInstall
 
-      # The deb file contains a setuid binary, so 'dpkg -x' doesn't work here
-      dpkg --fsys-tarfile $src | tar --extract
-      rm -rf usr/share/lintian
-
-      mkdir -p $out
-      mv usr/* $out
-
-      # Otherwise it looks "suspicious"
-      chmod -R g-w $out
-
-      for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* \) ); do
-        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
-      done
-
-      # Replace the broken bin/slack symlink with a startup wrapper
+      mkdir $out
+      mv usr/* $out/
       rm $out/bin/slack
+
       makeWrapper $out/lib/slack/slack $out/bin/slack \
-        --prefix LD_LIBRARY_PATH : "$out/lib/slack:${rpath}" \
-        --add-flags "${lib.optionalString forceWayland "--ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer"}" \
+        --prefix LD_LIBRARY_PATH : "$out/lib:${rpath}" \
+        --add-flags "${lib.optionalString enablePipewire "--enable-features=WebRTCPipeWireCapturer"}${lib.optionalString forceWayland ",UseOzonePlatform --ozone-platform=wayland"}" \
         --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
         --prefix PATH : ${lib.makeBinPath [xdg-utils]}
 

@@ -43,7 +43,7 @@
       linux_custom = final.callPackage ./overlays/kernel.nix { };
       chromiumos-firmware = final.callPackage ./overlays/chromiumos-firmware.nix { };
       firefox = final.firefox-beta-bin.override { forceWayland = true; };
-      slack = final.callPackage ./overlays/slack.nix { forceWayland = true; };
+      slack = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
