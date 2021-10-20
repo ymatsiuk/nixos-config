@@ -46,7 +46,7 @@ in
           "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
           "${mod}+Shift+b" = "exec ${systemdRun { pkg = pkgs.bluejeans-gui; } }";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox"; } }";
-          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }";
+          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack; args = "--logLevel=error";} }";
           "${mod}+Shift+z" = "exec ${systemdRun { pkg = pkgs.zoom; bin = "zoom";} }";
           "XF86AudioPlay" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "play-pause";} }";
           "XF86AudioNext" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "next";} }";
@@ -169,7 +169,7 @@ in
         { command = "${pkgs.alacritty}/bin/alacritty"; }
         { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
-        { command = "${systemdRun { pkg = pkgs.slack; args = "--enable-features=UseOzonePlatform --ozone-platform=wayland";} }"; }
+        { command = "${systemdRun { pkg = pkgs.slack; args = "--logLevel=error";} }"; }
       ];
     };
     extraConfig = ''
