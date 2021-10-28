@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = inputs: {
@@ -27,6 +28,7 @@
           {
             config.nixpkgs = {
               overlays = [
+                inputs.nur.overlay
                 inputs.self.overlay
                 inputs.flexport.overlay
               ];
@@ -42,7 +44,7 @@
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
       linux_custom = final.callPackage ./overlays/kernel.nix { };
       chromiumos-firmware = final.callPackage ./overlays/chromiumos-firmware.nix { };
-      firefox = final.firefox-beta-bin.override { forceWayland = true; };
+      firefox = final.firefox-bin.override { forceWayland = true; };
       slack = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
 
