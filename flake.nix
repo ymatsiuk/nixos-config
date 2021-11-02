@@ -42,8 +42,6 @@
 
     overlay = final: prev: {
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-      linux_custom = final.callPackage ./overlays/kernel.nix { };
-      chromiumos-firmware = final.callPackage ./overlays/chromiumos-firmware.nix { };
       firefox = final.firefox-bin.override { forceWayland = true; };
       slack = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
