@@ -43,6 +43,7 @@
     overlay = final: prev: {
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
       firefox = final.firefox-bin.override { forceWayland = true; };
+      iwlwifi-firmware = final.callPackage ./overlays/firmware.nix { };
       slack = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
 

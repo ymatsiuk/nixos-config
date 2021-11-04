@@ -52,8 +52,9 @@
 
   hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
-    sof-firmware
     firmwareLinuxNonfree
+    iwlwifi-firmware
+    sof-firmware
     wireless-regdb
   ];
 
