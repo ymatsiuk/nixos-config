@@ -18,6 +18,8 @@
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
     useDHCP = false;
+    # fix iwd race by disabling iface management
+    wireless.iwd.settings.General.UseDefaultInterface = true;
   };
 
   time.timeZone = "Europe/Amsterdam";
