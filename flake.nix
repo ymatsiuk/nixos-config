@@ -45,6 +45,8 @@
       firefox = final.firefox-bin.override { forceWayland = true; };
       iwlwifi-firmware = final.callPackage ./overlays/firmware.nix { };
       slack = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
+      ell-45 = final.callPackage ./overlays/ell.nix { };
+      iwd = final.callPackage ./overlays/iwd.nix { };
     };
 
     packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
