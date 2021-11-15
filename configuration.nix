@@ -22,6 +22,12 @@
     wireless.iwd.settings.General.UseDefaultInterface = true;
   };
 
+  # Debug iwd
+  systemd.services.iwd.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.iwd}/libexec/iwd -d"
+  ];
+
   time.timeZone = "Europe/Amsterdam";
   i18n = {
     defaultLocale = "en_US.UTF-8";
