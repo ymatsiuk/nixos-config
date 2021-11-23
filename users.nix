@@ -19,6 +19,7 @@
           docker-compose
           exa
           firefox
+          fd
           fluxcd
           gcc
           gitAndTools.gh
