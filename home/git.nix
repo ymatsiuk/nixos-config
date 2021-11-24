@@ -35,6 +35,7 @@
     signing = { signByDefault = true; };
     extraConfig = {
       pull = { rebase = false; };
+      fetch = { prune = true; };
       credential = { helper = "lastpass"; };
       rebase = {
         autoStash = true;
