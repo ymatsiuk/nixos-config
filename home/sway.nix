@@ -47,7 +47,6 @@ in
           "${mod}+Shift+b" = "exec ${systemdRun { pkg = pkgs.bluejeans-gui; } }";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox"; } }";
           "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slackWayland;} }";
-          "${mod}+Shift+z" = "exec ${systemdRun { pkg = pkgs.zoom; bin = "zoom";} }";
           "XF86AudioPlay" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "play-pause";} }";
           "XF86AudioNext" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "next";} }";
           "XF86AudioPrev" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "previous";} }";
@@ -158,7 +157,6 @@ in
           # browser zoom|meet|bluejeans
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }
           # meeting apps
-          { command = "floating enable, inhibit_idle visible, move container to workspace 5"; criteria = { title = "((?i)zoom(.*))|(^Settings$)"; }; }
           { command = "floating enable, inhibit_idle visible, move container to workspace 5"; criteria = { class = "bluejeans-v2"; }; }
         ];
       };

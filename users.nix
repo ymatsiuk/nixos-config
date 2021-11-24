@@ -50,7 +50,6 @@
           vulkan-validation-layers
           wf-recorder #sway
           wl-clipboard #sway dep
-          zoom-us
 
           gopls
           rnix-lsp
