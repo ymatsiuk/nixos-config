@@ -42,7 +42,9 @@
 
     overlay = final: prev: {
       linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-      linux_latest = final.callPackage ./overlays/kernel.nix { };
+      linux_latest = final.callPackage ./overlays/kernel.nix {
+        kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
+      };
       firefox = final.firefox-bin.override { forceWayland = true; };
       iwlwifi-firmware = final.callPackage ./overlays/firmware.nix { };
       slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
