@@ -6,7 +6,7 @@
     users = {
       ymatsiuk = {
         description = "Yurii Matsiuk";
-        extraGroups = [ "ymatsiuk" "wheel" "audio" "video" "networkmanager" "docker" ];
+        extraGroups = [ "ymatsiuk" "wheel" "audio" "video" "networkmanager" ];
         shell = pkgs.zsh;
         home = "/home/ymatsiuk";
         isNormalUser = true;
@@ -16,7 +16,6 @@
           aws-vault
           awscli2
           capitaine-cursors #sway/gtk dep
-          docker-compose
           exa
           firefox
           fd
@@ -37,6 +36,7 @@
           nixpkgs-fmt
           openssl
           packer
+          podman
           procps
           pulseaudio #i3status-rust dep
           ripgrep

@@ -86,7 +86,7 @@
 
   system.stateVersion = "21.05";
 
-  virtualisation.docker = { enable = true; enableOnBoot = true; };
+  virtualisation.podman.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [

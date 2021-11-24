@@ -60,7 +60,7 @@ What's inside:
       * `teleport-ent`
     * modules:
       * `appgate-sdp` proprietary VPN client
-      * `docker`
+      * `podman`
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
       * `greetd` (tuigreet)
       * `neovim` (gruvbox theme)
