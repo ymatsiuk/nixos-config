@@ -58,7 +58,6 @@
     };
   };
 
-  hardware.cpu.intel.updateMicrocode = true;
   hardware.firmware = with pkgs; [
     firmwareLinuxNonfree
     iwlwifi-firmware
