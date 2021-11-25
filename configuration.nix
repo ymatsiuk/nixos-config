@@ -59,8 +59,7 @@
   };
 
   hardware.firmware = with pkgs; [
-    firmwareLinuxNonfree
-    iwlwifi-firmware
+    firmwareLinuxNonfreeGit
     sof-firmware
     wireless-regdb
   ];

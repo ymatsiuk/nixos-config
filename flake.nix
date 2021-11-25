@@ -46,7 +46,7 @@
         kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
       };
       firefox = final.firefox-bin.override { forceWayland = true; };
-      iwlwifi-firmware = final.callPackage ./overlays/firmware.nix { };
+      firmwareLinuxNonfreeGit = final.callPackage ./overlays/firmware.nix { };
       slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
       ell-45 = final.callPackage ./overlays/ell.nix { };
       iwd = final.callPackage ./overlays/iwd.nix { };
