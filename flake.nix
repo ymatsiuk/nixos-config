@@ -10,16 +10,16 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = inputs: {
+  outputs = { self, nixpkgs, nur, home-manager, flexport }: {
 
     nixosConfigurations = {
-      nixps = inputs.nixpkgs.lib.nixosSystem {
+      nixps = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          inputs.flexport.nixosModules.ca
-          inputs.flexport.nixosModules.appgate-sdp
-          inputs.home-manager.nixosModules.home-manager
+          flexport.nixosModules.ca
+          flexport.nixosModules.appgate-sdp
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -28,15 +28,14 @@
           {
             config.nixpkgs = {
               overlays = [
-                inputs.nur.overlay
-                inputs.self.overlay
-                inputs.flexport.overlay
+                nur.overlay
+                self.overlay
+                flexport.overlay
               ];
               config = { allowUnfree = true; };
             };
           }
         ];
-        specialArgs = { inherit inputs; };
       };
     };
 
@@ -50,9 +49,9 @@
       slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
 
-    packages.x86_64-linux = (builtins.head (builtins.attrValues inputs.self.nixosConfigurations)).pkgs;
+    packages.x86_64-linux = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
 
-    devShell.x86_64-linux = with inputs.self.packages.x86_64-linux;
+    devShell.x86_64-linux = with self.packages.x86_64-linux;
       mkShell {
         buildInputs = [
           nixUnstable
