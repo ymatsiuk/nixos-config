@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1638890873,
-        "narHash": "sha256-0tGm9ZFaUbVu//Zcg/Xejq7kSFq18XRmYhzi0YDPTiQ=",
+        "lastModified": 1639226417,
+        "narHash": "sha256-TWi2u5DR5ciU7wqNRURNq5zezHlxYOVmM7mJDmfl9AU=",
         "ref": "main",
-        "rev": "b9510d648e962cdeec062837d62bbda8cb8376cc",
-        "revCount": 12,
+        "rev": "c4619e8300b82d156b761a00616b62c11f713ac1",
+        "revCount": 13,
         "type": "git",
         "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
       },
