@@ -18,6 +18,7 @@
       iosevka
       source-sans-pro
       source-serif-pro
+      (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
     ];
   };
 }
