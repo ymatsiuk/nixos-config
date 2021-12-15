@@ -57,16 +57,15 @@ in
             };
           };
           icons = {
-            name = "awesome5";
+            name = "awesome";
             overrides = {
               tux = "";
               upd = "";
               noupd = "";
-              volume_muted = "";
             };
           };
         };
-        icons = "awesome5";
+        icons = "awesome";
         theme = "gruvbox-dark";
       };
     };
