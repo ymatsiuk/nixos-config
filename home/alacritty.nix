@@ -31,10 +31,6 @@
       };
       env.TERM = "xterm-256color";
       font = {
-        normal.family = "Iosevka";
-        bold.family = "Iosevka";
-        italic.family = "Iosevka";
-        bold_italic.family = "Iosevka";
         size = 12;
         draw_bold_text_with_bright_colors = true;
       };
