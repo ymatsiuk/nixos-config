@@ -3,10 +3,10 @@
 }:
 firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
   version = "main";
-  outputHash = "sha256-F/si6w9wLBrHCfx6tczOg7u29CO/OqxepZmuPpKcJrc=";
+  outputHash = "sha256-NSPyINzt5N+Wk0F5ftVE11Kj7LLhF3TpRfQ29qd4lCE=";
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
-    rev = "f682ecb015df087613f91872712eb6c0f6c998a8";
-    sha256 = "sha256-52TTfLhqlxqjLuRmFgpVERCkesPXlFhIgUG/fVe60jU=";
+    rev = "182a186c570baab3968ca9116ee58b1875fb0168";
+    sha256 = "sha256-W/HsMnAIfCqm5XUPsPZ53dBCh/uNAlGfPEBRwmW9ZG0=";
   };
 })
