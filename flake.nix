@@ -20,21 +20,16 @@
           flexport.nixosModules.ca
           flexport.nixosModules.appgate-sdp
           home-manager.nixosModules.home-manager
-          {
+          ({ pkgs, ... }: {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ymatsiuk = import ./home-manager.nix;
-          }
-          {
-            config.nixpkgs = {
-              overlays = [
-                nur.overlay
-                self.overlay
-                flexport.overlay
-              ];
-              config = { allowUnfree = true; };
-            };
-          }
+            nix.extraOptions = "experimental-features = nix-command flakes";
+            nix.package = pkgs.nixUnstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
+            nixpkgs.config = { allowUnfree = true; };
+            nixpkgs.overlays = [ nur.overlay self.overlay flexport.overlay ];
+          })
         ];
       };
     };
@@ -49,14 +44,11 @@
       slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
     };
 
-    packages.x86_64-linux = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
-
-    devShell.x86_64-linux = with self.packages.x86_64-linux;
-      mkShell {
-        buildInputs = [
-          nixUnstable
-        ];
+    packages.x86_64-linux = {
+      linux_latest = with nixpkgs.legacyPackages.x86_64-linux; callPackage ./overlays/kernel.nix {
+        kernelPatches = [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
       };
+    };
 
   };
 }

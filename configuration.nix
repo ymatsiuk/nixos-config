@@ -6,7 +6,6 @@
       ./fonts.nix
       ./greetd.nix
       ./hardware-configuration.nix
-      ./nix.nix
       ./opengl.nix
       ./pipewire.nix
       ./users.nix
