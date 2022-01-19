@@ -2,53 +2,90 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
     flexport.inputs.nixpkgs.follows = "nixpkgs";
     flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport }: {
+  outputs = { self, nixpkgs, nur, home-manager, flexport, flake-utils, nixos-hardware }:
+    let
+      makeOpinionatedNixpkgs = system: overlays:
+        import nixpkgs {
+          inherit system overlays;
+          config = { allowUnfree = true; };
+        };
+      makeOpinionatedNixosConfig = { system, modules, overlays }:
+        let
+          pkgs = makeOpinionatedNixpkgs system overlays;
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.ymatsiuk = import ./hm-cli.nix;
+              nix.extraOptions = "experimental-features = nix-command flakes";
+              nix.package = pkgs.nixUnstable;
+              nix.registry.nixpkgs.flake = nixpkgs;
+              nixpkgs = { inherit pkgs; };
+            }
+          ] ++ modules;
+        };
+    in
+    {
+      nixosConfigurations = {
+        nixps = makeOpinionatedNixosConfig {
+          system = "x86_64-linux";
+          overlays = [
+            self.overlays.nixps
+            flexport.overlay
+            nur.overlay
+          ];
+          modules = [
+            ./nixps.nix
+            { home-manager.users.ymatsiuk = import ./hm-gui.nix; }
+            flexport.nixosModules.appgate-sdp
+            flexport.nixosModules.ca
+            flexport.nixosModules.tctl
+          ];
+        };
 
-    nixosConfigurations = {
-      nixps = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          flexport.nixosModules.ca
-          flexport.nixosModules.appgate-sdp
-          home-manager.nixosModules.home-manager
-          ({ pkgs, ... }: {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ymatsiuk = import ./home-manager.nix;
-            nix.extraOptions = "experimental-features = nix-command flakes";
-            nix.package = pkgs.nixUnstable;
-            nix.registry.nixpkgs.flake = nixpkgs;
-            nixpkgs.config = { allowUnfree = true; };
-            nixpkgs.overlays = [ nur.overlay self.overlay flexport.overlay ];
-          })
-        ];
+        nixpi = makeOpinionatedNixosConfig {
+          system = "aarch64-linux";
+          overlays = [ ];
+          modules = [
+            ./nixpi.nix
+            nixos-hardware.nixosModules.raspberry-pi-4
+          ];
+        };
       };
-    };
-
-    overlay = final: prev: {
-      linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-      linux_latest = final.callPackage ./overlays/kernel.nix {
-        kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
+      overlays = {
+        nixps = final: prev: {
+          # TODO: move kernel to NUR
+          linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
+          linux_latest = final.callPackage ./overlays/kernel.nix {
+            kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
+          };
+          firefox = final.firefox-bin.override { forceWayland = true; };
+          firmwareLinuxNonfreeGit = final.callPackage ./overlays/firmware.nix { };
+          slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
+        };
       };
-      firefox = final.firefox-bin.override { forceWayland = true; };
-      firmwareLinuxNonfreeGit = final.callPackage ./overlays/firmware.nix { };
-      slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
-    };
-
-    packages.x86_64-linux = {
-      linux_latest = with nixpkgs.legacyPackages.x86_64-linux; callPackage ./overlays/kernel.nix {
-        kernelPatches = [ kernelPatches.bridge_stp_helper kernelPatches.request_key_helper ];
-      };
-    };
-
-  };
+    } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
+      let
+        pkgs = makeOpinionatedNixpkgs system [ self.overlays.nixps ];
+      in
+      {
+        packages = {
+          linux_latest = pkgs.linux_latest;
+        };
+      }
+    );
 }
