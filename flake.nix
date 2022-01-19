@@ -85,6 +85,7 @@
       {
         packages = {
           linux_latest = pkgs.linux_latest;
+          firmwareLinuxNonfreeGit = pkgs.firmwareLinuxNonfreeGit;
         };
       }
     );
