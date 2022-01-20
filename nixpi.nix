@@ -23,7 +23,11 @@
   networking = {
     hostName = "nixpi";
     firewall.enable = false;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
+    wireless.iwd.settings.General.UseDefaultInterface = true;
   };
   services.openssh.enable = true;
   system.stateVersion = "22.05";
