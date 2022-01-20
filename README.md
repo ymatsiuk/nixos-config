@@ -1,7 +1,7 @@
 # NixOS on Dell XPS 13
 
 Available combinations are:
-* [Wayland + sway on XPS 13 9310](https://github.com/ymatsiuk/nixos-config/tree/xps13/9310%2Fsway) (my current active setup)
+* [Wayland + sway on XPS 13 9310](https://github.com/ymatsiuk/nixos-config/tree/main) (my current active setup)
 * [Xorg + i3 on XPS 13 9310](https://github.com/ymatsiuk/nixos-config/tree/xps13/9310%2Fi3)
 * [Wayland + sway on XPS 13 9370](https://github.com/ymatsiuk/nixos-config/tree/xps13/9370%2Fsway)
 * [Xorg + i3 on XPS 13 9370](https://github.com/ymatsiuk/nixos-config/tree/xps13/9370%2Fi3)
