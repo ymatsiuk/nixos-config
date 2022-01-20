@@ -61,10 +61,16 @@
           system = "aarch64-linux";
           overlays = [ ];
           modules = [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
+            ./users.nix
+            ./sdimage.nix
             nixos-hardware.nixosModules.raspberry-pi-4
           ];
         };
+
+        # nix build ".#nixosConfigurations.nixpisdi"
+        nixpisdi = self.nixosConfigurations.nixpi.config.system.build.sdImage;
       };
       overlays = {
         nixps = final: prev: {
