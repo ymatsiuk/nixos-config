@@ -24,6 +24,7 @@ let
 in
 {
   sdImage = {
+    compressImage = false;
     populateFirmwareCommands = ''
       (cd ${pkgs.raspberrypifw}/share/raspberrypi/boot && cp bootcode.bin fixup*.dat start*.elf $NIX_BUILD_TOP/firmware/)
       # Add the config

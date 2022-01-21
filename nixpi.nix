@@ -3,6 +3,14 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
+    initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
+    loader = {
+      grub.enable = lib.mkDefault false;
+      generic-extlinux-compatible.enable = lib.mkDefault true;
+    };
+    extraModprobeConfig = ''
+      options cfg80211 ieee80211_regdom="NL"
+    '';
   };
   documentation.nixos.enable = false;
   environment = {
@@ -14,6 +22,11 @@
       NIXPKGS_ALLOW_UNFREE = "1";
     };
   };
+  hardware.firmware = with pkgs; [
+    firmwareLinuxNonfreeGit
+    sof-firmware
+    wireless-regdb
+  ];
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -21,7 +34,6 @@
     };
   };
   networking = {
-    hostName = "nixpi";
     firewall.enable = false;
     networkmanager = {
       enable = true;

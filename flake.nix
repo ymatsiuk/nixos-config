@@ -7,17 +7,16 @@
     flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, flake-utils, nixos-hardware }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport, flake-utils }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
           inherit system overlays;
-          config = { allowUnfree = true; };
+          config.allowUnfree = true;
         };
       makeOpinionatedNixosConfig = { system, modules, overlays }:
         let
@@ -57,22 +56,44 @@
           ];
         };
 
-        nixpi = makeOpinionatedNixosConfig {
+        nixpi4 = makeOpinionatedNixosConfig {
           system = "aarch64-linux";
-          overlays = [ ];
+          overlays = [
+            self.overlays.fw
+          ];
           modules = [
+            { networking.hostName = "nixpi4"; }
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
             ./users.nix
             ./sdimage.nix
-            nixos-hardware.nixosModules.raspberry-pi-4
           ];
         };
 
-        # nix build ".#nixosConfigurations.nixpisdi"
-        nixpisdi = self.nixosConfigurations.nixpi.config.system.build.sdImage;
+        nixpi3 = makeOpinionatedNixosConfig {
+          system = "aarch64-linux";
+          overlays = [
+            self.overlays.fw
+          ];
+          modules = [
+            { networking.hostName = "nixpi3"; }
+            { boot.loader.raspberryPi = { enable = true; version = 3; uboot.enable = true; }; }
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
+            ./nixpi.nix
+            ./users.nix
+            ./sdimage.nix
+          ];
+        };
+
+        # nix build ".#nixosConfigurations.nixpisdi4"
+        nixpisdi4 = self.nixosConfigurations.nixpi4.config.system.build.sdImage;
+        # nix build ".#nixosConfigurations.nixpisdi3"
+        nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
+        fw = final: prev: {
+          firmwareLinuxNonfreeGit = final.callPackage ./overlays/firmware.nix { };
+        };
         nixps = final: prev: {
           # TODO: move kernel to NUR
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
@@ -84,15 +105,17 @@
           slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
         };
       };
-    } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
-        pkgs = makeOpinionatedNixpkgs system [ self.overlays.nixps ];
-      in
-      {
-        packages = {
-          linux_latest = pkgs.linux_latest;
-          firmwareLinuxNonfreeGit = pkgs.firmwareLinuxNonfreeGit;
-        };
-      }
-    );
+    } // flake-utils.lib.eachSystem
+      [ "x86_64-linux" "aarch64-linux" ]
+      (system:
+        let
+          pkgs = makeOpinionatedNixpkgs system [ self.overlays.nixps ];
+        in
+        {
+          packages = {
+            linux_latest = pkgs.linux_latest;
+            firmwareLinuxNonfreeGit = pkgs.firmwareLinuxNonfreeGit;
+          };
+        }
+      );
 }
