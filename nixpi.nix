@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
     loader = {
       grub.enable = lib.mkDefault false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
@@ -22,17 +20,15 @@
       NIXPKGS_ALLOW_UNFREE = "1";
     };
   };
-  hardware.firmware = with pkgs; [
-    firmwareLinuxNonfreeGit
-    sof-firmware
-    wireless-regdb
-  ];
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "nl_NL.UTF-8";
     };
   };
+  hardware.firmware = [
+    pkgs.wireless-regdb
+  ];
   networking = {
     firewall.enable = false;
     networkmanager = {
@@ -42,6 +38,9 @@
     wireless.iwd.settings.General.UseDefaultInterface = true;
   };
   services.openssh.enable = true;
+  swapDevices = [
+    { device = "/swapfile"; size = 2048; }
+  ];
   system.stateVersion = "22.05";
   time.timeZone = "Europe/Amsterdam";
 }
