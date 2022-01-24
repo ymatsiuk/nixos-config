@@ -46,7 +46,7 @@ in
           { block = "backlight"; }
           { block = "temperature"; driver = "sysfs"; collapsed = false; format = "{average}"; }
           { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
-          { block = "battery"; driver = "upower"; }
+          { block = "battery"; driver = "upower"; device = "DisplayDevice"; }
           { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
         ];
         settings = {
