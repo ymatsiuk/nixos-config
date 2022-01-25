@@ -3,8 +3,8 @@
   boot = {
     cleanTmpDir = true;
     loader = {
-      grub.enable = lib.mkDefault false;
-      generic-extlinux-compatible.enable = lib.mkDefault true;
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
     };
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="NL"
@@ -26,8 +26,9 @@
       LC_TIME = "nl_NL.UTF-8";
     };
   };
-  hardware.firmware = [
-    pkgs.wireless-regdb
+  hardware.firmware = with pkgs; [
+    linux-firmware-git
+    wireless-regdb
   ];
   networking = {
     firewall.enable = false;

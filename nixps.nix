@@ -58,7 +58,7 @@
   };
 
   hardware.firmware = with pkgs; [
-    firmwareLinuxNonfreeGit
+    linux-firmware-git
     sof-firmware
     wireless-regdb
   ];

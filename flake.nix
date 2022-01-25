@@ -15,8 +15,12 @@
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
-          inherit system overlays;
+          inherit system;
           config.allowUnfree = true;
+          overlays = [
+            self.overlays.fw
+            self.overlays.kernel
+          ] ++ overlays;
         };
       makeOpinionatedNixosConfig = { system, modules, overlays }:
         let
@@ -43,8 +47,6 @@
         nixps = makeOpinionatedNixosConfig {
           system = "x86_64-linux";
           overlays = [
-            self.overlays.fw
-            self.overlays.kernel
             self.overlays.wayland
             flexport.overlay
             nur.overlay
@@ -60,14 +62,8 @@
 
         nixpi4 = makeOpinionatedNixosConfig {
           system = "aarch64-linux";
-          overlays = [
-            # rpi kernel module workaround
-            (final: super: {
-              makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
-            })
-          ];
+          overlays = [ ];
           modules = [
-            ({ pkgs, ... }: { boot.kernelPackages = pkgs.linuxPackages_rpi4; })
             { networking.hostName = "nixpi4"; }
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
@@ -78,22 +74,9 @@
 
         nixpi3 = makeOpinionatedNixosConfig {
           system = "aarch64-linux";
-          overlays = [
-            # rpi kernel module workaround
-            (final: super: {
-              makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
-            })
-          ];
+          overlays = [ ];
           modules = [
-            ({ pkgs, ... }: { boot.kernelPackages = pkgs.linuxPackages_rpi3; })
-            {
-              boot.loader.raspberryPi = {
-                enable = true;
-                version = 3;
-                uboot.enable = true;
-              };
-              networking.hostName = "nixpi3";
-            }
+            { networking.hostName = "nixpi3"; }
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
             ./users.nix
@@ -108,29 +91,15 @@
       };
       overlays = {
         fw = final: prev: {
-          firmwareLinuxNonfreeGit = final.callPackage ./overlays/firmware.nix { };
+          linux-firmware-git = final.callPackage ./overlays/firmware.nix { };
         };
         kernel = final: prev: {
-          # TODO: move kernel to NUR
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-          # linux_latest = final.callPackage ./overlays/kernel.nix {
-          #   kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
-          # };
         };
         wayland = final: prev: {
           firefox = final.firefox-bin.override { forceWayland = true; };
           slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
         };
       };
-    } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
-        pkgs = makeOpinionatedNixpkgs system [ self.overlays.fw self.overlays.kernel ];
-      in
-      {
-        packages = {
-          linux_latest = pkgs.linux_latest;
-          firmwareLinuxNonfreeGit = pkgs.firmwareLinuxNonfreeGit;
-        };
-      }
-    );
+    };
 }

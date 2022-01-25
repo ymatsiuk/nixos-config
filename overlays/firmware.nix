@@ -1,8 +1,8 @@
-{ firmwareLinuxNonfree
+{ linux-firmware
 , fetchgit
 }:
-firmwareLinuxNonfree.overrideAttrs (oldAttrs: rec {
-  version = "main";
+linux-firmware.overrideAttrs (oldAttrs: rec {
+  version = "latest";
   outputHash = "sha256-npcSuoAVanRja/8jagsveVjLjjM9p2xKRj5kdWmxEUs=";
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
