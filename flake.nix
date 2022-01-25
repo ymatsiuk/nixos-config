@@ -113,9 +113,9 @@
         kernel = final: prev: {
           # TODO: move kernel to NUR
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-          linux_latest = final.callPackage ./overlays/kernel.nix {
-            kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
-          };
+          # linux_latest = final.callPackage ./overlays/kernel.nix {
+          #   kernelPatches = [ final.kernelPatches.bridge_stp_helper final.kernelPatches.request_key_helper ];
+          # };
         };
         wayland = final: prev: {
           firefox = final.firefox-bin.override { forceWayland = true; };
