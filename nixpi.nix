@@ -27,7 +27,6 @@
     };
   };
   hardware.firmware = with pkgs; [
-    linux-firmware-git
     wireless-regdb
   ];
   networking = {

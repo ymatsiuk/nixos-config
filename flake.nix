@@ -18,7 +18,6 @@
           inherit system;
           config.allowUnfree = true;
           overlays = [
-            self.overlays.fw
             self.overlays.kernel
           ] ++ overlays;
         };
@@ -90,9 +89,6 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        fw = final: prev: {
-          linux-firmware-git = final.callPackage ./overlays/firmware.nix { };
-        };
         kernel = final: prev: {
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
         };
