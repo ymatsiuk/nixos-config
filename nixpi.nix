@@ -1,5 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, modulesPath, ... }:
 {
+  imports = [
+    "${modulesPath}/installer/sd-card/sd-image.nix"
+    ./users.nix
+    ./sdimage.nix
+  ];
+
   boot = {
     cleanTmpDir = true;
     loader = {
@@ -41,6 +47,5 @@
   swapDevices = [
     { device = "/swapfile"; size = 2048; }
   ];
-  system.stateVersion = "22.05";
   time.timeZone = "Europe/Amsterdam";
 }

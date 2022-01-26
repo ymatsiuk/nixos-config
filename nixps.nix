@@ -5,7 +5,6 @@
       ./boot.nix
       ./fonts.nix
       ./greetd.nix
-      ./hardware-configuration.nix
       ./opengl.nix
       ./pipewire.nix
       ./users.nix
@@ -20,12 +19,6 @@
     # fix iwd race by disabling iface management
     wireless.iwd.settings.General.UseDefaultInterface = true;
   };
-
-  # Debug iwd
-  systemd.services.iwd.serviceConfig.ExecStart = [
-    ""
-    "${pkgs.iwd}/libexec/iwd -d"
-  ];
 
   time.timeZone = "Europe/Amsterdam";
   i18n = {
@@ -46,29 +39,33 @@
     };
   };
 
-
-  hardware.bluetooth = {
-    enable = true;
-    # only available in bluez>5.61
-    settings = {
-      General = {
-        Experimental = true;
-      };
-    };
+  hardware = {
+    bluetooth = { enable = true; settings = { General = { Experimental = true; }; }; };
+    cpu.intel.updateMicrocode = true;
+    firmware = with pkgs; [ linux-firmware sof-firmware wireless-regdb ];
+    video.hidpi.enable = true;
   };
 
-  hardware.firmware = with pkgs; [
-    linux-firmware
-    sof-firmware
-    wireless-regdb
-  ];
+  powerManagement.cpuFreqGovernor = "powersave";
 
   programs.light.enable = true;
-  programs.seahorse.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures = { base = true; gtk = true; };
-    extraPackages = with pkgs; [ ];
+    extraPackages = with pkgs; [
+      capitaine-cursors #sway/gtk dep
+      dmenu-wayland #sway dep
+      gsimplecal #i3status-rust dep
+      light #sway dep
+      pavucontrol #i3status-rust dep
+      playerctl #sway dep
+      pulseaudio #i3status-rust dep
+      sway-contrib.grimshot #sway dep
+      swayidle #sway dep
+      swaylock #sway dep
+      wf-recorder #sway
+      wl-clipboard #sway dep
+    ];
   };
 
   security.rtkit.enable = true;
@@ -81,8 +78,6 @@
 
   sound.enable = true;
 
-  system.stateVersion = "22.05";
-
   virtualisation.podman.enable = true;
   xdg.portal = {
     enable = true;
@@ -92,4 +87,18 @@
     ];
     gtkUsePortal = true;
   };
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/bcde03fe-099f-4d2f-8019-5d56bb72c347";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/60D0-040B";
+      fsType = "vfat";
+    };
+  };
+  swapDevices = [{
+    device = "/dev/disk/by-uuid/c96e5a66-6a1b-4f8f-b504-c3a0d56ad19b";
+  }];
 }

@@ -1,13 +1,21 @@
 { pkgs, ... }:
 let
   a2dpIsActive = pkgs.writeShellScript "a2dpIsActive.sh" ''
-    ${pkgs.pulseaudio}/bin/pactl list sinks short | ${pkgs.gnugrep}/bin/egrep -o "bluez_output[[:alnum:]._]+.a2dp-sink"
+    pactl list sinks short | egrep -o "bluez_output[[:alnum:]._]+.a2dp-sink"
   '';
   bluezCard = pkgs.writeShellScript "bluezCard.sh" ''
-    ${pkgs.pulseaudio}/bin/pactl list cards short | ${pkgs.gnugrep}/bin/egrep -o "bluez_card[[:alnum:]._]+"
+    pactl list cards short | egrep -o "bluez_card[[:alnum:]._]+"
   '';
   setProfile = pkgs.writeShellScript "setProfile.sh" ''
-    ${pkgs.pulseaudio}/bin/pactl set-card-profile $(${bluezCard}) $1
+    pactl set-card-profile $(${bluezCard}) $1
+  '';
+  checkNixosUpdates = pkgs.writeShellScript "checkUpdates.sh" ''
+    UPDATE='{"icon":"upd","state":"Info", "text": "Yes"}'
+    NO_UPDATE='{"icon":"noupd","state":"Good", "text": "No"}'
+    GITHUB_URL="https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable"
+    CURRENT_REVISION=$(nixos-version --revision)
+    REMOTE_REVISION=$(curl -s $GITHUB_URL | jq '.object.sha' -r )
+    [ $CURRENT_REVISION == $REMOTE_REVISION ] && echo $NO_UPDATE || echo $UPDATE
   '';
 in
 {
@@ -18,21 +26,13 @@ in
         blocks = [
           {
             block = "custom";
-            command = "echo '{\"icon\": \"tux\", \"text\": \"'$(${pkgs.coreutils}/bin/uname -r)'\"}'";
+            command = "echo '{\"icon\": \"tux\", \"text\": \"'$(uname -r)'\"}'";
             interval = "once";
             json = true;
           }
-          {
-            block = "custom";
-            command = "[ $(nixos-version --revision) != $(curl -s -m 0.5 https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable | jq '.object.sha' -r ) ] && echo '{\"icon\":\"upd\",\"state\":\"Info\", \"text\": \"Yes\"}' || echo '{\"icon\":\"noupd\",\"state\":\"Good\", \"text\": \"No\"}'";
-            interval = 300;
-            json = true;
-          }
+          { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
-          {
-            block = "bluetooth";
-            mac = "CC:98:8B:93:08:1F";
-          }
+          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; }
           {
             block = "toggle";
             text = "A2DP/HSP";
@@ -45,9 +45,9 @@ in
           { block = "net"; format = "{signal_strength}"; }
           { block = "backlight"; }
           { block = "temperature"; driver = "sysfs"; collapsed = false; format = "{average}"; }
-          { block = "sound"; driver = "pulseaudio"; on_click = "${pkgs.pavucontrol}/bin/pavucontrol"; }
+          { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
           { block = "battery"; driver = "upower"; device = "DisplayDevice"; }
-          { block = "time"; on_click = "${pkgs.gsimplecal}/bin/gsimplecal"; }
+          { block = "time"; on_click = "gsimplecal"; }
         ];
         settings = {
           theme = {

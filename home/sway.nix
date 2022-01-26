@@ -1,8 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
-  lockCmd = "${pkgs.swaylock-effects}/bin/swaylock --daemonize --screenshots --indicator --effect-pixel 10";
-  idleCmd = ''${pkgs.swayidle}/bin/swayidle -w \
+  lockCmd = ''swaylock --daemonize --ignore-empty-password --color "#3c3836"'';
+  idleCmd = ''swayidle -w \
     timeout 300 "${lockCmd}" \
     timeout 600 "swaymsg 'output * dpms off'" \
     resume "swaymsg 'output * dpms on'" \
@@ -11,10 +11,8 @@ let
   gtkSettings = import ./gtk.nix { inherit pkgs; };
   gnomeSchema = "org.gnome.desktop.interface";
   systemdRun = { pkg, bin ? pkg.pname, args ? "" }: ''
-    ${pkgs.systemd}/bin/systemd-run --user --scope --collect --quiet \
-    --unit=${bin}-$(${pkgs.systemd}/bin/systemd-id128 new) \
-    ${pkgs.systemd}/bin/systemd-cat --identifier=${bin} \
-    ${lib.makeBinPath [ pkg ]}/${bin} ${args}
+    systemd-run --user --scope --collect --quiet --unit=${bin}-$($systemd-id128 new) \
+    systemd-cat --identifier=${bin} ${lib.makeBinPath [ pkg ]}/${bin} ${args}
   '';
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
     ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
@@ -35,8 +33,8 @@ in
         names = [ "Iosevka" ];
       };
       modifier = "Mod4";
-      menu = "${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i";
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      menu = "dmenu-wl_run -i";
+      terminal = "alacritty";
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;
@@ -44,19 +42,17 @@ in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
-          "${mod}+Shift+b" = "exec ${systemdRun { pkg = pkgs.bluejeans-gui; } }";
-          "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox"; } }";
-          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slackWayland;} }";
-          "XF86AudioPlay" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "play-pause";} }";
-          "XF86AudioNext" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "next";} }";
-          "XF86AudioPrev" = "exec ${systemdRun { pkg = pkgs.playerctl; args = "previous";} }";
-          "XF86AudioRaiseVolume" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-volume @DEFAULT_SINK@ +5%";} }";
-          "XF86AudioLowerVolume" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-volume @DEFAULT_SINK@ -5%";} }";
-          "XF86AudioMute" = "exec ${systemdRun { pkg = pkgs.pulseaudioFull; bin = "pactl"; args = "set-sink-mute @DEFAULT_SINK@ toggle";} }";
-          "XF86MonBrightnessDown" = "exec ${systemdRun { pkg = pkgs.light; args = "-U 5%";} }";
-          "XF86MonBrightnessUp" = "exec ${systemdRun { pkg = pkgs.light; args = "-A 5%";} }";
-          "--release Print" = "exec ${systemdRun { pkg = pkgs.sway-contrib.grimshot; args = "--notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";} }";
-          "--release ${mod}+Print" = "exec ${systemdRun { pkg = pkgs.sway-contrib.grimshot; args = "--notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";} }";
+          "${mod}+Shift+f" = "exec firefox";
+          "XF86AudioPlay" = "exec playerctl play-pause";
+          "XF86AudioNext" = "exec playerctl next";
+          "XF86AudioPrev" = "exec playerctl previous";
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86MonBrightnessDown" = "exec light -U 5%";
+          "XF86MonBrightnessUp" = "exec light -A 5%";
+          "--release Print" = "exec grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "--release ${mod}+Print" = "exec grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
         };
       colors = {
         focused = {
@@ -97,7 +93,7 @@ in
       };
       bars = [
         {
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
+          statusCommand = "i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           fonts = {
             names = [ "Iosevka" ];
             size = 10.0;
@@ -147,27 +143,23 @@ in
         hideEdgeBorders = "smart";
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
-          { command = "floating enable"; criteria = { app_id = "mpv"; }; }
-          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "^(?i)firefox$"; }; }
+          { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
+          { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
           { command = "floating enable, move scratchpad"; criteria = { app_id = "Appgate SDP"; }; }
+          { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
-          # browser screen sharing
-          { command = "inhibit_idle visible, floating enable"; criteria = { title = "(is sharing your screen)|(Sharing Indicator)|(Slack call)"; }; }
           # browser zoom|meet|bluejeans
-          { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans Network)|(Meet)|(Zoom Meeting)"; }; }
-          # meeting apps
-          { command = "floating enable, inhibit_idle visible, move container to workspace 5"; criteria = { class = "bluejeans-v2"; }; }
+          { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans)|(Meet)|(Zoom Meeting)"; }; }
+          { command = "inhibit_idle visible, floating enable"; criteria = { title = "(Sharing Indicator)"; }; }
         ];
       };
       startup = [
+        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${idleCmd}"; }
-        { command = "${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${importGsettings}"; always = true; }
-        { command = "${pkgs.alacritty}/bin/alacritty"; }
-        { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
-        { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
-        { command = "${systemdRun { pkg = pkgs.slackWayland;} }"; }
+        { command = "alacritty"; }
+        { command = "appgate"; }
+        { command = "firefox"; }
       ];
     };
     extraConfig = ''

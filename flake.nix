@@ -37,6 +37,7 @@
               nix.package = pkgs.nixUnstable;
               nix.registry.nixpkgs.flake = nixpkgs;
               nixpkgs = { inherit pkgs; };
+              system.stateVersion = "22.05";
             }
           ] ++ modules;
         };
@@ -46,7 +47,6 @@
         nixps = makeOpinionatedNixosConfig {
           system = "x86_64-linux";
           overlays = [
-            self.overlays.wayland
             flexport.overlay
             nur.overlay
           ];
@@ -64,10 +64,7 @@
           overlays = [ ];
           modules = [
             { networking.hostName = "nixpi4"; }
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
-            ./users.nix
-            ./sdimage.nix
           ];
         };
 
@@ -76,10 +73,7 @@
           overlays = [ ];
           modules = [
             { networking.hostName = "nixpi3"; }
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
             ./nixpi.nix
-            ./users.nix
-            ./sdimage.nix
           ];
         };
 
@@ -91,10 +85,6 @@
       overlays = {
         kernel = final: prev: {
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-        };
-        wayland = final: prev: {
-          firefox = final.firefox-bin.override { forceWayland = true; };
-          slackWayland = final.callPackage ./overlays/slack.nix { forceWayland = true; enablePipewire = true; };
         };
       };
     };

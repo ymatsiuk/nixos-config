@@ -12,12 +12,4 @@
     ./home/sway.nix
   ];
   xdg.userDirs.enable = true;
-  home.packages = with pkgs;[
-    capitaine-cursors #sway/gtk dep
-    iw #i3status-rust dep
-    pulseaudio #i3status-rust dep
-    slackWayland
-    wf-recorder #sway
-    wl-clipboard #sway dep
-  ];
 }

@@ -44,4 +44,5 @@
     rubyPackages.solargraph
     terraform-ls
   ];
+  home.stateVersion = "22.05";
 }
