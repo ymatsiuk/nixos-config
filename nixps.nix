@@ -8,6 +8,8 @@
       ./opengl.nix
       ./pipewire.nix
       ./users.nix
+
+      ./zsh.nix
     ];
 
   networking = {
