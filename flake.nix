@@ -2,7 +2,6 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
     flexport.inputs.nixpkgs.follows = "nixpkgs";
     flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -11,7 +10,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, flake-utils }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -28,16 +27,13 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            ./common.nix
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.ymatsiuk = import ./hm-cli.nix;
               nix.extraOptions = "experimental-features = nix-command flakes";
               nix.package = pkgs.nixUnstable;
               nix.registry.nixpkgs.flake = nixpkgs;
               nixpkgs = { inherit pkgs; };
-              system.stateVersion = "22.05";
             }
           ] ++ modules;
         };
@@ -52,7 +48,7 @@
           ];
           modules = [
             ./nixps.nix
-            { home-manager.users.ymatsiuk = import ./hm-gui.nix; }
+            { networking.hostName = "nixps"; }
             flexport.nixosModules.appgate-sdp
             flexport.nixosModules.ca
             flexport.nixosModules.tctl

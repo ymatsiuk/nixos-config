@@ -7,46 +7,15 @@
       ./greetd.nix
       ./opengl.nix
       ./pipewire.nix
-      ./users.nix
-
-      ./neovim.nix
-      ./zsh.nix
     ];
-
-  networking = {
-    hostName = "nixps";
-    firewall.enable = false;
-    networkmanager.enable = true;
-    networkmanager.wifi.backend = "iwd";
-    useDHCP = false;
-    # fix iwd race by disabling iface management
-    wireless.iwd.settings.General.UseDefaultInterface = true;
-  };
-
-  time.timeZone = "Europe/Amsterdam";
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_TIME = "nl_NL.UTF-8";
-    };
-  };
-
-  environment = {
-    shells = [ pkgs.zsh ];
-    pathsToLink = [ "/libexec" "/share/zsh" ];
-    variables = {
-      LPASS_AGENT_TIMEOUT = "0";
-      MANPAGER = "nvim +Man!";
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
-  };
 
   hardware = {
     bluetooth = { enable = true; settings = { General = { Experimental = true; }; }; };
     cpu.intel.updateMicrocode = true;
-    firmware = with pkgs; [ linux-firmware sof-firmware wireless-regdb ];
     video.hidpi.enable = true;
   };
+
+  home-manager.users.ymatsiuk = import ./hm-gui.nix;
 
   powerManagement.cpuFreqGovernor = "powersave";
 
@@ -80,7 +49,6 @@
 
   sound.enable = true;
 
-  virtualisation.podman.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
