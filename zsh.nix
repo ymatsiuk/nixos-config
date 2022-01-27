@@ -20,7 +20,6 @@ in
     histSize = 10000;
     syntaxHighlighting.enable = true;
     setOptions = [
-      "extendedglob"
       "incappendhistory"
       "sharehistory"
       "histignoredups"
