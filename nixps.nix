@@ -9,6 +9,7 @@
       ./pipewire.nix
       ./users.nix
 
+      ./neovim.nix
       ./zsh.nix
     ];
 
@@ -36,7 +37,6 @@
     variables = {
       LPASS_AGENT_TIMEOUT = "0";
       MANPAGER = "nvim +Man!";
-      EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
   };

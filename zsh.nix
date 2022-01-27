@@ -50,8 +50,6 @@ in
       which starship >/dev/null && eval "$(starship init zsh)"
     '';
     shellAliases = {
-      vi = "${pkgs.neovim}/bin/nvim";
-      vim = "${pkgs.neovim}/bin/nvim";
       ls = "${pkgs.exa}/bin/exa --group-directories-first";
       tree = "${pkgs.exa}/bin/exa --tree";
       flexpass = "${pkgs.libsecret}/bin/secret-tool lookup lpass flexport | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
