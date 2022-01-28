@@ -17,7 +17,7 @@
           inherit system;
           config.allowUnfree = true;
           overlays = [
-            self.overlays.kernel
+            self.overlays.common
           ] ++ overlays;
         };
       makeOpinionatedNixosConfig = { system, modules, overlays }:
@@ -79,8 +79,9 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        kernel = final: prev: {
+        common = final: prev: {
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
+          firefox = final.firefox-bin.override { forceWayland = true; };
         };
       };
     };

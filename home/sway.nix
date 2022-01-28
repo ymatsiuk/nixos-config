@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  lockCmd = ''swaylock --daemonize --ignore-empty-password --color "#3c3836"'';
+  lockCmd = "swaylock --daemonize --ignore-empty-password --color \"#3c3836\"";
   idleCmd = ''swayidle -w \
     timeout 300 "${lockCmd}" \
     timeout 600 "swaymsg 'output * dpms off'" \
@@ -11,7 +11,7 @@ let
   gtkSettings = import ./gtk.nix { inherit pkgs; };
   gnomeSchema = "org.gnome.desktop.interface";
   systemdRun = { pkg, bin ? pkg.pname, args ? "" }: ''
-    systemd-run --user --scope --collect --quiet --unit=${bin}-$($systemd-id128 new) \
+    systemd-run --user --scope --collect --quiet --unit=${bin} \
     systemd-cat --identifier=${bin} ${lib.makeBinPath [ pkg ]}/${bin} ${args}
   '';
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
@@ -42,7 +42,7 @@ in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
-          "${mod}+Shift+f" = "exec firefox";
+          "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
@@ -158,8 +158,8 @@ in
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
-        { command = "appgate"; }
-        { command = "firefox"; }
+        { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
+        { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
       ];
     };
     extraConfig = ''
@@ -168,3 +168,4 @@ in
     '';
   };
 }
+

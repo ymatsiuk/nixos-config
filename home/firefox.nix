@@ -2,7 +2,6 @@
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin.override { forceWayland = true; };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       lastpass-password-manager
       decentraleyes
