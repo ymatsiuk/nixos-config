@@ -7,10 +7,12 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -33,6 +35,12 @@
               nix.extraOptions = "experimental-features = nix-command flakes";
               nix.package = pkgs.nixUnstable;
               nix.registry.nixpkgs.flake = nixpkgs;
+              nix.settings.trusted-public-keys = [
+                "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+              ];
+              nix.settings.substituters = [
+                "https://nixpkgs-wayland.cachix.org/"
+              ];
               nixpkgs = { inherit pkgs; };
             }
           ] ++ modules;
@@ -44,6 +52,7 @@
           system = "x86_64-linux";
           overlays = [
             flexport.overlay
+            nixpkgs-wayland.overlay
             nur.overlay
           ];
           modules = [
