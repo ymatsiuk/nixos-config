@@ -2,6 +2,7 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
     flexport.inputs.nixpkgs.follows = "nixpkgs";
     flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -12,7 +13,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -54,6 +55,7 @@
             flexport.overlay
             nixpkgs-wayland.overlay
             nur.overlay
+            self.overlays.wayland
           ];
           modules = [
             ./nixps.nix
@@ -90,8 +92,32 @@
       overlays = {
         common = final: prev: {
           linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-          firefox = final.firefox-bin.override { forceWayland = true; };
+        };
+        wayland = final: prev: {
+          firefox = prev.firefox-bin.override { forceWayland = true; };
+          swaylock = prev.swaylock.override {
+            pam = prev.pam.overrideAttrs (_: {
+              patches = [
+                (prev.fetchpatch {
+                  name = "suid-wrapper-path.patch";
+                  url = "https://raw.githubusercontent.com/vcunat/nixpkgs/ffdadd3ef9167657657d60daf3fe0f1b3176402d/pkgs/os-specific/linux/pam/suid-wrapper-path.patch";
+                  sha256 = "sha256-Qn26iHqY9DQrVL3myRjUeL1PYPirJWY7R/RYYukW2Ds=";
+                })
+              ];
+            });
+          };
         };
       };
-    };
+    } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
+      let
+        pkgs = makeOpinionatedNixpkgs system [
+          self.overlays.wayland
+        ];
+      in
+      {
+        packages = {
+          swaylock = pkgs.swaylock;
+        };
+      }
+    );
 }
