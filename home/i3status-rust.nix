@@ -17,6 +17,9 @@ let
     REMOTE_REVISION=$(curl -s $GITHUB_URL | jq '.object.sha' -r )
     [ $CURRENT_REVISION == $REMOTE_REVISION ] && echo $NO_UPDATE || echo $UPDATE
   '';
+  kernel = pkgs.writeShellScript "uname.sh" ''
+    echo '{"icon": "tux", "text": "'$(uname -r)'"}'
+  '';
 in
 {
   programs.i3status-rust = {
@@ -24,12 +27,7 @@ in
     bars = {
       bottom = {
         blocks = [
-          {
-            block = "custom";
-            command = "echo '{\"icon\": \"tux\", \"text\": \"'$(uname -r)'\"}'";
-            interval = "once";
-            json = true;
-          }
+          { block = "custom"; command = kernel; json = true; interval = "once"; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
           { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; }
@@ -42,7 +40,7 @@ in
             interval = 5;
           }
           { block = "cpu"; format = "{utilization} {frequency}"; }
-          { block = "net"; format = "{signal_strength}"; }
+          { block = "net"; format = "{signal_strength}: {speed_up;K} {speed_down;K}"; }
           { block = "backlight"; }
           { block = "temperature"; driver = "sysfs"; collapsed = false; format = "{average}"; }
           { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
