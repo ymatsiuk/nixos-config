@@ -20,18 +20,18 @@ in
     histSize = 10000;
     syntaxHighlighting.enable = true;
     setOptions = [
-      "incappendhistory"
-      "sharehistory"
-      "histignoredups"
-      "histignorealldups"
-      "histignorespace"
-      "histexpiredupsfirst"
-      "histfcntllock"
-      "histreduceblanks"
-      "histallowclobber"
       "autocd"
       "cdablevars"
+      "histallowclobber"
+      "histexpiredupsfirst"
+      "histfcntllock"
+      "histignorealldups"
+      "histignoredups"
+      "histignorespace"
+      "histreduceblanks"
+      "incappendhistory"
       "nomultios"
+      "sharehistory"
     ];
     interactiveShellInit = ''
       export KEYTIMEOUT=1
@@ -57,7 +57,6 @@ in
       off-gh-token = "unset GITHUB_TOKEN";
       on-pd-token = "export PAGERDUTY_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --note PD_TOKEN`";
       off-pd-token = "unset PAGERDUTY_TOKEN";
-      nixdev = "${pkgs.nixUnstable}/bin/nix develop github:ymatsiuk/nixos-config -c zsh";
     };
   };
 }
