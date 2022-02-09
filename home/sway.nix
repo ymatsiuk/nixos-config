@@ -2,10 +2,10 @@
 
 let
   idleCmd = ''swayidle -w \
-    timeout 300 'swaylock --daemonize --ignore-empty-password --color #3c3836' \
+    timeout 300 'swaylock --daemonize --ignore-empty-password --color 3c3836' \
     timeout 600 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock --daemonize --ignore-empty-password --color #3c3836'
+    before-sleep 'swaylock --daemonize --ignore-empty-password --color 3c3836'
   '';
   gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
