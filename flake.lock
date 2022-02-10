@@ -72,6 +72,22 @@
         "type": "github"
       }
     },
+    "kernel": {
+      "locked": {
+        "lastModified": 1644906324,
+        "narHash": "sha256-20Di/wvWpTIUY/YzG3ibz2H9lwhYTuAIKhg872kn8nE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "7c09dc2d8a667ca8a669c03b072166fe14f35b71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1644420267,
@@ -129,6 +145,7 @@
         "flake-utils": "flake-utils",
         "flexport": "flexport",
         "home-manager": "home-manager",
+        "kernel": "kernel",
         "nixpkgs": "nixpkgs",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur"

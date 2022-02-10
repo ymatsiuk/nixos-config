@@ -8,19 +8,24 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    kernel.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils, kernel }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
           overlays = [
-            self.overlays.common
+            # use nixos-unstable-small as the most recent kernel source
+            (final: prev: {
+              linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
+              linux_latest = kernel.legacyPackages.${system}.linux_latest;
+            })
           ] ++ overlays;
         };
       makeOpinionatedNixosConfig = { system, modules, overlays }:
@@ -90,18 +95,13 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        common = final: prev: {
-          linuxPackages = final.recurseIntoAttrs (final.linuxPackagesFor final.linux_latest);
-        };
         wayland = final: prev: {
           firefox = prev.firefox-bin.override { forceWayland = true; };
         };
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
-        pkgs = makeOpinionatedNixpkgs system [
-          self.overlays.wayland
-        ];
+        pkgs = makeOpinionatedNixpkgs system [ ];
       in
       {
         packages = { };
