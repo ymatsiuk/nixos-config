@@ -10,8 +10,8 @@ let
     pactl set-card-profile $(${bluezCard}) $1
   '';
   checkNixosUpdates = pkgs.writeShellScript "checkUpdates.sh" ''
-    UPDATE='{"icon":"upd","state":"Info", "text": "Yes"}'
-    NO_UPDATE='{"icon":"noupd","state":"Good", "text": "No"}'
+    UPDATE='{"icon":"upd","state":"Info", "text": ""}'
+    NO_UPDATE='{"icon":"noupd","state":"Good", "text": ""}'
     GITHUB_URL="https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixos-unstable"
     CURRENT_REVISION=$(nixos-version --revision)
     REMOTE_REVISION=$(curl -s $GITHUB_URL | jq '.object.sha' -r )
