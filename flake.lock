@@ -72,22 +72,6 @@
         "type": "github"
       }
     },
-    "kernel": {
-      "locked": {
-        "lastModified": 1644906324,
-        "narHash": "sha256-20Di/wvWpTIUY/YzG3ibz2H9lwhYTuAIKhg872kn8nE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "7c09dc2d8a667ca8a669c03b072166fe14f35b71",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1644420267,
@@ -100,6 +84,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-small": {
+      "locked": {
+        "lastModified": 1645036967,
+        "narHash": "sha256-M3n0pUl4f77mjy5SiiQIqhdQlymQFyPgK49dK/vQNf0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "4c999b91a5fdef78c71d22cefedd4eac34aff5a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -145,8 +145,8 @@
         "flake-utils": "flake-utils",
         "flexport": "flexport",
         "home-manager": "home-manager",
-        "kernel": "kernel",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-small": "nixpkgs-small",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur"
       }

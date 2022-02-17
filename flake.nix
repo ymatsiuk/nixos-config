@@ -8,13 +8,13 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    kernel.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils, kernel }:
+  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils, nixpkgs-small }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -24,7 +24,7 @@
             # use nixos-unstable-small as the most recent kernel source
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
-              linux_latest = kernel.legacyPackages.${system}.linux_latest;
+              linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
             })
           ] ++ overlays;
         };
