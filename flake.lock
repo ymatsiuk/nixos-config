@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641205782,
+        "narHash": "sha256-4jY7RCWUoZ9cKD8co0/4tFARpWB+57+r1bLLvXNJliY=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b7547d3eed6f32d06102ead8991ec52ab0a4f1a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1644229661,
@@ -38,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1644927644,
-        "narHash": "sha256-B5sluD5lqX4OTzMiTIAL4Y7uFMFk9Wu2pxIuCv48hqc=",
+        "lastModified": 1645697881,
+        "narHash": "sha256-/LIu8SjWdYkuNSY58nZQnb/Hp6ouhNOE5D5FfhkfRFU=",
         "ref": "main",
-        "rev": "09be61b4935a9347e7a68e7190ac8f4ee04f8ea8",
-        "revCount": 22,
+        "rev": "a2591ea288df648dbd18388815f91f179754f58e",
+        "revCount": 23,
         "type": "git",
         "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
       },
@@ -59,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645557328,
-        "narHash": "sha256-7PCAESO8HxuSk1hH1J2ld+kK6fugFqNd+vqIXSGz1ag=",
+        "lastModified": 1645628011,
+        "narHash": "sha256-iNZCTjJ63TN5oM6rx2f4H0zaCbXM/iup7UWtQuCuyTM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "838d40d61a91e3807836545c4b420572ab2d62eb",
+        "rev": "0b1745b4ef4c35ec5d554b176539730fcb5ec141",
         "type": "github"
       },
       "original": {
@@ -90,11 +106,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1645548382,
-        "narHash": "sha256-N97JIrL1HdF/ILkmznHWj9ojnybUT4QuCW+prnoyCeM=",
+        "lastModified": 1645678056,
+        "narHash": "sha256-P+J3DJmd7xjmH2SICbGrr3Ax0HhPnN3G/zSvqTPV7Vo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7c4a6c57b6590138f983be626d6b91dd16a53d25",
+        "rev": "9ec9d474e3cee47421e30a77a0cdc4f258662762",
         "type": "github"
       },
       "original": {
@@ -107,16 +123,17 @@
     "nixpkgs-wayland": {
       "inputs": {
         "cachix": "cachix",
+        "flake-compat": "flake-compat",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1645558817,
-        "narHash": "sha256-oD9JqJrJRCvW+SQK3c+2qM+CUJxRGKcdUzCWxp7AAuQ=",
+        "lastModified": 1645696980,
+        "narHash": "sha256-5cUWt3MgMEgISUTxaZ5cKiEoaMUsuw88M1Ay6VjR+8k=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "8f1316959b7b82fa4188c7ce3c75f9ff527df7a2",
+        "rev": "ba25e314a204b9e6afeae58fcee1baae3b6c3930",
         "type": "github"
       },
       "original": {
@@ -127,11 +144,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1645589295,
-        "narHash": "sha256-m+95uNcokKe9bA5x4MkyU7Sv7rd/UmIn2/pFsKtIfuU=",
+        "lastModified": 1645675667,
+        "narHash": "sha256-ZCRO9zrswTlH8Oa+4VnaDYSb4XfRJt7mGizZ51QvDLM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b03c1d9926068ec9b8b3277df08ec0a656d17f74",
+        "rev": "56d2eccbdd80d84139e35f48f9b272e7c704f8cc",
         "type": "github"
       },
       "original": {
