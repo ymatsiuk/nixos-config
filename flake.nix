@@ -3,8 +3,6 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    flexport.inputs.nixpkgs.follows = "nixpkgs";
-    flexport.url = "git+https://github.flexport.io/ymatsiuk/flexport-overlay.git?ref=main";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,7 +12,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flexport, nixpkgs-wayland, flake-utils, nixpkgs-small }:
+  outputs = { self, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -57,7 +55,6 @@
         nixps = makeOpinionatedNixosConfig {
           system = "x86_64-linux";
           overlays = [
-            flexport.overlay
             nixpkgs-wayland.overlay
             nur.overlay
             self.overlays.wayland
@@ -65,9 +62,6 @@
           modules = [
             ./nixps.nix
             { networking.hostName = "nixps"; }
-            flexport.nixosModules.appgate-sdp
-            flexport.nixosModules.ca
-            flexport.nixosModules.tctl
           ];
         };
 

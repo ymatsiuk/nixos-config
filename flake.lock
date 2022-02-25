@@ -47,27 +47,6 @@
         "type": "github"
       }
     },
-    "flexport": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1645697881,
-        "narHash": "sha256-/LIu8SjWdYkuNSY58nZQnb/Hp6ouhNOE5D5FfhkfRFU=",
-        "ref": "main",
-        "rev": "a2591ea288df648dbd18388815f91f179754f58e",
-        "revCount": 23,
-        "type": "git",
-        "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "https://github.flexport.io/ymatsiuk/flexport-overlay.git"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -160,7 +139,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "flexport": "flexport",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-small": "nixpkgs-small",

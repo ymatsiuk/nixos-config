@@ -41,7 +41,6 @@ in
         in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
-          "${mod}+Shift+a" = "exec ${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
@@ -144,8 +143,6 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
-          { command = "floating enable, move scratchpad"; criteria = { class = "Appgate SDP"; }; }
-          { command = "floating enable, move scratchpad"; criteria = { app_id = "Appgate SDP"; }; }
           { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           # browser zoom|meet|bluejeans
@@ -158,7 +155,6 @@ in
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
-        { command = "${systemdRun { pkg = pkgs.appgate-sdp; bin = "appgate";} }"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
       ];
     };

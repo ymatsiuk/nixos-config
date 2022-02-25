@@ -59,7 +59,6 @@ What's inside:
     * custom overlays:
       * `teleport-ent`
     * modules:
-      * `appgate-sdp` proprietary VPN client
       * `podman`
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
       * `greetd` (tuigreet)
