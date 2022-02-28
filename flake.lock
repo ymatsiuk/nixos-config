@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645746341,
-        "narHash": "sha256-j4fTWByYMGSSl0P7HEJQmbU/ifJtW25n/SoF6hgXN8c=",
+        "lastModified": 1645970334,
+        "narHash": "sha256-6nn4YF9bPtkxkB7bM6yJO3m//p3sGilxNQFjm1epLEM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "650cfe60f31f3d27ba869bf7db12ca8ded5f1d74",
+        "rev": "ea85f4b1fdf3f25cf97dc49f4a9ec4eafda2ea25",
         "type": "github"
       },
       "original": {
@@ -85,11 +85,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1645678056,
-        "narHash": "sha256-P+J3DJmd7xjmH2SICbGrr3Ax0HhPnN3G/zSvqTPV7Vo=",
+        "lastModified": 1646007876,
+        "narHash": "sha256-3vO/3q7LfCZAx3gNUC02b9my8Nxhr2Nr7+ZgqWGmJu0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9ec9d474e3cee47421e30a77a0cdc4f258662762",
+        "rev": "9783ef308da620a48a9849d977dd1dfdf7f9ba45",
         "type": "github"
       },
       "original": {
@@ -108,11 +108,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645727284,
-        "narHash": "sha256-xwi46ruR5z4THe967gzW74dQhPmlS5FWSiWuo9aYquY=",
+        "lastModified": 1645986418,
+        "narHash": "sha256-VC3IBSCXGbVEtDy8e6Tyq7RvsuVSenHxdpSMrjLqbWA=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "ddd6f194eed2779df5730e702cecda28bd8938df",
+        "rev": "dec674beac44fd03482f908ac21da56ed411f6cd",
         "type": "github"
       },
       "original": {
@@ -123,11 +123,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1645772197,
-        "narHash": "sha256-OoZVfnWV8CV6MH5AxLMJterUp2iaf1CYRSVb8MN0GUQ=",
+        "lastModified": 1646030478,
+        "narHash": "sha256-F0/0JsHFoyiWRsaKIgXMRQlU3gwgy/ny0w1+JwvU59c=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "fdbe6965f82f14561f1b0f1e800ad092799d5409",
+        "rev": "fd88d58938702d80168d42b706689735039ecf02",
         "type": "github"
       },
       "original": {
