@@ -5,7 +5,6 @@
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       lastpass-password-manager
       decentraleyes
-      okta-browser-plugin
       multi-account-containers
       ublock-origin
       https-everywhere
