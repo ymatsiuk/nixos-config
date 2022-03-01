@@ -33,7 +33,6 @@
     procps
     ripgrep
     ssm-session-manager-plugin #packer dep
-    teleport.client
     terraform
 
     gopls
