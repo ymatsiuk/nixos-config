@@ -12,6 +12,7 @@
   home.packages = with pkgs;[
     aws-vault
     awscli2
+    docker-compose
     exa
     fd
     fluxcd

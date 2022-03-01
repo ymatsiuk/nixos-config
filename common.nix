@@ -51,7 +51,7 @@
     users = {
       ymatsiuk = {
         description = "Yurii Matsiuk";
-        extraGroups = [ "ymatsiuk" "wheel" "audio" "video" "networkmanager" ];
+        extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" "ymatsiuk" ];
         shell = pkgs.zsh;
         home = "/home/ymatsiuk";
         isNormalUser = true;
