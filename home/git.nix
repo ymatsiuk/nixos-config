@@ -22,6 +22,12 @@
         signingKey = "0B95325581C4B57D";
         dirs = [ "~/git/yolt/" ];
       };
+      lightspeed = {
+        name = "Yurii Matsiuk";
+        email = "yurii.matsiuk@lightspeedhq.com";
+        signingKey = "D2324A995144F553";
+        dirs = [ "~/git/lightspeed/" ];
+      };
     };
 
     delta = {
