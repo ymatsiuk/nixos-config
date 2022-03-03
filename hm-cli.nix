@@ -33,8 +33,11 @@
     podman
     procps
     ripgrep
+    saml2aws
     ssm-session-manager-plugin #packer dep
     terraform
+    tmate
+    vault
 
     gopls
     rnix-lsp
