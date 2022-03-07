@@ -12,6 +12,7 @@
   home.packages = with pkgs;[
     aws-vault
     awscli2
+    awsvpnclient
     docker-compose
     exa
     fd

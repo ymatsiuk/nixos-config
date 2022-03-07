@@ -2,6 +2,8 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
+    awsvpnclient.url = "github:ymatsiuk/awsvpnclient";
+    awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -12,7 +14,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -58,6 +60,7 @@
             nixpkgs-wayland.overlay
             nur.overlay
             self.overlays.wayland
+            awsvpnclient.overlay
           ];
           modules = [
             ./nixps.nix
