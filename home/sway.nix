@@ -137,6 +137,10 @@ in
           tap = "enabled";
         };
       };
+      output = {
+        DP-1 = { pos = "0 0"; scale = "2"; };
+        eDP-1 = { pos = "0 1080"; scale = "2"; };
+      };
       window = {
         titlebar = false;
         hideEdgeBorders = "smart";
