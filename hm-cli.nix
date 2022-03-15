@@ -10,6 +10,7 @@
   programs.gpg.enable = true;
   programs.htop.enable = true;
   home.packages = with pkgs;[
+    aws-iam-authenticator
     aws-vault
     awscli2
     awsvpnclient
