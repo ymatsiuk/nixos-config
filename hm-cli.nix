@@ -14,6 +14,7 @@
     aws-vault
     awscli2
     awsvpnclient
+    boundary
     docker-compose
     exa
     fd
@@ -28,6 +29,7 @@
     kubernetes-helm
     kustomize
     lastpass-cli
+    minikube
     nixpkgs-fmt
     nixpkgs-review
     openssl
