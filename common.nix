@@ -38,8 +38,6 @@
       wifi.backend = "iwd";
     };
     useDHCP = false;
-    # fix iwd race by disabling iface management
-    wireless.iwd.settings.General.UseDefaultInterface = true;
   };
 
   system.stateVersion = "22.05";

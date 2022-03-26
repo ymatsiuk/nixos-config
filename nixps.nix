@@ -10,7 +10,7 @@
     ];
 
   hardware = {
-    bluetooth = { enable = true; settings = { General = { Experimental = true; }; }; };
+    bluetooth = { enable = true; settings.General.Experimental = true; };
     cpu.intel.updateMicrocode = true;
     video.hidpi.enable = true;
   };
