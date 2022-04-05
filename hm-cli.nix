@@ -15,7 +15,6 @@
     awscli2
     awsvpnclient
     boundary
-    docker-compose
     exa
     fd
     fluxcd
