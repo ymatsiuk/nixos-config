@@ -29,6 +29,8 @@
       dmenu-wayland #sway dep
       gsimplecal #i3status-rust dep
       light #sway dep
+      obs-studio
+      obs-studio-plugins.wlrobs
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
