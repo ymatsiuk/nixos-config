@@ -8,6 +8,7 @@
       multi-account-containers
       ublock-origin
       https-everywhere
+      bitwarden
     ];
     profiles = {
       default = {
