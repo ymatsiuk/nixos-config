@@ -43,6 +43,7 @@ in
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }";
           "${mod}+Shift+o" = "exec ${systemdRun { pkg = pkgs.obs-studio; bin = "obs";} }";
+          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack;} }";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
@@ -148,6 +149,7 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
+          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
           { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           # browser zoom|meet|bluejeans
@@ -161,6 +163,7 @@ in
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
+        { command = "${systemdRun { pkg = pkgs.slack;} }"; }
       ];
     };
     extraConfig = ''
