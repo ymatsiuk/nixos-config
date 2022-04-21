@@ -33,11 +33,36 @@
 
   networking = {
     firewall.enable = false;
-    networkmanager = {
-      enable = true;
-      wifi.backend = "iwd";
-    };
     useDHCP = false;
+    useNetworkd = true;
+    wireless.iwd.enable = true;
+  };
+
+  systemd.network = {
+    enable = true;
+    wait-online.anyInterface = true;
+    networks = {
+      "99-dhcp-wlan" = {
+        DHCP = "yes";
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        matchConfig.Type = "wlan";
+      };
+      "99-dhcp-eth" = {
+        DHCP = "yes";
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        matchConfig.Name = "eth*";
+      };
+    };
+  };
+
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    extraConfig = ''
+      DNSOverTLS=yes
+    '';
   };
 
   system.stateVersion = "22.05";
@@ -49,7 +74,7 @@
     users = {
       ymatsiuk = {
         description = "Yurii Matsiuk";
-        extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" "ymatsiuk" ];
+        extraGroups = [ "audio" "docker" "video" "wheel" "ymatsiuk" ];
         shell = pkgs.zsh;
         home = "/home/ymatsiuk";
         isNormalUser = true;
