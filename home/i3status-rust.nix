@@ -42,7 +42,7 @@ in
           { block = "cpu"; format = "{utilization} {frequency}"; }
           { block = "net"; format = "{signal_strength}: {speed_up;K} {speed_down;K}"; }
           { block = "backlight"; }
-          { block = "temperature"; driver = "sysfs"; collapsed = false; format = "{average}"; }
+          { block = "temperature"; collapsed = false; format = "{average}"; }
           { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
           { block = "battery"; driver = "upower"; device = "DisplayDevice"; }
           { block = "time"; on_click = "gsimplecal"; }
