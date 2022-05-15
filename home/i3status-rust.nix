@@ -19,6 +19,14 @@ let
   kernel = pkgs.writeShellScript "uname.sh" ''
     echo '{"icon": "tux", "text": "'$(uname -r)'"}'
   '';
+  sit = pkgs.writeShellScript "sit.sh" ''
+    ${pkgs.idasen-cli}/bin/idasen-cli restore sit 2>&1>/dev/null &
+    echo '{"icon":"sit","state":"Info","text":"sit"}'
+  '';
+  stand = pkgs.writeShellScript "stand.sh" ''
+    ${pkgs.idasen-cli}/bin/idasen-cli restore stand 2>&1>/dev/null &
+    echo '{"icon":"stand","state":"Info","text":"stand"}'
+  '';
 in
 {
   programs.i3status-rust = {
@@ -26,6 +34,7 @@ in
     bars = {
       bottom = {
         blocks = [
+          # { block = "custom"; cycle = [ stand sit ]; json = true; }
           { block = "custom"; command = kernel; json = true; interval = "once"; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
@@ -59,6 +68,8 @@ in
               tux = "";
               upd = "";
               noupd = "";
+              sit = "";
+              stand = "";
             };
           };
         };

@@ -12,9 +12,10 @@
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
+    idasen-cli.url = "github:typetetris/idasen-cli";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -25,6 +26,7 @@
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
+              idasen-cli = idasen-cli.packages.${system}.idasen-cli;
             })
           ] ++ overlays;
         };
