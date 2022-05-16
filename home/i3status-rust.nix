@@ -1,13 +1,12 @@
 { pkgs, ... }:
 let
   a2dpIsActive = pkgs.writeShellScript "a2dpIsActive.sh" ''
-    pactl list sinks short | egrep -o "bluez_output[[:alnum:]._]+.a2dp-sink"
-  '';
-  bluezCard = pkgs.writeShellScript "bluezCard.sh" ''
-    pactl list cards short | egrep -o "bluez_card[[:alnum:]._]+"
+    pw-metadata | egrep "default.audio.sink.*.bluez_output.CC_98_8B_93_08_1F.a2dp-sink"
   '';
   setProfile = pkgs.writeShellScript "setProfile.sh" ''
-    pactl set-card-profile $(${bluezCard}) $1
+    # pw-cli enum-params bluez_card.CC_98_8B_93_08_1F EnumProfile
+    # 260 -> headset-head-unit-msbc, 10 -> a2dp-sink-ldac
+    pw-cli s bluez_card.CC_98_8B_93_08_1F Profile "{ index: $1 }"
   '';
   checkNixosUpdates = pkgs.writeShellScript "checkUpdates.sh" ''
     UPDATE='{"icon":"upd","state":"Info", "text": ""}'
@@ -33,10 +32,10 @@ in
           { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; }
           {
             block = "toggle";
-            text = "A2DP/HSP";
+            text = "ldac";
             command_state = "${a2dpIsActive}";
-            command_on = "${setProfile} a2dp-sink-aptx_hd";
-            command_off = "${setProfile} headset-head-unit";
+            command_on = "${setProfile} 10";
+            command_off = "${setProfile} 260";
             interval = 5;
           }
           { block = "cpu"; format = "{utilization} {frequency}"; }
