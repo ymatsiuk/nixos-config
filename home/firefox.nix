@@ -21,6 +21,7 @@
           "layers.force-active" = true;
           "widget.wayland-dmabuf-vaapi.enabled" = true;
           "widget.content.allow-gtk-dark-theme" = false;
+          "privacy.webrtc.legacyGlobalIndicator" = false;
         };
       };
     };
