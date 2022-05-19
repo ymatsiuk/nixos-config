@@ -1,54 +1,54 @@
 {
   programs.git = {
     enable = true;
-    # delta.enable = true;
-    defaultProfile = "github";
-    profiles = {
-      github = {
-        name = "Yurii Matsiuk";
-        email = "ymatsiuk@users.noreply.github.com";
-        signingKey = "61302290298601AA";
-        dirs = [ "~/git/github/" "/etc/nixos/" ];
-      };
-      flexport = {
-        name = "Yurii Matsiuk";
-        email = "ymatsiuk@flexport.com";
-        signingKey = "6E06F90BDC44D975";
-        dirs = [ "~/git/flexport/" ];
-      };
-      ing = {
-        name = "Yurii Matsiuk";
-        email = "yurii.matsiuk@ing.com";
-        signingKey = "0B95325581C4B57D";
-        dirs = [ "~/git/yolt/" ];
-      };
-      lightspeed = {
-        name = "Yurii Matsiuk";
-        email = "yurii.matsiuk@lightspeedhq.com";
-        signingKey = "D2324A995144F553";
-        dirs = [ "~/git/lightspeed/" ];
-      };
-    };
-
     delta = {
       enable = true;
       options = {
-        features = "side-by-side";
+        side-by-side = true;
         syntax-theme = "none";
       };
     };
 
-    signing = { signByDefault = true; };
+    userName = "Yurii Matsiuk";
+    userEmail = "ymatsiuk@users.noreply.github.com";
+    signing.key = "61302290298601AA";
+    signing.signByDefault = true;
+    includes = [
+      {
+        condition = "gitdir:~/git/yolt/";
+        contents.user = {
+          email = "yurii.matsiuk@ing.com";
+          signingKey = "0B95325581C4B57D";
+        };
+      }
+      {
+        condition = "gitdir:~/git/flexport/";
+        contents.user = {
+          email = "ymatsiuk@flexport.com";
+          signingKey = "6E06F90BDC44D975";
+        };
+      }
+      {
+        condition = "gitdir:~/git/lightspeed/";
+        contents.user = {
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "D2324A995144F553";
+        };
+      }
+    ];
+
     extraConfig = {
-      pull = { rebase = false; };
-      fetch = { prune = true; };
-      credential = { helper = "lastpass"; };
+      credential.helper = "lastpass";
+      fetch.prune = true;
+      init.defaultBranch = "main";
+      pull.rebase = false;
       rebase = {
         autoStash = true;
         autoSquash = true;
         abbreviateCommands = true;
         missingCommitsCheck = "warn";
       };
+      url."https://github.com/".insteadOf = [ "gh:" "github:" ];
     };
   };
 }

@@ -4,7 +4,6 @@
   imports = [
     ./home/git.nix
     ./home/starship.nix
-    ./modules/git.nix
   ];
   programs.fzf.enable = true;
   programs.gpg.enable = true;
