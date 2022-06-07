@@ -21,6 +21,7 @@
     gnumake
     go
     golangci-lint
+    idasen-cli
     jq
     kind
     kubectl
