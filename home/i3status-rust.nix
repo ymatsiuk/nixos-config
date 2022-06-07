@@ -36,6 +36,7 @@ in
         blocks = [
           # { block = "custom"; cycle = [ stand sit ]; json = true; }
           { block = "custom"; command = kernel; json = true; interval = "once"; }
+          { block = "net"; hide_missing = true; hide_inactive = true; device = "tun0"; format = " "; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
           { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; }
