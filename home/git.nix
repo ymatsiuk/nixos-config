@@ -10,7 +10,7 @@
     };
 
     userName = "Yurii Matsiuk";
-    userEmail = "ymatsiuk@users.noreply.github.com";
+    userEmail = "24990891+ymatsiuk@users.noreply.github.com";
     signing.key = "61302290298601AA";
     signing.signByDefault = true;
     includes = [
