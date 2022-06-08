@@ -54,28 +54,29 @@ nixos-install
 
 What's inside:
 1. NixOS:
-    * latest stable kernel
-    * latest `nix` with `flakes` support
+    * latest stable kernel from `nixpkgs-small`
+    * latest `nix`
     * custom overlays:
-      * `teleport-ent`
+      * [`awsvpnclient`](https://github.com/ymatsiuk/awsvpnclient)
     * modules:
       * `podman`
+      * `docker` (buildkite enabled)
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
       * `greetd` (tuigreet)
       * `neovim` (gruvbox theme)
       * `pipewire`
       * `xdg-portal` (screen sharing)
+      * `zsh`
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
     * `dmenu-wl` dmenu with Wayland support
-    * `firefox` with Wayland support (screen sharing via pipewire)
+    * `firefox` with Wayland support
     * `gammastep`
-    * `git` includes extension for signing keys
+    * `git` (`lastpass` credentials helper)
     * `gtk` (gruvbox theme)
-    * `i3status-rust` (gruvbox theme + toggle to switch between HFP/A2DP)
+    * `i3status-rust` (gruvbox theme, toggle for audio profiles, nixos specific "updates available" block)
+    * `kanshi` (switches to external output once connected)
     * `mako` (gruvbox theme)
-    * `mpris-proxy` for WH-1000XM3 media buttons support
     * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
-    * `zsh` (with zplug for plugins)
