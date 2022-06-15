@@ -57,6 +57,19 @@
     };
   };
 
+
+  security.sudo.extraRules = [
+    {
+      users = [ "ymatsiuk" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   services.resolved = {
     enable = true;
     dnssec = "true";
