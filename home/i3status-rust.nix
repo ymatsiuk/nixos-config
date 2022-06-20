@@ -39,7 +39,7 @@ in
           { block = "net"; hide_missing = true; hide_inactive = true; device = "tun0"; format = " "; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
-          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; }
+          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; format = "$percentage|"; }
           {
             block = "toggle";
             text = "ldac";
@@ -48,13 +48,26 @@ in
             command_off = "${setProfile} 260";
             interval = 5;
           }
-          { block = "cpu"; format = "{utilization} {frequency}"; }
-          { block = "net"; format = "{signal_strength}: {speed_up;K} {speed_down;K}"; }
+          { block = "cpu"; }
+          { block = "net"; device = "wlan0"; format = "$signal"; }
           { block = "backlight"; }
-          { block = "temperature"; collapsed = false; format = "{average}"; }
-          { block = "sound"; driver = "pulseaudio"; on_click = "pavucontrol"; }
-          { block = "battery"; driver = "upower"; device = "DisplayDevice"; }
-          { block = "time"; on_click = "gsimplecal"; }
+          { block = "temperature"; }
+          {
+            block = "sound";
+            driver = "pulseaudio";
+            click = [
+              { button = "left"; cmd = "pavucontrol"; }
+            ];
+          }
+          { block = "battery"; }
+          {
+            block = "time";
+            locale = "nl_NL";
+            format = "%a %e %b %R";
+            click = [
+              { button = "left"; cmd = "gsimplecal"; }
+            ];
+          }
         ];
         settings = {
           theme = {
