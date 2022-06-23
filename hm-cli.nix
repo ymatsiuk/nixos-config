@@ -9,10 +9,12 @@
   programs.gpg.enable = true;
   programs.htop.enable = true;
   home.packages = with pkgs;[
+    android-tools
     aws-iam-authenticator
     aws-vault
     awscli2
     awsvpnclient
+    black
     boundary
     exa
     fd
@@ -31,6 +33,7 @@
     minikube
     nixpkgs-fmt
     nixpkgs-review
+    nodePackages.serverless
     openssl
     packer
     podman
@@ -41,6 +44,7 @@
     terraform
     tmate
     vault
+    yq
 
     gopls
     rnix-lsp
