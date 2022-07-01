@@ -149,7 +149,7 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
-          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
+          { command = "move container to workspace 2"; criteria = { app_id = "^$"; title = "Slack"; }; }
           { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           # browser zoom|meet|bluejeans
@@ -163,7 +163,7 @@ in
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
-        { command = "${systemdRun { pkg = pkgs.slack;} }"; }
+        { command = "${systemdRun { pkg = pkgs.slack; args= "--logLevel=error";} }"; }
       ];
     };
     extraConfig = ''
