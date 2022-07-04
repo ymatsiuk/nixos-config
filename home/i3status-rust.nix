@@ -39,7 +39,8 @@ in
           { block = "net"; hide_missing = true; hide_inactive = true; device = "tun0"; format = " "; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
-          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; format = "$percentage|"; }
+          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; hide_disconnected = true; format = "$percentage|"; }
+          { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; hide_disconnected = true; format = "$percentage|"; }
           {
             block = "toggle";
             text = "ldac";
