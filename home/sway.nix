@@ -30,7 +30,7 @@ in
         smartBorders = "on";
       };
       fonts = {
-        names = [ "Iosevka" ];
+        names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
       };
       modifier = "Mod4";
       menu = "dmenu-wl_run -i";
@@ -96,7 +96,7 @@ in
         {
           statusCommand = "i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           fonts = {
-            names = [ "Iosevka" ];
+            names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
             size = 10.0;
           };
           position = "bottom";
