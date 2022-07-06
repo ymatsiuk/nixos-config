@@ -97,13 +97,24 @@
         wayland = final: prev: {
           firefox = prev.firefox-bin.override { forceWayland = true; };
         };
+        firmware = final: prev: {
+          linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
+            version = "latest";
+            outputHash = "sha256-rbxFiBNd8gOJkul9wAkh8MQo/e35Tsafs8g5SqMEzaA=";
+            src = prev.fetchgit {
+              url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
+              rev = "f5f02da57e5401c8571b1a759e857697f2fb0302";
+              sha256 = "sha256-8Z9+fAr3rvTwUWSIkJ5dfmATyO0X+uBXPs1ohofYjyI=";
+            };
+          });
+        };
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
-        pkgs = makeOpinionatedNixpkgs system [ ];
+        pkgs = makeOpinionatedNixpkgs system [ self.overlays.firmware ];
       in
       {
-        packages = { };
+        packages = { linux-firmware = pkgs.linux-firmware; };
       }
     );
 }
