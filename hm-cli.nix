@@ -44,7 +44,7 @@
     terraform
     tmate
     vault
-    yq
+    yq-go
 
     gopls
     rnix-lsp
