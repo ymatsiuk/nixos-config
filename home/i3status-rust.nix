@@ -60,7 +60,7 @@ in
               { button = "left"; cmd = "pavucontrol"; }
             ];
           }
-          { block = "battery"; }
+          { block = "battery"; driver = "upower"; device = "BAT0"; }
           {
             block = "time";
             locale = "nl_NL";
