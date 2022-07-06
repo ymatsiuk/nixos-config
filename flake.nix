@@ -114,7 +114,10 @@
         pkgs = makeOpinionatedNixpkgs system [ self.overlays.firmware ];
       in
       {
-        packages = { linux-firmware = pkgs.linux-firmware; };
+        packages = {
+          linux-firmware = pkgs.linux-firmware;
+          linux_latest = pkgs.linux_latest;
+        };
       }
     );
 }
