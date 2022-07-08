@@ -50,7 +50,7 @@ in
             interval = 5;
           }
           { block = "cpu"; }
-          { block = "net"; device = "wlan0"; format = "$signal"; }
+          { block = "net"; device = "wlan0"; format = "$signal_strength"; }
           { block = "backlight"; }
           { block = "temperature"; }
           {
