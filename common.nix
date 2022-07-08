@@ -43,13 +43,21 @@
     wait-online.anyInterface = true;
     networks = {
       "99-dhcp-wlan" = {
-        DHCP = "yes";
+        networkConfig = {
+          DNSSEC = true;
+          DHCP = "yes";
+          DNS = [ "1.1.1.1" "1.0.0.1" ];
+        };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         matchConfig.Type = "wlan";
       };
       "99-dhcp-eth" = {
-        DHCP = "yes";
+        networkConfig = {
+          DNSSEC = true;
+          DHCP = "yes";
+          DNS = [ "1.1.1.1" "1.0.0.1" ];
+        };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         matchConfig.Name = "eth*";
