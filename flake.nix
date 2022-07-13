@@ -63,6 +63,7 @@
             nur.overlay
             self.overlays.wayland
             awsvpnclient.overlay
+            self.overlays.firmware
           ];
           modules = [
             ./nixps.nix
