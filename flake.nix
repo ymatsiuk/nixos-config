@@ -100,12 +100,12 @@
         };
         firmware = final: prev: {
           linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
-            version = "20220708";
+            version = "20220509";
             src = prev.fetchzip {
               url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
-              sha256 = "sha256-jsmbBxQ4RHBySBq2lks5tJ6YTwwlkvVe2Xc0CDJY8IE=";
+              sha256 = "sha256-pNuKA4XigrHU9qC5Ch6HLs3/tcv0zIkAzow9VOIVKdQ=";
             };
-            outputHash = "sha256-FNYZMJnqR2waODUXisch3ObdEjwQN94QSiBE2dDW4sk=";
+            outputHash = "sha256-pXzWAu7ch4dHXvKzfrK826vtNqovCqL7pd+TIVbWnJQ=";
           });
         };
       };
