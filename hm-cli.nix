@@ -11,14 +11,11 @@
   home.packages = with pkgs;[
     android-tools
     aws-iam-authenticator
-    aws-vault
+    aws-sso-cli
     awscli2
     awsvpnclient
-    black
-    boundary
     exa
     fd
-    fluxcd
     gcc
     gnumake
     go
@@ -30,19 +27,13 @@
     kubernetes-helm
     kustomize
     lastpass-cli
-    minikube
     nixpkgs-fmt
     nixpkgs-review
     nodePackages.serverless
     openssl
-    packer
-    podman
     procps
     ripgrep
-    saml2aws
-    ssm-session-manager-plugin #packer dep
     terraform
-    tmate
     vault
     yq-go
 
