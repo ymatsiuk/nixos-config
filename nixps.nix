@@ -18,7 +18,6 @@
   home-manager.users.ymatsiuk = import ./hm-gui.nix;
 
   powerManagement.cpuFreqGovernor = "powersave";
-  powerManagement.powertop.enable = true;
 
   programs.light.enable = true;
   programs.sway = {
@@ -49,7 +48,6 @@
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.thermald.enable = true;
-  services.tlp.enable = true;
   services.upower.enable = true;
 
   virtualisation.docker = {
