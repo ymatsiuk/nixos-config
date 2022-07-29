@@ -85,6 +85,9 @@
 
         " nvim-lspconfig
         lua << EOF
+        -- nvim-lastplace
+        require'nvim-lastplace'.setup{}
+
         local nvim_lsp = require('lspconfig')
 
         -- Use an on_attach function to only map the following keys
@@ -169,7 +172,7 @@
         start = [
           colorizer
           vim-commentary
-          vim-lastplace
+          nvim-lastplace
           vim-nix
           vim-terraform
           vim-airline
