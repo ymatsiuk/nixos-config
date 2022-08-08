@@ -3,6 +3,7 @@
 {
   imports = [
     ./home/git.nix
+    ./home/neovim.nix
     ./home/starship.nix
   ];
   programs.fzf.enable = true;
@@ -36,13 +37,6 @@
     terraform
     vault
     yq-go
-
-    gopls
-    rnix-lsp
-    nodePackages.pyright
-    nodePackages.bash-language-server
-    rubyPackages.solargraph
-    terraform-ls
   ];
   home.stateVersion = "22.05";
 }
