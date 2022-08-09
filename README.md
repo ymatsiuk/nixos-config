@@ -63,7 +63,6 @@ What's inside:
       * `docker` (buildkite enabled)
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
       * `greetd` (tuigreet)
-      * `neovim` (gruvbox theme)
       * `pipewire`
       * `xdg-portal` (screen sharing)
       * `zsh`
@@ -78,5 +77,6 @@ What's inside:
     * `i3status-rust` (gruvbox theme, toggle for audio profiles, nixos specific "updates available" block)
     * `kanshi` (switches to external output once connected)
     * `mako` (gruvbox theme)
+    * `neovim` (gruvbox theme + lsp)
     * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
