@@ -72,14 +72,14 @@ in
         ];
         settings = {
           theme = {
-            name = "gruvbox-dark";
+            theme = "gruvbox-dark";
             overrides = {
               idle_bg = "#3c3836";
               separator = "<span font='12'></span>";
             };
           };
           icons = {
-            name = "awesome6";
+            icons = "awesome6";
             overrides = {
               tux = "";
               upd = "";
@@ -89,8 +89,6 @@ in
             };
           };
         };
-        icons = "awesome6";
-        theme = "gruvbox-dark";
       };
     };
   };
