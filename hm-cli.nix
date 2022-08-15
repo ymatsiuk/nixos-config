@@ -30,7 +30,6 @@
     lastpass-cli
     nixpkgs-fmt
     nixpkgs-review
-    nodePackages.serverless
     openssl
     procps
     ripgrep
