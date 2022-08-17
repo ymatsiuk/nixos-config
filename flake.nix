@@ -13,10 +13,9 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
     idasen-cli.url = "github:typetetris/idasen-cli";
-    iosevka.url = "github:NixOS/nixpkgs/0db8a06b90973dff7427cf165666cfb9c16c95d5";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli, iosevka }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -28,7 +27,6 @@
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
-              iosevka = iosevka.legacyPackages.${system}.iosevka;
             })
           ] ++ overlays;
         };
@@ -119,7 +117,6 @@
         packages = {
           linux-firmware = pkgs.linux-firmware;
           linux_latest = pkgs.linux_latest;
-          iosevka = pkgs.iosevka;
         };
       }
     );
