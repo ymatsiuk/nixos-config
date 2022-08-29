@@ -5,7 +5,7 @@
       internal = {
         outputs = [
           {
-            criteria = "Sharp Corporation 0x14FA";
+            criteria = "eDP-1";
             status = "enable";
             scale = 2.0;
           }
@@ -14,11 +14,11 @@
       external = {
         outputs = [
           {
-            criteria = "Sharp Corporation 0x14FA";
+            criteria = "eDP-1";
             status = "disable";
           }
           {
-            criteria = "LG Electronics LG HDR 4K";
+            criteria = "LG Electronics LG HDR 4K 0x0000C950";
             status = "enable";
             scale = 2.0;
           }
