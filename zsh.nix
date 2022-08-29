@@ -54,6 +54,10 @@ in
       ympass = "${pkgs.libsecret}/bin/secret-tool lookup lpass personal | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
       on-gh-token = "export GITHUB_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --pass github.com`";
       off-gh-token = "unset GITHUB_TOKEN";
+      sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
+      stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";
+      vpn-staging ="${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
+      vpn-production ="${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
   };
 }

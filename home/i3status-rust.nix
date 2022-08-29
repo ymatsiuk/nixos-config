@@ -1,13 +1,5 @@
 { pkgs, ... }:
 let
-  a2dpIsActive = pkgs.writeShellScript "a2dpIsActive.sh" ''
-    pw-metadata | egrep "default.audio.sink.*.bluez_output.CC_98_8B_93_08_1F.a2dp-sink"
-  '';
-  setProfile = pkgs.writeShellScript "setProfile.sh" ''
-    # pw-cli enum-params bluez_card.CC_98_8B_93_08_1F EnumProfile
-    # 260 -> headset-head-unit-msbc, 10 -> a2dp-sink-ldac
-    pw-cli s bluez_card.CC_98_8B_93_08_1F Profile "{ index: $1 }"
-  '';
   checkNixosUpdates = pkgs.writeShellScript "checkUpdates.sh" ''
     UPDATE='{"icon":"upd","state":"Info", "text": ""}'
     NO_UPDATE='{"icon":"noupd","state":"Good", "text": ""}'
@@ -18,14 +10,6 @@ let
   '';
   kernel = pkgs.writeShellScript "uname.sh" ''
     echo '{"icon": "tux", "text": "'$(uname -r)'"}'
-  '';
-  sit = pkgs.writeShellScript "sit.sh" ''
-    ${pkgs.idasen-cli}/bin/idasen-cli restore sit 2>&1>/dev/null &
-    echo '{"icon":"sit","state":"Info","text":"sit"}'
-  '';
-  stand = pkgs.writeShellScript "stand.sh" ''
-    ${pkgs.idasen-cli}/bin/idasen-cli restore stand 2>&1>/dev/null &
-    echo '{"icon":"stand","state":"Info","text":"stand"}'
   '';
 in
 {
@@ -62,8 +46,6 @@ in
               tux = "";
               upd = "";
               noupd = "";
-              sit = "";
-              stand = "";
             };
           };
         };

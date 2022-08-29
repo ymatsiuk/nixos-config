@@ -14,14 +14,12 @@
     aws-iam-authenticator
     aws-sso-cli
     awscli2
-    awsvpnclient
     exa
     fd
     gcc
     gnumake
     go
     golangci-lint
-    idasen-cli
     jq
     kind
     kubectl
