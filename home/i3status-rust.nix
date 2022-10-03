@@ -19,18 +19,18 @@ in
       bottom = {
         blocks = [
           { block = "custom"; command = kernel; json = true; interval = "once"; }
-          { block = "net"; hide_missing = true; hide_inactive = true; device = "tun0"; format = " "; }
+          { block = "net"; missing_format = ""; device = "^tun0$"; format = " $icon "; }
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
-          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; hide_disconnected = true; format = "$percentage|"; }
-          { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; hide_disconnected = true; format = "$percentage|"; }
+          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; disconnected_format = ""; format = " $icon { $percentage|} "; }
+          { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; disconnected_format = ""; format = " $icon { $percentage|} "; }
           { block = "cpu"; }
-          { block = "net"; device = "wlan0"; format = "$signal_strength"; }
+          { block = "net"; device = "wlan0"; format = " $icon $signal_strength "; }
           { block = "backlight"; }
           { block = "temperature"; collapsed = false; }
           { block = "sound"; driver = "pulseaudio"; click = [{ button = "left"; cmd = "pavucontrol"; }]; }
           { block = "battery"; driver = "upower"; device = "BAT0"; }
-          { block = "time"; locale = "nl_NL"; format = "%a %e %b %R"; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
+          { block = "time"; locale = "nl_NL"; format = " %a %e %b %R "; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
         ];
         settings = {
           theme = {
