@@ -27,7 +27,7 @@ in
           { block = "cpu"; }
           { block = "net"; device = "wlan0"; format = " $icon $signal_strength "; }
           { block = "backlight"; }
-          { block = "temperature"; collapsed = false; }
+          { block = "temperature"; }
           { block = "sound"; driver = "pulseaudio"; click = [{ button = "left"; cmd = "pavucontrol"; }]; }
           { block = "battery"; driver = "upower"; device = "BAT0"; }
           { block = "time"; locale = "nl_NL"; format = " %a %e %b %R "; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
