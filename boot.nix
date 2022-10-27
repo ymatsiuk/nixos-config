@@ -10,7 +10,12 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "i915" "v4l2loopback" ];
-  boot.initrd.luks.devices."nixps".device = "/dev/disk/by-uuid/2f7823b9-9e81-4813-8721-55e5000f2c7f";
+  boot.initrd.luks.devices = {
+    nixps = {
+      crypttabExtraOpts = [ "tpm2-device=auto" ];
+      device = "/dev/disk/by-uuid/2f7823b9-9e81-4813-8721-55e5000f2c7f";
+    };
+  };
   boot.initrd.systemd = {
     enable = true;
     emergencyAccess = true;
