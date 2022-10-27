@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-firefox.url = "github:nixos/nixpkgs?rev=104e8082de1b20f9d0e1f05b1028795ed0e0e4bc";
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
@@ -15,7 +16,7 @@
     idasen-cli.url = "github:typetetris/idasen-cli";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-firefox, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -26,6 +27,7 @@
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
+              firefox-bin = nixpkgs-firefox.legacyPackages.${system}.firefox-bin;
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
             })
           ] ++ overlays;
@@ -99,14 +101,14 @@
           firefox = prev.firefox-bin.override { forceWayland = true; };
         };
         firmware = final: prev: {
-          linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
-            version = "20220509";
-            src = prev.fetchzip {
-              url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
-              sha256 = "sha256-pNuKA4XigrHU9qC5Ch6HLs3/tcv0zIkAzow9VOIVKdQ=";
-            };
-            outputHash = "sha256-pXzWAu7ch4dHXvKzfrK826vtNqovCqL7pd+TIVbWnJQ=";
-          });
+          # linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
+          #   version = "20220509";
+          #   src = prev.fetchzip {
+          #     url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
+          #     sha256 = "sha256-pNuKA4XigrHU9qC5Ch6HLs3/tcv0zIkAzow9VOIVKdQ=";
+          #   };
+          #   outputHash = "sha256-pXzWAu7ch4dHXvKzfrK826vtNqovCqL7pd+TIVbWnJQ=";
+          # });
         };
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
