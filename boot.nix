@@ -9,6 +9,7 @@
   '';
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "rtsx_pci_sdmmc" ];
+  boot.initrd.compressor = "xz";
   boot.initrd.kernelModules = [ "i915" "v4l2loopback" ];
   boot.initrd.luks.devices = {
     nixps = {
