@@ -35,8 +35,11 @@
     firewall.enable = false;
     useDHCP = false;
     useNetworkd = true;
+    usePredictableInterfaceNames = false;
     wireless.iwd.enable = true;
+    wireless.iwd.settings.General.UseDefaultInterface = true;
   };
+  systemd.services.systemd-networkd.environment = { SYSTEMD_LOG_LEVEL = "debug"; };
 
   systemd.network = {
     enable = true;
