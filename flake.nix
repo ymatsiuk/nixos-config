@@ -61,7 +61,6 @@
           overlays = [
             nixpkgs-wayland.overlay
             nur.overlay
-            self.overlays.wayland
             awsvpnclient.overlay
             self.overlays.firmware
           ];
@@ -95,9 +94,6 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        wayland = final: prev: {
-          firefox = prev.firefox-bin.override { forceWayland = true; };
-        };
         firmware = final: prev: {
           # linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
           #   version = "20220509";
