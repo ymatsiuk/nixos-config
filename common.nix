@@ -51,6 +51,7 @@
           DHCP = "yes";
           DNS = [ "1.1.1.1" "1.0.0.1" ];
         };
+        dhcpV4Config.RouteMetric = 2048;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         matchConfig.Type = "wlan";
@@ -61,6 +62,7 @@
           DHCP = "yes";
           DNS = [ "1.1.1.1" "1.0.0.1" ];
         };
+        dhcpV4Config.RouteMetric = 1024;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         matchConfig.Name = "eth*";
