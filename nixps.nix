@@ -25,7 +25,6 @@
     wrapperFeatures = { base = true; gtk = true; };
     extraPackages = with pkgs; [
       capitaine-cursors #sway/gtk dep
-      dmenu-wayland #sway dep
       gsimplecal #i3status-rust dep
       light #sway dep
       obs-studio
@@ -37,6 +36,7 @@
       sway-contrib.grimshot #sway dep
       swayidle #sway dep
       swaylock #sway dep
+      tofi #sway dep
       wf-recorder #sway
       wl-clipboard #sway dep
     ];

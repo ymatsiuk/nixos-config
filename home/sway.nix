@@ -33,7 +33,7 @@ in
         names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
       };
       modifier = "Mod4";
-      menu = "dmenu-wl_run -i";
+      menu = "tofi";
       terminal = "alacritty";
       keybindings =
         let

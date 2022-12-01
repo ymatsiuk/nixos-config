@@ -69,7 +69,7 @@ What's inside:
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
-    * `dmenu-wl` dmenu with Wayland support
+    * `tofi` tiny dynamic menu for Wayland
     * `firefox` with Wayland support
     * `gammastep`
     * `git` (`lastpass` credentials helper)
