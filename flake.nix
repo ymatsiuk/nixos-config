@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
@@ -15,7 +16,7 @@
     idasen-cli.url = "github:typetetris/idasen-cli";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-small, idasen-cli }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-master, nixpkgs-small, idasen-cli }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -27,6 +28,7 @@
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
+              master = import nixpkgs-master { system = final.system; config = final.config; };
             })
           ] ++ overlays;
         };
@@ -113,6 +115,7 @@
         packages = {
           linux-firmware = pkgs.linux-firmware;
           linux_latest = pkgs.linux_latest;
+          awscli2 = pkgs.master.awscli2;
         };
       }
     );
