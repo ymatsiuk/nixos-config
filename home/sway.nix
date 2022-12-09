@@ -33,7 +33,7 @@ in
         names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
       };
       modifier = "Mod4";
-      menu = "tofi";
+      menu = "tofi-drun --drun-launch=true";
       terminal = "alacritty";
       keybindings =
         let
