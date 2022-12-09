@@ -208,13 +208,29 @@
         "type": "github"
       }
     },
-    "nixpkgs-small": {
+    "nixpkgs-master": {
       "locked": {
-        "lastModified": 1670511049,
-        "narHash": "sha256-ZLQsjaYllPB/vVECvN2ICqSKjYsMs9cksFiNZfHg5OQ=",
+        "lastModified": 1670583233,
+        "narHash": "sha256-sa0XbJmnJEmQp/Uvjh8lprAazR0UdCoVv8n6EeeG1aQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "299a800c4c1c0c56c54c81bb7ce575af5958437f",
+        "rev": "539954efab2b023064efd3edeb7912b71193acfd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-small": {
+      "locked": {
+        "lastModified": 1670566912,
+        "narHash": "sha256-xOmQ1V8DvmgnlCqx/gQGrRctVnujTWBp4N9A+wr4+50=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9e4a15be2c56ef710392d3464ce68b298fcafe84",
         "type": "github"
       },
       "original": {
@@ -234,11 +250,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1670519105,
-        "narHash": "sha256-Q8r3dkZ4vNSgO6xjhXn/eQ+U+XXdxtH5gk2wZDoAFc8=",
+        "lastModified": 1670576683,
+        "narHash": "sha256-52+OrA0MDF9YRjiFYjfMiFjTIJicVe9lGwoWJATjQjA=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "d442460a817cbf4db2027f9556147ded909a0dd2",
+        "rev": "48883ef2a67035ad11215c4c01bd4ce0cf1d6b74",
         "type": "github"
       },
       "original": {
@@ -249,11 +265,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1670332253,
-        "narHash": "sha256-O5SmhlIUt1s+vK4NXeGYqwcBIMwbBPAEZ3GHE3XT28c=",
+        "lastModified": 1670424663,
+        "narHash": "sha256-jj3Pq8Co7lRem8lF9vqeBTTTs+rX3UjSuebAF+QGezw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1c9ffcf70786f0966982ce0fc76ec05df2e1dec2",
+        "rev": "e62dbca3771f42c81dec4e704c09ef110ef3a3f8",
         "type": "github"
       },
       "original": {
@@ -285,6 +301,7 @@
         "home-manager": "home-manager",
         "idasen-cli": "idasen-cli",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-small": "nixpkgs-small",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nur": "nur"
