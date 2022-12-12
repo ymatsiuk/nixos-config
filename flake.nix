@@ -2,8 +2,9 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    awsvpnclient.url = "github:ymatsiuk/awsvpnclient";
+    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/ymatsiuk/add-flake-utils";
     awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
+    awsvpnclient.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -28,6 +29,7 @@
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
+              awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
               master = import nixpkgs-master { system = final.system; config = final.config; };
             })
           ] ++ overlays;
@@ -63,7 +65,6 @@
           overlays = [
             nixpkgs-wayland.overlay
             nur.overlay
-            awsvpnclient.overlay
             self.overlays.firmware
           ];
           modules = [

@@ -2,20 +2,24 @@
   "nodes": {
     "awsvpnclient": {
       "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1650433861,
-        "narHash": "sha256-Pnw59wD6KRi0lwumzD1qs3S8yjldMCWjRZXWXU905rs=",
+        "lastModified": 1670856042,
+        "narHash": "sha256-3BNiISa7H7VatS4KvTUqCLQAuEISZi+aLqrl3CuOe5k=",
         "owner": "ymatsiuk",
         "repo": "awsvpnclient",
-        "rev": "52d52fcbebdc15191c86df15cd12434e900e52ae",
+        "rev": "3a1c2104349818279754b490091a15a0bd6a7eaa",
         "type": "github"
       },
       "original": {
         "owner": "ymatsiuk",
+        "ref": "ymatsiuk/add-flake-utils",
         "repo": "awsvpnclient",
         "type": "github"
       }
