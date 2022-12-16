@@ -98,6 +98,7 @@
       };
       overlays = {
         firmware = final: prev: {
+          deconz = final.pkgs.qt5.callPackage ./deconz.nix { };
           # linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
           #   version = "20220509";
           #   src = prev.fetchzip {
@@ -117,6 +118,7 @@
           linux-firmware = pkgs.linux-firmware;
           linux_latest = pkgs.linux_latest;
           awscli2 = pkgs.master.awscli2;
+          deconz = pkgs.deconz;
         };
       }
     );

@@ -17,7 +17,8 @@
     '';
   };
 
-  hardware.enableRedistributableFirmware = lib.mkForce false;
+  hardware.enableRedistributableFirmware = lib.mkForce true;
+  hardware.bluetooth = { enable = true; settings.General.Experimental = true; };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
@@ -26,4 +27,40 @@
   swapDevices = [
     { device = "/swapfile"; size = 2048; }
   ];
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "hass" ];
+    ensureUsers = [{
+      name = "hass";
+      ensurePermissions = {
+        "DATABASE hass" = "ALL PRIVILEGES";
+      };
+    }];
+  };
+
+  services.home-assistant = {
+    enable = true;
+    extraPackages = python3Packages: with python3Packages; [
+      psycopg2
+    ];
+    extraComponents = [
+      "backup"
+      "bluetooth"
+      "bluetooth_le_tracker"
+      "deconz"
+      "esphome"
+      "met"
+      "radio_browser"
+      "rpi_power"
+      "zha"
+    ];
+    config = {
+      default_config = { };
+      esphome = { };
+      deconz = { };
+      bluetooth = { };
+      recorder.db_url = "postgresql://@/hass";
+    };
+  };
 }
