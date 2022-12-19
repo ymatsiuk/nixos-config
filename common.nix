@@ -45,27 +45,46 @@
     enable = true;
     wait-online.anyInterface = true;
     networks = {
-      "99-dhcp-wlan" = {
+      "wlan0" = {
+        dhcpV4Config.RouteMetric = 4096;
+        matchConfig.Name = "wlan0";
         networkConfig = {
           DNSSEC = true;
           DHCP = "yes";
           DNS = [ "1.1.1.1" "1.0.0.1" ];
         };
-        dhcpV4Config.RouteMetric = 2048;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
-        matchConfig.Type = "wlan";
       };
-      "99-dhcp-eth" = {
+      "eth0" = {
+        matchConfig.Name = "eth0";
+        vlan = [ "eth0.1" "eth0.2" ];
+      };
+      "eth0.1" = {
+        dhcpV4Config.RouteMetric = 1024;
+        matchConfig.Name = "eth0.1";
         networkConfig = {
           DNSSEC = true;
           DHCP = "yes";
           DNS = [ "1.1.1.1" "1.0.0.1" ];
         };
-        dhcpV4Config.RouteMetric = 1024;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
-        matchConfig.Name = "eth*";
+      };
+      "eth0.2" = {
+        networkConfig.DHCP = "yes";
+        dhcpV4Config.RouteMetric = 2048;
+        matchConfig.Name = "eth0.2";
+      };
+    };
+    netdevs = {
+      "eth0.1" = {
+        netdevConfig = { Name = "eth0.1"; Kind = "vlan"; };
+        vlanConfig.Id = 1;
+      };
+      "eth0.2" = {
+        netdevConfig = { Name = "eth0.2"; Kind = "vlan"; };
+        vlanConfig.Id = 2;
       };
     };
   };
