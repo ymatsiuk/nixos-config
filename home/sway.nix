@@ -43,7 +43,7 @@ in
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }";
           "${mod}+Shift+o" = "exec ${systemdRun { pkg = pkgs.obs-studio; bin = "obs";} }";
-          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.slack; args= "--logLevel=error";} }";
+          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
@@ -163,7 +163,7 @@ in
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
         { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
-        { command = "${systemdRun { pkg = pkgs.slack; args= "--logLevel=error";} }"; }
+        { command = "${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }"; }
       ];
     };
     extraConfig = ''

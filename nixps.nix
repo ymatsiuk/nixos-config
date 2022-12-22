@@ -32,7 +32,7 @@
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
-      slack
+      master.slack
       sway-contrib.grimshot #sway dep
       swayidle #sway dep
       swaylock #sway dep
