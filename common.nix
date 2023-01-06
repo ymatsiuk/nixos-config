@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports =
     [
@@ -39,7 +39,8 @@
     wireless.iwd.enable = true;
     wireless.iwd.settings.General.UseDefaultInterface = true;
   };
-  systemd.services.systemd-networkd.environment = { SYSTEMD_LOG_LEVEL = "debug"; };
+  # disable wifi autostart, use `sudo systemctl start iwd.service`
+  systemd.services.iwd.wantedBy = lib.mkForce [ ];
 
   systemd.network = {
     enable = true;
