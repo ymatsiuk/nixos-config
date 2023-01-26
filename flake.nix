@@ -98,6 +98,16 @@
       };
       overlays = {
         firmware = final: prev: {
+          lastpass-cli = prev.lastpass-cli.overrideAttrs
+            (oldAttrs: rec {
+              patches = oldAttrs.patches ++ [
+                (prev.fetchpatch {
+                  name = "allow-moar-iterations";
+                  url = "https://patch-diff.githubusercontent.com/raw/lastpass/lastpass-cli/pull/605.patch";
+                  sha256 = "sha256-h3eI+r5efnwfGFBqqexx5N84SbXht16JXsVu5REZT3g=";
+                })
+              ];
+            });
           # linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
           #   version = "20220509";
           #   src = prev.fetchzip {
