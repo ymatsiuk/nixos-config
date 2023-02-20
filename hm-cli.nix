@@ -13,7 +13,7 @@
     android-tools
     aws-iam-authenticator
     aws-sso-cli
-    master.awscli2
+    awscli2
     exa
     fd
     gcc
