@@ -30,7 +30,7 @@ in
           { block = "temperature"; }
           { block = "sound"; driver = "pulseaudio"; click = [{ button = "left"; cmd = "pavucontrol"; }]; }
           { block = "battery"; driver = "upower"; device = "BAT0"; }
-          { block = "time"; locale = "nl_NL"; format = " %a %e %b %R "; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
+          { block = "time"; format = " $icon $timestamp.datetime(f:'%a %e %b %R', l:nl_NL) "; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
         ];
         settings = {
           theme = {
