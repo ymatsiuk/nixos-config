@@ -1,5 +1,5 @@
 {
-  programs.mako = {
+  services.mako = {
     backgroundColor = "#3c3836";
     borderColor = "#b16286";
     borderRadius = 6;
