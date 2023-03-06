@@ -58,12 +58,8 @@
         dhcpV6Config.UseDNS = false;
       };
       "eth0" = {
-        matchConfig.Name = "eth0";
-        vlan = [ "eth0.1" "eth0.2" ];
-      };
-      "eth0.1" = {
         dhcpV4Config.RouteMetric = 1024;
-        matchConfig.Name = "eth0.1";
+        matchConfig.Name = "eth0";
         networkConfig = {
           DNSSEC = true;
           DHCP = "yes";
@@ -71,21 +67,6 @@
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
-      };
-      "eth0.2" = {
-        networkConfig.DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2048;
-        matchConfig.Name = "eth0.2";
-      };
-    };
-    netdevs = {
-      "eth0.1" = {
-        netdevConfig = { Name = "eth0.1"; Kind = "vlan"; };
-        vlanConfig.Id = 1;
-      };
-      "eth0.2" = {
-        netdevConfig = { Name = "eth0.2"; Kind = "vlan"; };
-        vlanConfig.Id = 2;
       };
     };
   };
