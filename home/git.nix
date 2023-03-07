@@ -28,6 +28,13 @@
           signingKey = "6E06F90BDC44D975";
         };
       }
+      {
+        condition = "gitdir:~/git/nuorder/";
+        contents.user = {
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "D2324A995144F553";
+        };
+      }
     ];
 
     extraConfig = {
