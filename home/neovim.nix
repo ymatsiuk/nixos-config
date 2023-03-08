@@ -71,6 +71,13 @@
       vim-nix
       vim-terraform
       {
+        plugin = indent-blankline-nvim;
+        type = " lua";
+        config = ''
+          require("indent_blankline").setup {}
+        '';
+      }
+      {
         plugin = nvim-lastplace;
         type = "lua";
         config = ''
