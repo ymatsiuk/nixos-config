@@ -4,7 +4,6 @@
   fonts = {
     fontconfig = {
       enable = true;
-      antialias = true;
       defaultFonts = {
         monospace = [ "Iosevka" ];
         sansSerif = [ "Source Sans Pro" ];

@@ -12,7 +12,6 @@
   hardware = {
     bluetooth = { enable = true; settings.General.Experimental = true; };
     cpu.intel.updateMicrocode = true;
-    video.hidpi.enable = true;
   };
 
   home-manager.users.ymatsiuk = import ./hm-gui.nix;
@@ -27,8 +26,6 @@
       capitaine-cursors #sway/gtk dep
       gsimplecal #i3status-rust dep
       light #sway dep
-      obs-studio
-      obs-studio-plugins.wlrobs
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
