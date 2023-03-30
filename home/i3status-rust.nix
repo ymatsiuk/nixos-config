@@ -19,7 +19,8 @@ in
       bottom = {
         blocks = [
           { block = "custom"; command = kernel; json = true; interval = "once"; }
-          { block = "net"; missing_format = ""; device = "^tun0$"; format = " $icon "; }
+          { block = "net"; missing_format = ""; device = "^sk0$"; format = "$icon "; icons_format = ""; } # "\ue4a5"
+          { block = "net"; missing_format = ""; device = "^nu0$"; format = "$icon "; icons_format = ""; } # "\ue4d6"
           { block = "custom"; command = checkNixosUpdates; json = true; interval = 300; }
           { block = "uptime"; }
           { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; disconnected_format = ""; format = " $icon { $percentage|} "; }
@@ -43,9 +44,9 @@ in
           icons = {
             icons = "awesome6";
             overrides = {
-              tux = "";
-              upd = "";
-              noupd = "";
+              tux = ""; # "\uf17c"
+              upd = ""; # "\uf055"
+              noupd = ""; # "\uf056"
             };
           };
         };
