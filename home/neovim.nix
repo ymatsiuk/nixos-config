@@ -33,7 +33,7 @@
       set hlsearch
       set ignorecase
       set incsearch
-      set laststatus=2
+      set laststatus=3
       set mouse=a
       set nobackup
       set nocompatible
