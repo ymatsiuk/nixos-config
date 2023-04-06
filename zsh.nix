@@ -51,6 +51,8 @@ in
     shellAliases = {
       ls = "${pkgs.exa}/bin/exa --group-directories-first";
       tree = "${pkgs.exa}/bin/exa --tree";
+      k = "kubectl";
+      ks = "kubectl -n kube-system";
       ympass = "${pkgs.libsecret}/bin/secret-tool lookup lpass personal | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
       on-gh-token = "export GITHUB_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --pass github.com`";
       off-gh-token = "unset GITHUB_TOKEN";
