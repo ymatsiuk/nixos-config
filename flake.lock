@@ -223,11 +223,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1681300232,
-        "narHash": "sha256-R+sGL63m5EC7oPuCZNv7kqEJBCAGXJSSeue2/oIKO3Y=",
+        "lastModified": 1681302881,
+        "narHash": "sha256-pW2YXBNmG0CFiPKi9l4UGfX1Rsc/DsQ+Cv2YhQx8r4A=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b3e98b8080c23fa5170ea9cecc37b52ec957a0c5",
+        "rev": "727216f74369e09a33eae1127bcd8e2dd3e932bb",
         "type": "github"
       },
       "original": {
@@ -278,16 +278,16 @@
     },
     "nixpkgs-ymatsiuk": {
       "locked": {
-        "lastModified": 1678173181,
-        "narHash": "sha256-xSQsvXatxn6OlNjuKgcvFQrqeDvm97g5kDifJQj34s4=",
+        "lastModified": 1681300000,
+        "narHash": "sha256-4Njy6H19B1UP56NUIBA5qWm11y4JDrOifyPzSlr6WAc=",
         "owner": "ymatsiuk",
         "repo": "nixpkgs",
-        "rev": "ff951cd1c2fc8e639814b88ba2a2d9358916b03d",
+        "rev": "8f6520847d894738ea16ce463d94382818e4effc",
         "type": "github"
       },
       "original": {
         "owner": "ymatsiuk",
-        "ref": "master",
+        "ref": "ymatsiuk/gcloud",
         "repo": "nixpkgs",
         "type": "github"
       }
