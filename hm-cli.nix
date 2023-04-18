@@ -17,15 +17,15 @@
     exa
     fd
     gcc
-    (google-cloud-sdk.withExtraComponents ([
-      google-cloud-sdk.components.gke-gcloud-auth-plugin
-      google-cloud-sdk.components.kubectl
+    (ymatsiuk.google-cloud-sdk.withExtraComponents ([
+      ymatsiuk.google-cloud-sdk.components.gke-gcloud-auth-plugin
     ]))
     gnumake
     go
     golangci-lint
     jq
     kind
+    kubectl
     kubernetes-helm
     kustomize
     lastpass-cli

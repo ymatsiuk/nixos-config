@@ -9,6 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-ymatsiuk.url = "github:ymatsiuk/nixpkgs/ymatsiuk/gcloud";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +18,7 @@
     idasen-cli.url = "github:typetetris/idasen-cli";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-master, nixpkgs-small, idasen-cli }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-master, nixpkgs-ymatsiuk, nixpkgs-small, idasen-cli }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -31,6 +32,7 @@
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
               awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
               master = import nixpkgs-master { system = final.system; config = final.config; };
+              ymatsiuk = import nixpkgs-ymatsiuk { system = final.system; config = final.config; };
             })
           ] ++ overlays;
         };
