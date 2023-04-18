@@ -29,5 +29,5 @@
   boot.loader.systemd-boot.configurationLimit = 2;
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 1;
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 }
