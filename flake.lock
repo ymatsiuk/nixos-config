@@ -275,22 +275,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-ymatsiuk": {
-      "locked": {
-        "lastModified": 1681831844,
-        "narHash": "sha256-CtorftTWz7UtZNWU2ykz9jSgVjSLcdJQvI0oe+KZCvM=",
-        "owner": "ymatsiuk",
-        "repo": "nixpkgs",
-        "rev": "c24b4a4839b7ad7e5ae6d6217c446a204dc94589",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ymatsiuk",
-        "ref": "ymatsiuk/gcloud",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1682181988,
@@ -348,7 +332,6 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-small": "nixpkgs-small",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "nixpkgs-ymatsiuk": "nixpkgs-ymatsiuk",
         "nur": "nur"
       }
     },

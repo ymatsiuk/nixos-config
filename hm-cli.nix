@@ -14,15 +14,15 @@
     aws-iam-authenticator
     aws-sso-cli
     awscli2
+    dogdns
     exa
+    exercism
     fd
     gcc
-    (ymatsiuk.google-cloud-sdk.withExtraComponents ([
-      ymatsiuk.google-cloud-sdk.components.gke-gcloud-auth-plugin
-    ]))
     gnumake
     go
     golangci-lint
+    iperf
     jq
     kind
     kubectl
@@ -35,9 +35,13 @@
     procps
     ripgrep
     terraform
+    unzip
     vault
     yq-go
     zoom-us
+    (master.google-cloud-sdk.withExtraComponents ([
+      master.google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ]))
   ];
   home.stateVersion = "22.05";
 }
