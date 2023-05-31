@@ -99,7 +99,7 @@
       overlays = {
         firmware = final: prev: {
           lastpass-cli = prev.lastpass-cli.overrideAttrs
-            (oldAttrs: rec {
+            (oldAttrs: {
               patches = oldAttrs.patches ++ [
                 (prev.fetchpatch {
                   name = "allow-moar-iterations";
