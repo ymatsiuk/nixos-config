@@ -34,6 +34,7 @@
     openssl
     procps
     ripgrep
+    sops
     terraform
     unzip
     vault
