@@ -36,6 +36,7 @@
     ripgrep
     sops
     terraform
+    terragrunt
     unzip
     vault
     yq-go
