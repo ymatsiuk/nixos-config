@@ -19,4 +19,8 @@
       gtk-cursor-theme-name = "capitaine-cursors";
     };
   };
+  home.pointerCursor = {
+    name = "capitaine-cursors";
+    package = pkgs.capitaine-cursors;
+  };
 }

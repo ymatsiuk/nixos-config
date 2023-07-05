@@ -23,7 +23,6 @@
     enable = true;
     wrapperFeatures = { base = true; gtk = true; };
     extraPackages = with pkgs; [
-      capitaine-cursors #sway/gtk dep
       gsimplecal #i3status-rust dep
       light #sway dep
       pavucontrol #i3status-rust dep
