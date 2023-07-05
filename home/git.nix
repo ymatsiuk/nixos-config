@@ -11,28 +11,42 @@
 
     userName = "Yurii Matsiuk";
     userEmail = "24990891+ymatsiuk@users.noreply.github.com";
-    signing.key = "61302290298601AA";
+    signing.key = "~/.ssh/github.pub";
     signing.signByDefault = true;
     includes = [
       {
-        condition = "gitdir:~/git/yolt/";
+        condition = "gitdir:~/git/lightspeedhq/";
         contents.user = {
-          email = "yurii.matsiuk@ing.com";
-          signingKey = "0B95325581C4B57D";
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
       {
-        condition = "gitdir:~/git/flexport/";
+        condition = "gitdir:~/git/lightspeedretail/";
         contents.user = {
-          email = "ymatsiuk@flexport.com";
-          signingKey = "6E06F90BDC44D975";
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "~/.ssh/lightspeedhq.pub";
+        };
+      }
+      {
+        condition = "gitdir:~/git/lightspeed-hospitality/";
+        contents.user = {
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "~/.ssh/lightspeedhq.pub";
+        };
+      }
+      {
+        condition = "gitdir:~/git/lightspeed-b2b/";
+        contents.user = {
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
       {
         condition = "gitdir:~/git/nuorder/";
         contents.user = {
           email = "yurii.matsiuk@lightspeedhq.com";
-          signingKey = "D2324A995144F553";
+          signingKey = "~/.ssh/nuorder.pub";
         };
       }
     ];
@@ -42,6 +56,8 @@
       fetch.prune = true;
       init.defaultBranch = "main";
       pull.rebase = false;
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers"; #manual
       rebase = {
         autoStash = true;
         autoSquash = true;
