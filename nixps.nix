@@ -85,15 +85,15 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/bcde03fe-099f-4d2f-8019-5d56bb72c347";
+      device = "/dev/disk/by-uuid/14f07d10-2d6b-478c-b773-3eeebffccbc8";
       fsType = "ext4";
     };
     "/boot" = {
-      device = "/dev/disk/by-uuid/60D0-040B";
+      device = "/dev/disk/by-uuid/32C5-B301";
       fsType = "vfat";
     };
   };
   swapDevices = [{
-    device = "/dev/disk/by-uuid/c96e5a66-6a1b-4f8f-b504-c3a0d56ad19b";
+    device = "/dev/disk/by-uuid/8f3d360d-9fea-44d2-802e-f9ccfe932521";
   }];
 }

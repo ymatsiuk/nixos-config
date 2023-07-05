@@ -11,7 +11,7 @@
   boot.initrd.luks.devices = {
     nixps = {
       crypttabExtraOpts = [ "tpm2-device=auto" ];
-      device = "/dev/disk/by-uuid/2f7823b9-9e81-4813-8721-55e5000f2c7f";
+      device = "/dev/disk/by-uuid/0cebcb03-e616-4d3b-8044-cd1715c4899d";
     };
   };
   boot.initrd.systemd = { enable = true; emergencyAccess = true; };
@@ -31,3 +31,4 @@
   boot.loader.timeout = 1;
   boot.tmp.useTmpfs = true;
 }
+
