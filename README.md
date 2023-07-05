@@ -37,17 +37,17 @@ swapon /dev/xps/swap
 2. Get the configuration
 ```
 git clone https://github.com/ymatsiuk/nixos-config /mnt/etc/nixos/
-nixos-generate-config --root /mnt
 ```
 3. Edit `/mnt/etc/nixos/users.nix` to adjust user. Use the following command for password hash `nix-shell -p mkpasswd --run "mkpasswd -m sha-512"`
-4. Switch to `<nixos-unstable>`
+4. Edit file systems config and luks device
 ```
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-nix-channel --update
+nixos-generate-config --root /mnt --show-hardware-config
+lsblk -f
 ```
-5. Install NixOS
+5. [Enable flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes)
+6. Install NixOS
 ```
-nixos-install
+nixos-install --flake path:.#nixps
 ```
 
 ## Details
