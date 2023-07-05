@@ -2,7 +2,7 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/ymatsiuk/add-flake-utils";
+    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/main";
     awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
     awsvpnclient.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
