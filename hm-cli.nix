@@ -14,6 +14,7 @@
     aws-iam-authenticator
     aws-sso-cli
     awscli2
+    delve
     dogdns
     exa
     exercism
@@ -31,6 +32,7 @@
     lastpass-cli
     nixpkgs-fmt
     nixpkgs-review
+    open-policy-agent
     openssl
     procps
     ripgrep
@@ -39,6 +41,7 @@
     terragrunt
     unzip
     vault
+    xdg-utils
     yq-go
     zoom-us
     (master.google-cloud-sdk.withExtraComponents ([
