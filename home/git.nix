@@ -18,32 +18,11 @@
         condition = "gitdir:~/git/gitlab/";
         contents.user = {
           email = "3461170-ymatsiuk@users.noreply.gitlab.com";
-          signingKey = "~/.ssh/gitlab.com.pub";
+          signingKey = "~/.ssh/gitlab.pub";
         };
       }
       {
-        condition = "gitdir:~/git/lightspeedhq/";
-        contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
-          signingKey = "~/.ssh/lightspeedhq.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/lightspeedretail/";
-        contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
-          signingKey = "~/.ssh/lightspeedhq.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/lightspeed-hospitality/";
-        contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
-          signingKey = "~/.ssh/lightspeedhq.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/lightspeed-b2b/";
+        condition = "gitdir:~/git/lightspeed*/";
         contents.user = {
           email = "yurii.matsiuk@lightspeedhq.com";
           signingKey = "~/.ssh/lightspeedhq.pub";
@@ -54,6 +33,13 @@
         contents.user = {
           email = "yurii.matsiuk@lightspeedhq.com";
           signingKey = "~/.ssh/nuorder.pub";
+        };
+      }
+      {
+        condition = "gitdir:~/git/shopkeep/";
+        contents.user = {
+          email = "yurii.matsiuk@lightspeedhq.com";
+          signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
     ];
