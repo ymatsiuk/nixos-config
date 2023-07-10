@@ -15,6 +15,13 @@
     signing.signByDefault = true;
     includes = [
       {
+        condition = "gitdir:~/git/gitlab/";
+        contents.user = {
+          email = "3461170-ymatsiuk@users.noreply.gitlab.com";
+          signingKey = "~/.ssh/gitlab.com.pub";
+        };
+      }
+      {
         condition = "gitdir:~/git/lightspeedhq/";
         contents.user = {
           email = "yurii.matsiuk@lightspeedhq.com";
