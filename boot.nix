@@ -20,6 +20,7 @@
     "quiet"
     "i915.enable_fbc=1"
     "i915.enable_guc=2"
+    "i915.enable_psr=2"
     "i915.fastboot=1"
     "i915.mitigations=off"
     "i915.modeset=1"
@@ -27,6 +28,7 @@
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "1"; # bigger font in boot menu
   boot.loader.timeout = 1;
   boot.tmp.useTmpfs = true;
 }
