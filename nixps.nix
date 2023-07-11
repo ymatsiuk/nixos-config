@@ -6,6 +6,7 @@
       ./fonts.nix
       ./greetd.nix
       ./opengl.nix
+      ./openvpn.nix
       ./pipewire.nix
     ];
 
