@@ -14,7 +14,6 @@
           "privacy.webrtc.legacyGlobalIndicator" = true; # disabling breaks screen sharing starting from v106 :facepalm.gif:
         };
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          lastpass-password-manager
           decentraleyes
           multi-account-containers
           ublock-origin

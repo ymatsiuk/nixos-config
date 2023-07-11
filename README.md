@@ -72,7 +72,7 @@ What's inside:
     * `tofi` tiny dynamic menu for Wayland
     * `firefox` with Wayland support
     * `gammastep`
-    * `git` (`lastpass` credentials helper)
+    * `git` (`rbw` credentials helper)
     * `gtk` (gruvbox theme)
     * `i3status-rust` (gruvbox theme, toggle for audio profiles, nixos specific "updates available" block)
     * `kanshi` (switches to external output once connected)

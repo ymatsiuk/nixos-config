@@ -55,8 +55,7 @@ in
       ks = "kubectl -n kube-system";
       tf = "terraform";
       tg = "terragrunt";
-      ympass = "${pkgs.libsecret}/bin/secret-tool lookup lpass personal | ${pkgs.wl-clipboard}/bin/wl-copy --paste-once --trim-newline";
-      on-gh-token = "export GITHUB_TOKEN=`${pkgs.lastpass-cli}/bin/lpass show --pass github.com`";
+      on-gh-token = "export GITHUB_TOKEN=$(rbw get github.com)";
       off-gh-token = "unset GITHUB_TOKEN";
       sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
       stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";

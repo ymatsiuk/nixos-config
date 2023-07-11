@@ -4,6 +4,7 @@
   imports = [
     ./home/git.nix
     ./home/neovim.nix
+    ./home/rbw.nix
     ./home/starship.nix
   ];
   programs.fzf.enable = true;
@@ -29,7 +30,6 @@
     kubectl
     kubernetes-helm
     kustomize
-    lastpass-cli
     nixpkgs-fmt
     nixpkgs-review
     open-policy-agent

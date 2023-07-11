@@ -45,7 +45,7 @@
     ];
 
     extraConfig = {
-      credential.helper = "lastpass";
+      credential.helper = "rbw";
       fetch.prune = true;
       init.defaultBranch = "main";
       pull.rebase = false;
