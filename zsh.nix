@@ -51,6 +51,7 @@ in
     shellAliases = {
       ls = "${pkgs.exa}/bin/exa --group-directories-first";
       tree = "${pkgs.exa}/bin/exa --tree";
+      groot = "cd $(git rev-parse --show-toplevel)";
       k = "kubectl";
       ks = "kubectl -n kube-system";
       tf = "terraform";
