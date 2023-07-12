@@ -15,9 +15,10 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
     idasen-cli.url = "github:typetetris/idasen-cli";
+    moz.url = "github:colemickens/flake-firefox-nightly";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-master, nixpkgs-small, idasen-cli }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, nixpkgs-wayland, flake-utils, nixpkgs-master, nixpkgs-small, idasen-cli, moz }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -28,8 +29,9 @@
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
-              idasen-cli = idasen-cli.packages.${system}.idasen-cli;
               awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
+              firefox = moz.packages.${system}.firefox-nightly-bin;
+              idasen-cli = idasen-cli.packages.${system}.idasen-cli;
               master = import nixpkgs-master { system = final.system; config = final.config; };
             })
           ] ++ overlays;

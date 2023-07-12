@@ -41,7 +41,7 @@ in
         in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
-          "${mod}+Shift+f" = "exec ${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }";
+          "${mod}+Shift+f" = "exec firefox";
           "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
@@ -147,9 +147,9 @@ in
         hideEdgeBorders = "smart";
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
-          { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
+          { command = "floating enable"; criteria = { app_id = "firefox-nightly"; title = "About Firefox Nightly"; }; }
           { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
+          { command = "move container to workspace 3"; criteria = { app_id = "firefox-nightly"; }; }
           { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
           # browser zoom|meet|bluejeans
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans)|(Meet)|(Zoom Meeting)"; }; }
@@ -161,7 +161,7 @@ in
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
         { command = "alacritty"; }
-        { command = "${systemdRun { pkg = pkgs.firefox; bin = "firefox";} }"; }
+        { command = "firefox"; }
         { command = "${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }"; }
       ];
     };
