@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   imports = [
     ./home/alacritty.nix
@@ -10,6 +8,7 @@
     ./home/kanshi.nix
     ./home/mako.nix
     ./home/sway.nix
+    ./home/wezterm.nix
   ];
   xdg.userDirs.enable = true;
 }
