@@ -15,6 +15,7 @@ in
     autosuggestions.async = true;
     autosuggestions.enable = true;
     enable = true;
+    enableBashCompletion = true;
     enableCompletion = true;
     enableGlobalCompInit = true;
     histSize = 10000;
@@ -60,8 +61,8 @@ in
       off-gh-token = "unset GITHUB_TOKEN";
       sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
       stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";
-      vpn-staging ="${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
-      vpn-production ="${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
+      vpn-staging = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
+      vpn-production = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
   };
 }
