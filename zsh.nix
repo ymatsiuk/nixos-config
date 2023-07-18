@@ -57,7 +57,7 @@ in
       ks = "kubectl -n kube-system";
       tf = "terraform";
       tg = "terragrunt";
-      on-gh-token = "export GITHUB_TOKEN=$(rbw get github.com)";
+      on-gh-token = "export GITHUB_TOKEN=$(rbw get https://github.com)";
       off-gh-token = "unset GITHUB_TOKEN";
       sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
       stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";
