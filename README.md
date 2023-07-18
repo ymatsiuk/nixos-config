@@ -60,7 +60,7 @@ What's inside:
       * [`awsvpnclient`](https://github.com/ymatsiuk/awsvpnclient)
     * modules:
       * `podman`
-      * `docker` (buildkite enabled)
+      * `docker` (buildkit enabled)
       * `fonts` (Iosevka, Source Sans Pro, Source Serif Pro)
       * `greetd` (tuigreet)
       * `pipewire`
