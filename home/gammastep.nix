@@ -1,8 +1,11 @@
+let
+  secrets = import ../secrets.nix;
+in
 {
   services.gammastep = {
     enable = true;
-    latitude = "52.2";
-    longitude = "4.5";
+    latitude = secrets.gammastep.latitude;
+    longitude = secrets.gammastep.longitude;
     temperature = {
       day = 5500;
       night = 3700;

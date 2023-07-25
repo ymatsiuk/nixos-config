@@ -1,3 +1,6 @@
+let
+  secrets = import ../secrets.nix;
+in
 {
   programs.git = {
     enable = true;
@@ -24,21 +27,21 @@
       {
         condition = "gitdir:~/git/lightspeed*/";
         contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
+          email = secrets.git.lightspeed.email;
           signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
       {
         condition = "gitdir:~/git/nuorder/";
         contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
+          email = secrets.git.lightspeed.email;
           signingKey = "~/.ssh/nuorder.pub";
         };
       }
       {
         condition = "gitdir:~/git/shopkeep/";
         contents.user = {
-          email = "yurii.matsiuk@lightspeedhq.com";
+          email = secrets.git.lightspeed.email;
           signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
