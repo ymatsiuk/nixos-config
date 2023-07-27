@@ -10,9 +10,9 @@
         serif = [ "Source Serif Pro" ];
       };
     };
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       font-awesome
       iosevka
       source-sans-pro
