@@ -10,10 +10,6 @@ let
   gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
   gnomeSchema = "org.gnome.desktop.interface";
-  systemdRun = { pkg, bin ? pkg.pname, args ? "" }: ''
-    systemd-run --user --scope --collect --quiet --unit=${bin} \
-    systemd-cat --identifier=${bin} ${lib.makeBinPath [ pkg ]}/${bin} ${args}
-  '';
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
     ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
     ${gsettings} set ${gnomeSchema} icon-theme ${gtkSettings.gtk.iconTheme.name}
@@ -42,7 +38,7 @@ in
         lib.mkOptionDefault {
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+f" = "exec firefox";
-          "${mod}+Shift+s" = "exec ${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }";
+          "${mod}+Shift+s" = "exec slack --logLevel=error";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
@@ -162,7 +158,7 @@ in
         { command = "${importGsettings}"; always = true; }
         { command = "foot"; }
         { command = "firefox"; }
-        { command = "${systemdRun { pkg = pkgs.master.slack; args= "--logLevel=error";} }"; }
+        { command = "slack --logLevel=error"; }
       ];
     };
     extraConfig = ''
