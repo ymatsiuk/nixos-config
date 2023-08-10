@@ -24,13 +24,14 @@
     enable = true;
     wrapperFeatures = { base = true; gtk = true; };
     extraPackages = with pkgs; [
+      grim #sway dep
       gsimplecal #i3status-rust dep
       light #sway dep
+      master.slack
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
-      master.slack
-      sway-contrib.grimshot #sway dep
+      slurp #sway dep
       swayidle #sway dep
       swaylock #sway dep
       tofi #sway dep

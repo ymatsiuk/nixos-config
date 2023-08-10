@@ -47,8 +47,8 @@ in
           "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86MonBrightnessDown" = "exec light -U 5%";
           "XF86MonBrightnessUp" = "exec light -A 5%";
-          "--release Print" = "exec grimshot --notify save area ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
-          "--release ${mod}+Print" = "exec grimshot --notify save output ~/scr/scr_`date +%Y%m%d.%H.%M.%S`.png";
+          "--release Print" = "exec GRIM_DEFAULT_DIR=~/scr grim -g \"$(slurp)\"";
+          "--release ${mod}+Print" = "exec GRIM_DEFAULT_DIR=~/scr grim";
         };
       colors = {
         focused = {
