@@ -30,7 +30,7 @@ in
       };
       modifier = "Mod4";
       menu = "tofi-drun --drun-launch=true";
-      terminal = "foot";
+      terminal = "alacritty";
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;
@@ -156,7 +156,7 @@ in
         { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP NIXOS_OZONE_WL"; } #workaround
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
-        { command = "foot"; }
+        { command = "alacritty"; }
         { command = "firefox"; }
         { command = "slack --logLevel=error"; }
       ];

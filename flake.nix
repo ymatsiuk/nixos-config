@@ -100,6 +100,34 @@
       };
       overlays = {
         firmware = final: prev: {
+          alacritty = prev.alacritty.overrideAttrs (oldAttrs: rec {
+            version = "master";
+            src = prev.fetchFromGitHub {
+              owner = "alacritty";
+              repo = oldAttrs.pname;
+              rev = "6143b3f4eb352ff4ab36149ce5ba8c6ab04e415a";
+              hash = "sha256-+rc0etVL0WGfvQijumvLJOYn1aRooqv5ZPJpz14KJXg=";
+            };
+
+            cargoDeps = oldAttrs.cargoDeps.overrideAttrs (_: {
+              inherit src;
+              outputHash = "sha256-ZIb70LhLcPp5rKl/Asbe+pYw1FLaObtxL/6N6fyDqm0=";
+            });
+
+            postInstall = ''
+              install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+              install -D extra/linux/org.alacritty.Alacritty.appdata.xml -t $out/share/appdata/
+              install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+              $STRIP -S $out/bin/alacritty
+              patchelf --add-rpath "${prev.lib.makeLibraryPath oldAttrs.buildInputs}" $out/bin/alacritty
+              installShellCompletion --zsh extra/completions/_alacritty
+              install -dm 755 "$terminfo/share/terminfo/a/"
+              tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
+              mkdir -p $out/nix-support
+              echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+            '';
+
+          });
           # linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
           #   version = "20220509";
           #   src = prev.fetchzip {
