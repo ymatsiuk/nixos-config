@@ -8,6 +8,7 @@
       ./opengl.nix
       ./openvpn.nix
       ./pipewire.nix
+      ./telegraf.nix
     ];
 
   hardware = {
