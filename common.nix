@@ -1,4 +1,23 @@
 { pkgs, lib, ... }:
+let
+  defaultNetworkConfig = { name, weight }: {
+    dhcpV4Config.RouteMetric = weight;
+    matchConfig.Name = name;
+    networkConfig = {
+      DNSSEC = true;
+      DHCP = "yes";
+      DNS = [ "1.1.1.1" "1.0.0.1" ];
+    };
+    dhcpV4Config.UseDNS = false;
+    dhcpV6Config.UseDNS = false;
+    routes = [{
+      routeConfig = {
+        InitialCongestionWindow = 50;
+        InitialAdvertisedReceiveWindow = 50;
+      };
+    }];
+  };
+in
 {
   imports =
     [
@@ -46,28 +65,8 @@
     enable = true;
     wait-online.anyInterface = true;
     networks = {
-      "wlan0" = {
-        dhcpV4Config.RouteMetric = 4096;
-        matchConfig.Name = "wlan0";
-        networkConfig = {
-          DNSSEC = true;
-          DHCP = "yes";
-          DNS = [ "1.1.1.1" "1.0.0.1" ];
-        };
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
-      };
-      "eth0" = {
-        dhcpV4Config.RouteMetric = 1024;
-        matchConfig.Name = "eth0";
-        networkConfig = {
-          DNSSEC = true;
-          DHCP = "yes";
-          DNS = [ "1.1.1.1" "1.0.0.1" ];
-        };
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
-      };
+      "wlan0" = defaultNetworkConfig { name = "wlan0"; weight = 4096; };
+      "eth0" = defaultNetworkConfig { name = "eth0"; weight = 1024; };
     };
   };
 
