@@ -9,62 +9,53 @@
       nil
       nodePackages.pyright
       nodePackages.bash-language-server
-      rubyPackages.solargraph
       terraform-ls
     ];
-    extraConfig = ''
-      filetype plugin indent on
-      syntax on
+    extraLuaConfig = ''
+      -- Move selection up/down
+      vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+      vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+      -- Insert into selection without copying it
+      vim.keymap.set("x", "<space>p", [["_dP]])
+      -- Delete without placing into the register
+      vim.keymap.set({"n", "v"}, "<space>d", [["_d]])
+      -- Don't jump when merge lines
+      vim.keymap.set("n", "J", "mzJ`z")
+      -- Stay in the middle of the screen while scrolling
+      vim.keymap.set("n", "<C-d>", "<C-d>zz")
+      vim.keymap.set("n", "<C-u>", "<C-u>zz")
+      -- Keep cursor in the middle of the screen while searching
+      vim.keymap.set("n", "n", "nzzzv")
+      vim.keymap.set("n", "N", "Nzzzv")
+      -- Disable Ex mode
+      vim.keymap.set("n", "Q", "<nop>")
 
-      " Remove trailing white spaces on save
-      autocmd BufWritePre * :%s/\s\+$//e
+      -- Remove trailing white spaces on save
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = "*",
+        command = ":%s/\\s\\+$//e"
+      })
 
-      set autoread
-      set autoindent
-      set backspace=2
-      " for cross-terminal clipboard support
-      set clipboard=unnamed
-      set clipboard^=unnamedplus
-      set completeopt-=preview
-      set colorcolumn=80
-      set cursorline
-      set encoding=utf-8
-      set expandtab
-      set hlsearch
-      set ignorecase
-      set incsearch
-      set laststatus=3
-      set mouse=a
-      set nobackup
-      set nocompatible
-      set noshowmode
-      set noswapfile
-      set nowritebackup
-      set number
-      set relativenumber
-      set scrolloff=8
-      set shiftwidth=4
-      set showcmd
-      set sidescrolloff=10
-      set smartcase
-      set smarttab
-      set softtabstop=4
-      set spell
-      set spelllang=en
-      set splitbelow
-      set splitright
-      set tabstop=4
-      set termguicolors
-      set timeoutlen=1000
-      set ttimeoutlen=0
-
-      highlight Comment gui=italic cterm=italic
-
-      "  Disable Ex mode
-      map Q <nop>
-      " Move up and down in autocomplete with <c-j> and <c-k>
-      inoremap <expr> <C-j> ("\<C-n>")
-      inoremap <expr> <C-k> ("\<C-p>")
+      -- Options
+      vim.opt.colorcolumn = "80"
+      vim.opt.cursorline = true
+      vim.opt.expandtab = true
+      vim.opt.laststatus = 3
+      vim.opt.backup = false
+      vim.opt.showmode = false
+      vim.opt.swapfile = false
+      vim.opt.number = true
+      vim.opt.relativenumber = true
+      vim.opt.scrolloff = 8
+      vim.opt.shiftwidth = 4
+      vim.opt.softtabstop = 4
+      vim.opt.spelllang = "en_us"
+      vim.opt.spell = true
+      vim.opt.splitbelow = true
+      vim.opt.splitright = true
+      vim.opt.tabstop = 4
+      vim.opt.termguicolors = true
+      vim.opt.clipboard = "unnamed,unnamedplus"
     '';
     plugins = with pkgs.vimPlugins; [
       colorizer
@@ -72,10 +63,31 @@
       vim-nix
       vim-terraform
       {
-        plugin = indent-blankline-nvim;
-        type = " lua";
+        plugin = nvim-treesitter.withAllGrammars;
+        type = "lua";
         config = ''
-          require("indent_blankline").setup {}
+          vim.opt.foldmethod = "expr"
+          vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+          vim.opt.foldenable = false
+
+          require'nvim-treesitter.configs'.setup {
+            indent = { enable = true, },
+            highlight = { enable = true, },
+          }
+        '';
+      }
+      {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = ''
+          vim.opt.list = true
+          vim.opt.listchars:append "space:⋅"
+          vim.opt.listchars:append "eol:↴"
+
+          require("indent_blankline").setup {
+              show_end_of_line = true,
+              space_char_blankline = " ",
+          }
         '';
       }
       {
@@ -86,9 +98,10 @@
         '';
       }
       {
-        plugin = gruvbox;
+        plugin = gruvbox-nvim;
+        type = "lua";
         config = ''
-          colorscheme gruvbox
+          vim.cmd.colorscheme("gruvbox")
         '';
       }
       {
@@ -100,12 +113,13 @@
       }
       {
         plugin = fzf-vim;
+        type = "lua";
         config = ''
-          nnoremap <A-l> :BLines<CR>
-          nnoremap <A-r> :Rg
-          nnoremap <A-g> :GFiles<CR>
-          nnoremap <A-b> :Buffers<CR>
-          nnoremap <A-f> :Files<CR>
+          vim.keymap.set("n", "<A-l>", "<cmd>BLines<CR>")
+          vim.keymap.set("n", "<A-r>", "<cmd>Rg<CR>")
+          vim.keymap.set("n", "<A-g>", "<cmd>GFiles<CR>")
+          vim.keymap.set("n", "<A-b>", "<cmd>Buffers<CR>")
+          vim.keymap.set("n", "<A-f>", "<cmd>Files<CR>")
         '';
       }
       {
@@ -116,7 +130,6 @@
           local lspconfig = require('lspconfig')
           lspconfig.pyright.setup {}
           lspconfig.gopls.setup {}
-          lspconfig.solargraph.setup {}
           lspconfig.terraformls.setup {}
           lspconfig.bashls.setup {}
           lspconfig.nil_ls.setup{
