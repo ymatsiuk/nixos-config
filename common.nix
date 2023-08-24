@@ -30,7 +30,6 @@ in
     shells = [ pkgs.zsh ];
     pathsToLink = [ "/libexec" "/share/zsh" ];
     variables = {
-      LPASS_AGENT_TIMEOUT = "0";
       MANPAGER = "nvim +Man!";
       EDITOR = "nvim";
       NIXOS_OZONE_WL = "1";
