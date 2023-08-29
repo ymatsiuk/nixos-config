@@ -37,31 +37,31 @@
       })
 
       -- Options
+      vim.opt.backup = false
+      vim.opt.clipboard = "unnamed,unnamedplus"
       vim.opt.colorcolumn = "80"
       vim.opt.cursorline = true
-      vim.opt.expandtab = true
       vim.opt.laststatus = 3
-      vim.opt.backup = false
-      vim.opt.showmode = false
-      vim.opt.swapfile = false
       vim.opt.number = true
       vim.opt.relativenumber = true
       vim.opt.scrolloff = 8
-      vim.opt.shiftwidth = 4
-      vim.opt.softtabstop = 4
-      vim.opt.spelllang = "en_us"
-      vim.opt.spell = true
-      vim.opt.splitbelow = true
-      vim.opt.splitright = true
-      vim.opt.tabstop = 4
+      vim.opt.showmode = false
+      vim.opt.swapfile = false
       vim.opt.termguicolors = true
-      vim.opt.clipboard = "unnamed,unnamedplus"
     '';
     plugins = with pkgs.vimPlugins; [
       colorizer
-      vim-commentary
+      vim-helm
       vim-nix
+      vim-sleuth
       vim-terraform
+      {
+        plugin = comment-nvim;
+        type = "lua";
+        config = ''
+          require('Comment').setup()
+        '';
+      }
       {
         plugin = nvim-treesitter.withAllGrammars;
         type = "lua";
