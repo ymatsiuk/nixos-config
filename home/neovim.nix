@@ -29,6 +29,8 @@
       vim.keymap.set("n", "N", "Nzzzv")
       -- Disable Ex mode
       vim.keymap.set("n", "Q", "<nop>")
+      -- Disable space in normal/visual modes
+      vim.keymap.set({ 'n', 'v' }, '<space>', '<nop>', { silent = true })
 
       -- Remove trailing white spaces on save
       vim.api.nvim_create_autocmd('BufWritePre', {
