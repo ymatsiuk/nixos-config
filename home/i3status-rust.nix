@@ -11,6 +11,7 @@ let
   kernel = pkgs.writeShellScript "uname.sh" ''
     echo '{"icon": "tux", "text": "'$(uname -r)'"}'
   '';
+  secrets = import ../secrets.nix;
 in
 {
   programs.i3status-rust = {
@@ -27,6 +28,7 @@ in
           { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; disconnected_format = ""; format = " $icon { $percentage|} "; }
           { block = "cpu"; }
           { block = "net"; device = "wlan0"; format = " $icon $signal_strength "; }
+          { block = "weather"; service = { name = "openweathermap"; city_id = secrets.i3status-rust.cityId; api_key = secrets.i3status-rust.openWeatherApiKey; }; }
           { block = "backlight"; }
           { block = "temperature"; }
           { block = "sound"; driver = "pulseaudio"; click = [{ button = "left"; cmd = "pavucontrol"; }]; }
