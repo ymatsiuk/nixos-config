@@ -12,6 +12,23 @@
       terraform-ls
     ];
     extraLuaConfig = ''
+      -- Disable netrw in favor of nvim-tree.lua
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+
+      -- Options
+      vim.opt.backup = false
+      vim.opt.clipboard = "unnamed,unnamedplus"
+      vim.opt.colorcolumn = "80"
+      vim.opt.cursorline = true
+      vim.opt.laststatus = 3
+      vim.opt.number = true
+      vim.opt.relativenumber = true
+      vim.opt.scrolloff = 8
+      vim.opt.showmode = false
+      vim.opt.swapfile = false
+      vim.opt.termguicolors = true
+
       -- Move selection up/down
       vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
       vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -30,26 +47,16 @@
       -- Disable Ex mode
       vim.keymap.set("n", "Q", "<nop>")
       -- Disable space in normal/visual modes
-      vim.keymap.set({ 'n', 'v' }, '<space>', '<nop>', { silent = true })
+      vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
+      -- Toggle nvim-tree
+      vim.keymap.set({ "n" }, "<space>tt", ":NvimTreeToggle<CR>", { silent = true })
+      vim.keymap.set({ "n" }, "<space>tf", ":NvimTreeFocus<CR>", { silent = true })
 
       -- Remove trailing white spaces on save
       vim.api.nvim_create_autocmd('BufWritePre', {
         pattern = "*",
         command = ":%s/\\s\\+$//e"
       })
-
-      -- Options
-      vim.opt.backup = false
-      vim.opt.clipboard = "unnamed,unnamedplus"
-      vim.opt.colorcolumn = "80"
-      vim.opt.cursorline = true
-      vim.opt.laststatus = 3
-      vim.opt.number = true
-      vim.opt.relativenumber = true
-      vim.opt.scrolloff = 8
-      vim.opt.showmode = false
-      vim.opt.swapfile = false
-      vim.opt.termguicolors = true
     '';
     plugins = with pkgs.vimPlugins; [
       colorizer
@@ -57,6 +64,25 @@
       vim-nix
       vim-sleuth
       vim-terraform
+      {
+        plugin = nvim-web-devicons;
+        type = "lua";
+        config = ''
+          require'nvim-web-devicons'.setup{}
+        '';
+      }
+      {
+        plugin = nvim-tree-lua;
+        type = "lua";
+        config = ''
+          require("nvim-tree").setup {
+            disable_netrw = true,
+            hijack_netrw = true,
+            hijack_cursor = true,
+            sync_root_with_cwd = true,
+          }
+        '';
+      }
       {
         plugin = comment-nvim;
         type = "lua";
