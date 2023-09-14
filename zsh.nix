@@ -50,8 +50,8 @@ in
       which starship >/dev/null && eval "$(starship init zsh)"
     '';
     shellAliases = {
-      ls = "${pkgs.exa}/bin/exa --group-directories-first";
-      tree = "${pkgs.exa}/bin/exa --tree";
+      ls = "${pkgs.eza}/bin/eza --group-directories-first";
+      tree = "${pkgs.eza}/bin/eza --tree";
       groot = "cd $(git rev-parse --show-toplevel)";
       k = "kubectl";
       ks = "kubectl -n kube-system";

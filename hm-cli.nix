@@ -17,7 +17,7 @@
     awscli2
     delve
     dogdns
-    exa
+    eza
     exercism
     fd
     gcc
