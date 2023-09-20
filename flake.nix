@@ -101,17 +101,17 @@
       overlays = {
         firmware = final: prev: {
           alacritty = prev.alacritty.overrideAttrs (oldAttrs: rec {
-            version = "master";
+            version = "e35e5ade";
             src = prev.fetchFromGitHub {
               owner = "alacritty";
               repo = oldAttrs.pname;
-              rev = "6143b3f4eb352ff4ab36149ce5ba8c6ab04e415a";
-              hash = "sha256-+rc0etVL0WGfvQijumvLJOYn1aRooqv5ZPJpz14KJXg=";
+              rev = "e35e5ad14fce8456afdd89f2b392b9924bb27471";
+              hash = "sha256-+UNqLqPBAuS5ykfxghKC323PKPD8Rhr0b6CxrKHgzgc=";
             };
 
             cargoDeps = oldAttrs.cargoDeps.overrideAttrs (_: {
               inherit src;
-              outputHash = "sha256-ZIb70LhLcPp5rKl/Asbe+pYw1FLaObtxL/6N6fyDqm0=";
+              outputHash = "sha256-oHk1CiTNz6fcOWNk7ZHGhShOyJ1DtR5Gj4m6LUw5+CE=";
             });
 
             postInstall = ''
