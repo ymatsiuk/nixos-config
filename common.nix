@@ -57,8 +57,6 @@ in
     wireless.iwd.enable = true;
     wireless.iwd.settings.General.UseDefaultInterface = true;
   };
-  # disable wifi autostart, use `sudo systemctl start iwd.service`
-  systemd.services.iwd.wantedBy = lib.mkForce [ ];
 
   systemd.network = {
     enable = true;
