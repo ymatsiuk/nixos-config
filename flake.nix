@@ -100,6 +100,22 @@
       };
       overlays = {
         firmware = final: prev: {
+          wezterm = prev.wezterm.overrideAttrs (oldAttrs: rec {
+            src = prev.fetchFromGitHub {
+              owner = "wez";
+              repo = "wezterm";
+              rev = "0f894d7948bccc20c0b802e54a860069c4a443b6";
+              fetchSubmodules = true;
+              hash = "sha256-agqPu6momfDpCL3bAqTS/y/mBpRds0YL58Rf48ZxiCs=";
+            };
+            cargoDeps = prev.rustPlatform.importCargoLock {
+              lockFile = (prev.fetchurl {
+                url = "https://raw.githubusercontent.com/wez/wezterm/0f894d7948bccc20c0b802e54a860069c4a443b6/Cargo.lock";
+                hash = "sha256-a4hxW0T6C5amgAm9nSr0/bjbTrSE0yl15T55JTgpfyg=";
+              });
+              allowBuiltinFetchGit = true;
+            };
+          });
           alacritty = prev.alacritty.overrideAttrs (oldAttrs: rec {
             version = "e35e5ade";
             src = prev.fetchFromGitHub {
@@ -147,6 +163,7 @@
           linux-firmware = pkgs.linux-firmware;
           linux_latest = pkgs.linux_latest;
           awscli2 = pkgs.master.awscli2;
+          wezterm = pkgs.wezterm;
         };
       }
     );
