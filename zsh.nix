@@ -9,6 +9,7 @@ let
     "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
   ];
   plugins = builtins.concatStringsSep "\n" (source);
+  secrets = import ./secrets.nix;
 in
 {
   programs.zsh = {
@@ -57,8 +58,15 @@ in
       ks = "kubectl -n kube-system";
       tf = "terraform";
       tg = "terragrunt";
-      on-gh-token = "export GITHUB_TOKEN=$(rbw get https://github.com)";
-      off-gh-token = "unset GITHUB_TOKEN";
+      # Export/Unset GitHub/GitLab/Pagerduty <Nu/Ls> Token
+      eght = "export GITHUB_TOKEN=$(rbw get https://github.com)";
+      ught = "unset GITHUB_TOKEN";
+      eglnt = "export GITLAB_TOKEN=$(rbw get ${secrets.nuo.git.url})";
+      eglt = "export GITLAB_TOKEN=$(rbw get https://gitlab.com)";
+      uglt = "unset GITLAB_TOKEN";
+      eplt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field LS | awk '{print $2}')";
+      epnt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field NuO | awk '{print $2}')";
+      upt = "unset PAGERDUTY_TOKEN";
       sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
       stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";
       vpn-staging = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
