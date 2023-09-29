@@ -14,10 +14,10 @@
           # "privacy.webrtc.legacyGlobalIndicator" = true;
         };
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          bitwarden
           decentraleyes
           multi-account-containers
           ublock-origin
-          bitwarden
         ];
       };
     };

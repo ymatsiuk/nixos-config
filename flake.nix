@@ -30,7 +30,7 @@
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
               awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
-              firefox = moz.packages.${system}.firefox-nightly-bin;
+              firefox-nightly = moz.packages.${system}.firefox-nightly-bin;
               idasen-cli = idasen-cli.packages.${system}.idasen-cli;
               master = import nixpkgs-master { system = final.system; config = final.config; };
             })
