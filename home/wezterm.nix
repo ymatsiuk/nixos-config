@@ -12,6 +12,9 @@
       config.font = wezterm.font 'Iosevka'
       config.term = 'wezterm'
       config.window_padding = { left = 2, right = 2, top = 2, bottom = 2, }
+      config.animation_fps = 1
+      config.cursor_blink_ease_in = 'Constant'
+      config.cursor_blink_ease_out = 'Constant'
 
       return config
     '';
