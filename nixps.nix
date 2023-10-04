@@ -28,7 +28,6 @@
       grim #sway dep
       gsimplecal #i3status-rust dep
       light #sway dep
-      master.slack
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
