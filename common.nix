@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
   defaultNetworkConfig = { name, weight }: {
     dhcpV4Config.RouteMetric = weight;
@@ -91,7 +91,7 @@ in
     '';
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.11";
 
   time.timeZone = "Europe/Amsterdam";
 

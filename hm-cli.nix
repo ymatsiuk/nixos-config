@@ -43,10 +43,9 @@
     vault
     xdg-utils
     yq-go
-    zoom-us
     (master.google-cloud-sdk.withExtraComponents ([
       master.google-cloud-sdk.components.gke-gcloud-auth-plugin
     ]))
   ];
-  home.stateVersion = "22.05";
+  home.stateVersion = "23.11";
 }
