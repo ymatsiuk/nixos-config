@@ -43,8 +43,8 @@
     vault
     xdg-utils
     yq-go
-    (master.google-cloud-sdk.withExtraComponents ([
-      master.google-cloud-sdk.components.gke-gcloud-auth-plugin
+    (google-cloud-sdk.withExtraComponents ([
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
     ]))
   ];
   home.stateVersion = "23.11";
