@@ -155,7 +155,7 @@ in
         ];
       };
       startup = [
-        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP NIXOS_OZONE_WL"; } #workaround
+        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
         { command = "wezterm start --always-new-process"; }
