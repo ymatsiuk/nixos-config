@@ -55,8 +55,8 @@ nixos-install --flake path:.#nixps
 What's inside:
 1. NixOS:
     * latest stable kernel from `nixpkgs-small`
-    * latest `nix`
-    * custom overlays:
+    * stable `nix`
+    * overlays:
       * [`awsvpnclient`](https://github.com/ymatsiuk/awsvpnclient)
     * modules:
       * `podman`
@@ -69,14 +69,17 @@ What's inside:
 
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
-    * `tofi` tiny dynamic menu for Wayland
     * `firefox` with Wayland support
+    * `foot` (gruvbox theme)
     * `gammastep`
     * `git` (`rbw` credentials helper)
     * `gtk` (gruvbox theme)
-    * `i3status-rust` (gruvbox theme, toggle for audio profiles, nixos specific "updates available" block)
+    * `i3status-rust` (gruvbox theme)
     * `kanshi` (switches to external output once connected)
     * `mako` (gruvbox theme)
     * `neovim` (gruvbox theme + lsp)
     * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
+    * `rbw`
+    * `tofi` tiny dynamic menu for Wayland
+    * `wezterm` main terminal (gruvbox theme)
