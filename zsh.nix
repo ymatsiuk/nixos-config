@@ -67,8 +67,6 @@ in
       eplt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field LS | awk '{print $2}')";
       epnt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field NuO | awk '{print $2}')";
       upt = "unset PAGERDUTY_TOKEN";
-      sit = "${pkgs.idasen-cli}/bin/idasen-cli restore sit";
-      stand = "${pkgs.idasen-cli}/bin/idasen-cli restore stand";
       vpn-staging = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
       vpn-production = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
