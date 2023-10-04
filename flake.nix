@@ -41,7 +41,6 @@
             home-manager.nixosModules.home-manager
             {
               nix.extraOptions = "experimental-features = nix-command flakes";
-              nix.package = pkgs.nixUnstable;
               nix.registry.nixpkgs.flake = nixpkgs;
               nixpkgs = { inherit pkgs; };
             }
