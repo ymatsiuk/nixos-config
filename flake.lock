@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696409884,
-        "narHash": "sha256-hz3i4wFJHoTIAEI19oF1fiPn6TpV+VuTSOrSHUoJMgs=",
+        "lastModified": 1696446489,
+        "narHash": "sha256-xSjMKdNR+q/3hdSPyg/LUMsZT/WIoUi8dcm5zT4SMUQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8aef005d44ee726911e9f793495bb40f2fbf5a05",
+        "rev": "68f7d8c0fb0bfc67d1916dd7f06288424360d43a",
         "type": "github"
       },
       "original": {
@@ -78,29 +78,13 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1696440837,
-        "narHash": "sha256-MdI3m2GFLOBV+2W/iefhPgCds3CVvXGmJTW5dgWZMCU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a53084e1a72a82d83ee6d252607dd25150aa0645",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1696392856,
-        "narHash": "sha256-Rm1kRKp9U86dLMil1UUHM87B916eFuGpkk8iwEuRUsg=",
+        "lastModified": 1696434248,
+        "narHash": "sha256-qivb3b3b5Cxe5/8qwCJ4CJCw/ENtim5zlhDItGR0p1I=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "be830beb3daf18c3dd89abb28389eef0ffc1cc29",
+        "rev": "349bdd9653c42f1793d338b43aefe08883c5ebee",
         "type": "github"
       },
       "original": {
@@ -112,11 +96,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1696437981,
-        "narHash": "sha256-yvQSzX/XE73Zs770yDTBrggctCf+RxrTbJgql0LLbvs=",
+        "lastModified": 1696498449,
+        "narHash": "sha256-ByA1xL/LlLCtKbJX320YVYGeU32s9bayLoVLedp2x+g=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "256d88b4350373640f35473d404039d5bcd17ebe",
+        "rev": "8bfb230fb09943dea0ae83b348d2c7ec585f9476",
         "type": "github"
       },
       "original": {
@@ -131,7 +115,6 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-small": "nixpkgs-small",
         "nur": "nur"
       }
