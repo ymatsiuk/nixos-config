@@ -9,12 +9,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, flake-utils, nixpkgs-master, nixpkgs-small }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -26,7 +25,6 @@
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
               awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
-              master = import nixpkgs-master { system = final.system; config = final.config; };
             })
           ] ++ overlays;
         };
