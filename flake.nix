@@ -11,9 +11,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small }:
+  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -64,7 +65,8 @@
           overlays = [ ];
           modules = [
             { networking.hostName = "nixpi4"; }
-            ./nixpi.nix
+            ./nixpi4.nix
+            nixos-hardware.nixosModules.raspberry-pi-4
           ];
         };
 
