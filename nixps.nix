@@ -31,6 +31,7 @@
       pavucontrol #i3status-rust dep
       playerctl #sway dep
       pulseaudio #i3status-rust dep
+      slack
       slurp #sway dep
       swayidle #sway dep
       swaylock #sway dep
