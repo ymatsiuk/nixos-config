@@ -3,6 +3,7 @@
   imports = [
     ./grafana.nix
     ./homeassistant.nix
+    ./telegraf.nix
   ];
 
   boot = {
