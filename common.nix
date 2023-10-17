@@ -19,10 +19,9 @@ let
   };
 in
 {
-  imports =
-    [
-      ./zsh.nix
-    ];
+  imports = [
+    ./zsh.nix
+  ];
 
   documentation.nixos.enable = false;
 
