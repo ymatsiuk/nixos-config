@@ -100,7 +100,7 @@ in
     users = {
       ymatsiuk = {
         description = "Yurii Matsiuk";
-        extraGroups = [ "audio" "docker" "video" "wheel" "ymatsiuk" ];
+        extraGroups = [ "audio" "dialout" "docker" "video" "wheel" "ymatsiuk" ];
         shell = pkgs.zsh;
         home = "/home/ymatsiuk";
         isNormalUser = true;
@@ -116,5 +116,17 @@ in
     };
   };
 
-  virtualisation.podman.enable = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+      extraOptions = ''--config-file=${
+      pkgs.writeText "daemon.json" (builtins.toJSON {
+        features = { buildkit = true; };
+      })
+    }'';
+    };
+    podman.enable = true;
+  };
+
 }
