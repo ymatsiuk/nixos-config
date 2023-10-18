@@ -7,14 +7,6 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "uas" ];
-    initrd.kernelModules = [ ];
-    kernelModules = [ ];
-    extraModulePackages = [ ];
-    loader = {
-      grub.enable = false;
-      generic-extlinux-compatible.enable = true;
-    };
     extraModprobeConfig = ''
       options cfg80211 ieee80211_regdom="NL"
     '';
