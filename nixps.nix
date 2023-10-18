@@ -11,10 +11,7 @@
       ./telegraf.nix
     ];
 
-  hardware = {
-    bluetooth = { enable = true; settings.General.Experimental = true; };
-    cpu.intel.updateMicrocode = true;
-  };
+  hardware.cpu.intel.updateMicrocode = true;
 
   home-manager.users.ymatsiuk = import ./hm-gui.nix;
 

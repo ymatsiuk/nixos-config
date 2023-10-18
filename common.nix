@@ -39,6 +39,7 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.ymatsiuk = import ./hm-cli.nix;
+  hardware.bluetooth = { enable = true; settings.General.Experimental = true; };
   hardware.firmware = with pkgs; [ linux-firmware sof-firmware wireless-regdb ];
 
   i18n = {

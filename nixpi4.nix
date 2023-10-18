@@ -35,9 +35,6 @@
   swapDevices =
     [{ device = "/dev/disk/by-uuid/4918387b-8275-4f05-9938-b18ac7ca2df0"; }];
 
-  hardware.enableRedistributableFirmware = lib.mkForce true;
-  hardware.bluetooth = { enable = true; settings.General.Experimental = true; };
-
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
