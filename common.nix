@@ -39,8 +39,18 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.ymatsiuk = import ./hm-cli.nix;
-  hardware.bluetooth = { enable = true; settings.General.Experimental = true; };
-  hardware.firmware = with pkgs; [ linux-firmware sof-firmware wireless-regdb ];
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      settings.General.Experimental = true;
+    };
+    firmware = with pkgs; [
+      linux-firmware
+      sof-firmware
+      wireless-regdb
+    ];
+  };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -66,7 +76,6 @@ in
       "eth0" = defaultNetworkConfig { name = "eth0"; weight = 1024; };
     };
   };
-
 
   security.sudo.extraRules = [
     {
