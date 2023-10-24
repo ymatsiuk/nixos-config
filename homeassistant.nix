@@ -2,7 +2,31 @@
 let
   secrets = import ./secrets.nix;
   format = pkgs.formats.yaml { };
-  config = format.generate "hass-config.yaml" {
+  scripts = format.generate "scripts.yaml" [ ];
+  scenes = format.generate "scenes.yaml" [ ];
+  automations = format.generate "automations.yaml" [{
+    id = "1697893095905";
+    alias = "Notify doorbell";
+    description = "";
+    trigger = [{
+      platform = "state";
+      entity_id = [ "binary_sensor.doorbell" ];
+      from = "off";
+      to = "on";
+    }];
+    condition = [ ];
+    action = [{
+      service = "notify.mobile_app_pixel_5";
+      data = {
+        title = "Deurbel gaat";
+        message = "Er belt iemand aan";
+      };
+    }];
+  }];
+  config = format.generate "configuration.yaml" {
+    automation = "!include automations.yaml";
+    script = "!include scripts.yaml";
+    scene = "!include scenes.yaml";
     default_config = { };
     http.server_port = 8124;
     homeassistant = {
@@ -37,6 +61,11 @@ let
       };
     };
   };
+  # hack to fix yaml functions
+  configuration = pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
+    cp ${config} $out
+    sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
+  '';
 in
 {
 
@@ -65,16 +94,15 @@ in
     ];
   };
 
-  systemd.tmpfiles.rules = [
-    "L+ /etc/hass/configuration.yaml - - - - ${config}"
-  ];
-
   virtualisation.oci-containers = {
     backend = "docker";
     containers.homeassistant = {
       volumes = [
         "/var/lib/homeassistant:/config"
-        "/etc/hass/configuration.yaml:/config/configuration.yaml"
+        "${configuration}:/config/configuration.yaml"
+        "${automations}:/config/automations.yaml"
+        "${scenes}:/config/scenes.yaml"
+        "${scripts}:/config/scripts.yaml"
         "/run/dbus:/run/dbus:ro"
         "/run/postgresql:/run/postgresql:ro"
       ];
