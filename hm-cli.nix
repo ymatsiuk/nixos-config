@@ -15,7 +15,6 @@
   programs.gpg.enable = true;
   programs.htop.enable = true;
   home.packages = with pkgs;[
-    android-tools
     aws-iam-authenticator
     aws-sso-cli
     awscli2
@@ -28,7 +27,6 @@
     gnumake
     go
     golangci-lint
-    iperf
     jq
     kind
     kubectl
@@ -36,7 +34,6 @@
     kustomize
     nixpkgs-fmt
     nixpkgs-review
-    open-policy-agent
     openssl
     procps
     ripgrep
