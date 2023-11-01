@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   secrets = import ./secrets.nix;
   format = pkgs.formats.yaml { };
@@ -105,6 +105,11 @@ in
       { name = "hass"; ensurePermissions = { "DATABASE homeassistant" = "ALL PRIVILEGES"; }; }
     ];
   };
+
+  # quick workaround for postgresql 15 permissions change
+  systemd.services.postgresql.postStart = lib.mkAfter ''
+    $PSQL homeassistant -tAc 'GRANT ALL ON SCHEMA public TO hass'
+  '';
 
   virtualisation.oci-containers = {
     backend = "docker";
