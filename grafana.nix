@@ -31,6 +31,7 @@ in
       security = {
         admin_user = "ymatsiuk";
         admin_password = "$__file{${adminPasswordPath}}";
+        allow_embedding = true; # for home-assistant
       };
       analytics.reporting_enabled = false;
       "auth.anonymous".enabled = true;

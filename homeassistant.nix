@@ -38,6 +38,18 @@ let
       time_zone = "Europe/Amsterdam";
     };
     recorder.db_url = "postgresql://hass@/homeassistant";
+    panel_iframe = {
+      grafana = {
+        title = "Grafana";
+        url = "http://nixpi4:3000";
+        icon = "mdi:alpha-g-box";
+      };
+      esphome = {
+        title = "ESPHome";
+        url = "http://nixpi4:6052";
+        icon = "mdi:alpha-e-box";
+      };
+    };
     influxdb = {
       api_version = 2;
       host = "localhost";
@@ -96,25 +108,37 @@ in
 
   virtualisation.oci-containers = {
     backend = "docker";
-    containers.homeassistant = {
-      volumes = [
-        "/var/lib/homeassistant:/config"
-        "${configuration}:/config/configuration.yaml"
-        "${automations}:/config/automations.yaml"
-        "${scenes}:/config/scenes.yaml"
-        "${scripts}:/config/scripts.yaml"
-        "/run/dbus:/run/dbus:ro"
-        "/run/postgresql:/run/postgresql:ro"
-      ];
-      environment = {
-        TZ = "Europe/Amsterdam";
+    containers = {
+      homeassistant = {
+        volumes = [
+          "/var/lib/homeassistant:/config"
+          "${configuration}:/config/configuration.yaml"
+          "${automations}:/config/automations.yaml"
+          "${scenes}:/config/scenes.yaml"
+          "${scripts}:/config/scripts.yaml"
+          "/run/dbus:/run/dbus:ro"
+          "/run/postgresql:/run/postgresql:ro"
+        ];
+        environment = {
+          TZ = "Europe/Amsterdam";
+        };
+        image = "ghcr.io/home-assistant/home-assistant:2023.10.3";
+        extraOptions = [
+          "--device=/dev/ttyACM0"
+          "--privileged"
+          "--network=host"
+        ];
       };
-      image = "ghcr.io/home-assistant/home-assistant:2023.10.3";
-      extraOptions = [
-        "--device=/dev/ttyACM0"
-        "--privileged"
-        "--network=host"
-      ];
+      esphome = {
+        volumes = [
+          "/var/lib/homeassistant/esphome:/config"
+        ];
+        image = "ghcr.io/esphome/esphome:2023.10.5";
+        extraOptions = [
+          "--privileged"
+          "--network=host"
+        ];
+      };
     };
   };
 }
