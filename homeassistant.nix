@@ -127,7 +127,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2023.10.3";
+        image = "ghcr.io/home-assistant/home-assistant:2023.11.0";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
