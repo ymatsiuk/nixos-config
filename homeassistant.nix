@@ -127,7 +127,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2023.11.0";
+        image = "ghcr.io/home-assistant/home-assistant:2023.11.1";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
@@ -138,7 +138,7 @@ in
         volumes = [
           "/var/lib/homeassistant/esphome:/config"
         ];
-        image = "ghcr.io/esphome/esphome:2023.10.5";
+        image = "ghcr.io/esphome/esphome:2023.10.6";
         extraOptions = [
           "--privileged"
           "--network=host"
