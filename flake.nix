@@ -2,7 +2,7 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/main";
+    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/ymatsiuk/openvpn-2.6.8";
     awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
     awsvpnclient.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
@@ -40,6 +40,7 @@
             home-manager.nixosModules.home-manager
             {
               nix.extraOptions = "experimental-features = nix-command flakes";
+              nix.package = pkgs.nixVersions.nix_2_19;
               nix.registry.nixpkgs.flake = nixpkgs;
               nixpkgs = { inherit pkgs; };
             }
