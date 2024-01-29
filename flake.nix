@@ -86,7 +86,14 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        firmware = final: prev: { };
+        firmware = final: prev: {
+          vault = prev.vault-bin;
+          terraform = prev.mkTerraform {
+            version = "1.5.7";
+            hash = "sha256-pIhwJfa71/gW7lw/KRFBO4Q5Z5YMcTt3r9kD25k8cqM=";
+            vendorHash = "sha256-lQgWNMBf+ioNxzAV7tnTQSIS840XdI9fg9duuwoK+U4=";
+          };
+        };
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
