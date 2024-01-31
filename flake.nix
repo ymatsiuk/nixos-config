@@ -88,6 +88,32 @@
       overlays = {
         firmware = final: prev: {
           vault = prev.vault-bin;
+          terragrunt = prev.terragrunt.override {
+            buildGoModule = args: final.buildGoModule (args // rec {
+              pname = "terragrunt";
+              version = "0.52.3";
+              src = prev.fetchFromGitHub {
+                owner = "gruntwork-io";
+                repo = pname;
+                rev = "refs/tags/v${version}";
+                hash = "sha256-o/4L7TBdFFHuPOKAO/wP0IBixQtZHGr1GSNlsEpq710=";
+              };
+              vendorHash = "sha256-RmzSKt5qt9Qb4GDrfs4dJEhGQW/jFbXPn+AOLzEyo6c=";
+              doCheck = false;
+              ldflags = [
+                "-s"
+                "-w"
+                "-X github.com/gruntwork-io/go-commons/version.Version=v${version}"
+              ];
+              doInstallCheck = true;
+              installCheckPhase = ''
+                runHook preInstallCheck
+                $out/bin/terragrunt --help
+                $out/bin/terragrunt --version | grep "v${version}"
+                runHook postInstallCheck
+              '';
+            });
+          };
           terraform = prev.mkTerraform {
             version = "1.5.7";
             hash = "sha256-pIhwJfa71/gW7lw/KRFBO4Q5Z5YMcTt3r9kD25k8cqM=";
