@@ -119,14 +119,6 @@
             hash = "sha256-pIhwJfa71/gW7lw/KRFBO4Q5Z5YMcTt3r9kD25k8cqM=";
             vendorHash = "sha256-lQgWNMBf+ioNxzAV7tnTQSIS840XdI9fg9duuwoK+U4=";
           };
-          linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: rec {
-            version = "20231211";
-            src = prev.fetchzip {
-              url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
-              sha256 = "sha256-urJog0DDrJVZWsUpE4MHEQpcz7LB2vGJCcpPJKTko6k=";
-            };
-            outputHash = "sha256-slA0gfGR2a7002Kd46blHb9UNnMhMgaHxP91XWm8gOk=";
-          });
         };
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
