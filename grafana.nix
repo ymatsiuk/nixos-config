@@ -1,4 +1,3 @@
-{ lib, ... }:
 let
   secrets = import ./secrets.nix;
   adminPasswordPath = "/etc/secrets/grafana/gf_admin_password";
@@ -15,14 +14,9 @@ in
     enable = true;
     ensureDatabases = [ "grafana" ];
     ensureUsers = [
-      { name = "grafana"; ensurePermissions = { "DATABASE grafana" = "ALL PRIVILEGES"; }; }
+      { name = "grafana"; ensureDBOwnership = true; }
     ];
   };
-
-  # quick workaround for postgresql 15 permissions change
-  systemd.services.postgresql.postStart = lib.mkAfter ''
-    $PSQL grafana -tAc 'GRANT ALL ON SCHEMA public TO grafana'
-  '';
 
   services.grafana = {
     enable = true;
