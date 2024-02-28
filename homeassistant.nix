@@ -9,15 +9,14 @@ let
       id = "1702192130957";
       alias = "Office light";
       description = "";
-      trigger = [
-        {
-          type = "motion";
-          platform = "device";
-          device_id = "e1b7fc52c2cac8578bdd3d86d2f1d8a3";
-          entity_id = "9fc29384a8533e48bde78e10a75566ca";
-          domain = "binary_sensor";
-          id = "office_motion";
-        }
+      trigger = [{
+        type = "motion";
+        platform = "device";
+        device_id = "e1b7fc52c2cac8578bdd3d86d2f1d8a3";
+        entity_id = "9fc29384a8533e48bde78e10a75566ca";
+        domain = "binary_sensor";
+        id = "office_motion";
+      }
         {
           type = "no_motion";
           platform = "device";
@@ -25,82 +24,96 @@ let
           entity_id = "9fc29384a8533e48bde78e10a75566ca";
           domain = "binary_sensor";
           id = "office_no_motion";
+        }];
+      condition = [{
+        condition = "sun";
+        before = "sunrise";
+        after = "sunset";
+      }];
+      action = [{
+        choose = [{
+          conditions = [{
+            condition = "trigger";
+            id = [ "office_motion" ];
+          }];
+          sequence = [{
+            service = "light.turn_on";
+            target = { area_id = "office"; };
+            data = { brightness_pct = 50; };
+          }];
         }
-      ];
-      condition = [
-        {
-          condition = "sun";
-          before = "sunrise";
-          after = "sunset";
-        }
-      ];
-      action = [
-        {
-          choose = [
-            {
-              conditions = [{ condition = "trigger"; id = [ "office_motion" ]; }];
-              sequence = [{ service = "light.turn_on"; target = { area_id = "office"; }; data = { brightness_pct = 50; }; }];
+          {
+            conditions = [{
+              condition = "trigger";
+              id = [ "office_no_motion" ];
+            }];
+            sequence = [{
+              delay = { hours = 0; minutes = 2; seconds = 0; milliseconds = 0; };
             }
-            {
-              conditions = [{ condition = "trigger"; id = [ "office_no_motion" ]; }];
-              sequence = [{ delay = { hours = 0; minutes = 2; seconds = 0; milliseconds = 0; }; } { service = "light.turn_off"; target = { area_id = "office"; }; data = { }; }];
-            }
-          ];
-        }
-      ];
+              { service = "light.turn_off"; target = { area_id = "office"; }; data = { }; }];
+          }];
+      }];
       mode = "single";
     }
     {
       id = "1702295114892";
       alias = "Smart washer/dryer";
       description = "";
-      trigger = [
-        {
-          type = "power";
-          platform = "device";
-          device_id = "84683e13b344f125337275de40cbd019";
-          entity_id = "1675fcb4fde3f00ca03cbc62c268fe37";
-          domain = "sensor";
-          below = 5;
-          for = { hours = 0; minutes = 5; seconds = 0; };
-        }
-      ];
+      trigger = [{
+        type = "power";
+        platform = "device";
+        device_id = "84683e13b344f125337275de40cbd019";
+        entity_id = "1675fcb4fde3f00ca03cbc62c268fe37";
+        domain = "sensor";
+        below = 5;
+        for = { hours = 0; minutes = 5; seconds = 0; };
+      }];
       condition = [ ];
-      action = [
-        {
-          service = "notify.mobile_app_pixel_8";
-          data = {
-            message = "cycle has finished";
-            data = { ttl = 0; priority = "high"; };
-          };
-        }
-      ];
+      action = [{
+        service = "notify.mobile_app_pixel_8";
+        data = {
+          message = "cycle has finished";
+          data = { ttl = 0; priority = "high"; };
+        };
+      }];
       mode = "single";
     }
     {
       id = "1702981478448";
       alias = "Doorbell";
       description = "";
-      trigger = [
-        {
-          type = "turned_on";
-          platform = "device";
-          device_id = "6ec43bd1e46a027cceea113df0b4ae4a";
-          entity_id = "c675ef6e1b21cec358f651083e6e6f30";
-          domain = "binary_sensor";
-        }
-      ];
+      trigger = [{
+        type = "turned_on";
+        platform = "device";
+        device_id = "6ec43bd1e46a027cceea113df0b4ae4a";
+        entity_id = "c675ef6e1b21cec358f651083e6e6f30";
+        domain = "binary_sensor";
+      }];
       condition = [ ];
-      action = [
-        {
-          service = "notify.mobile_app_pixel_8";
+      action = [{
+        service = "notify.mobile_app_pixel_8";
+        data = {
+          title = "Doorbell rings";
           data = {
-            title = "Doorbell rings";
-            data = { ttl = 0; priority = "high"; image = "/api/camera_proxy/camera.reolink_video_doorbell_sub"; actions = [{ action = "URI"; title = "Open HA"; uri = "/lovelace/0"; } { action = "URI"; title = "Open Reolink"; uri = "app://com.mcu.reolink"; }]; };
-            message = "Someone's at the door";
+            ttl = 0;
+            priority = "high";
+            image = "/api/camera_proxy/camera.reolink_video_doorbell_sub";
+            actions = [
+              {
+                action = "URI";
+                title = "Open HA";
+                uri = "/lovelace/0";
+              }
+              {
+                action = "URI";
+                title = "Open Reolink";
+                uri = "app://com.mcu.reolink";
+              }
+            ];
           };
-        }
-      ];
+          message = "Someone's at the door";
+        };
+      }];
       mode = "single";
     }
     {
@@ -120,15 +133,207 @@ let
         }
       ];
       condition = [ ];
+      action = [{
+        choose = [{
+          conditions = [{
+            condition = "trigger";
+            id = [ "Morning" ];
+          }];
+          sequence = [{
+            service = "light.turn_on";
+            target = { device_id = "6ef89c16b98084bfc4344652a0baf4e0"; };
+            data = { };
+          }];
+        }
+          {
+            conditions = [{
+              condition = "trigger";
+              id = [ "Evening" ];
+            }];
+            sequence = [{
+              service = "light.turn_off";
+              target = { device_id = "6ef89c16b98084bfc4344652a0baf4e0"; };
+              data = { };
+            }];
+          }];
+      }];
+      mode = "single";
+    }
+    {
+      alias = "rodret";
+      description = "";
+      id = "1700336750";
+      use_blueprint = {
+        input = {
+          off_press_action = [{
+            service = "light.turn_off";
+            target = {
+              entity_id = [
+                "light.group_kitchen"
+                "light.group_living_room"
+                "light.ikea_of_sweden_tradfri_driver_10w_light"
+              ];
+            };
+          }];
+          on_press_action = [{
+            data = {
+              brightness_pct = "60";
+              kelvin = "2700";
+            };
+            service = "light.turn_on";
+            target = {
+              entity_id = [
+                "light.group_kitchen"
+                "light.group_living_room"
+                "light.ikea_of_sweden_tradfri_driver_10w_light"
+              ];
+            };
+          }];
+          remote_device = "443456bd59ce8a49e36e4820d6548165";
+        };
+        path = "damru/ikea-rodret_E2201_ZHA-Z2M_control-anything.yaml";
+      };
+    }
+    {
+      id = "1700045924";
+      alias = "Dim office light";
+      description = "";
+      action = [{
+        choose = [
+          {
+            conditions = [{ condition = "trigger"; id = [ "office_dim_up" ]; }];
+            sequence = [{
+              repeat = {
+                sequence = [{ device_id = "11afd3425cb60c9990a447eb82bae007"; domain = "light"; entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3"; type = "brightness_increase"; } { delay = { hours = 0; milliseconds = 100; minutes = 0; seconds = 0; }; }];
+                while = [{ condition = "trigger"; id = [ "office_dim_up" ]; }];
+              };
+            }];
+          }
+          {
+            conditions = [{ condition = "trigger"; id = [ "office_dim_down" ]; }];
+            sequence = [{
+              repeat = { sequence = [{ device_id = "11afd3425cb60c9990a447eb82bae007"; domain = "light"; entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3"; type = "brightness_decrease"; } { delay = { hours = 0; milliseconds = 100; minutes = 0; seconds = 0; }; }]; while = [{ condition = "trigger"; id = [ "office_dim_down" ]; }]; };
+            }];
+          }
+        ];
+      }];
+      condition = [ ];
+      mode = "restart";
+      trigger = [{
+        device_id = "513fe3edce40d4f49349dfd9e9b0d007";
+        domain = "zha";
+        id = "office_dim_up";
+        platform = "device";
+        subtype = "dim_up";
+        type = "remote_button_long_press";
+      }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_dim_up_release"; platform = "device"; subtype = "dim_up"; type = "remote_button_long_release"; }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_dim_down"; platform = "device"; subtype = "dim_down"; type = "remote_button_long_press"; }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_dim_down_release"; platform = "device"; subtype = "dim_down"; type = "remote_button_long_release"; }];
+    }
+    {
+      id = "1700040918";
+      alias = "Dim kitchen light";
+      description = "";
+      action = [{
+        choose = [
+          {
+            conditions = [{ condition = "trigger"; id = [ "kitchen_dim_up" ]; }];
+            sequence = [{
+              repeat = {
+                sequence = [{ device_id = "dfab35ab8c823997e867512bbbafa532"; domain = "light"; entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68"; type = "brightness_increase"; } { delay = { hours = 0; milliseconds = 100; minutes = 0; seconds = 0; }; }];
+                while = [{ condition = "trigger"; id = [ "kitchen_dim_up" ]; }];
+              };
+            }];
+          }
+          {
+            conditions = [{ condition = "trigger"; id = [ "kitchen_dim_down" ]; }];
+            sequence = [{
+              repeat = {
+                sequence = [{
+                  device_id = "dfab35ab8c823997e867512bbbafa532";
+                  domain = "light";
+                  entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68";
+                  type = "brightness_decrease";
+                }
+                  { delay = { hours = 0; milliseconds = 100; minutes = 0; seconds = 0; }; }];
+                while = [{ condition = "trigger"; id = [ "kitchen_dim_down" ]; }];
+              };
+            }];
+          }
+        ];
+      }];
+      condition = [ ];
+      mode = "restart";
+      trigger = [{
+        device_id = "6f7e9b5860763551a83df23c1dbef7c4";
+        domain = "zha";
+        id = "kitchen_dim_up";
+        platform = "device";
+        subtype = "dim_up";
+        type = "remote_button_long_press";
+      }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_dim_up_release"; platform = "device"; subtype = "dim_up"; type = "remote_button_long_release"; }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_dim_down"; platform = "device"; subtype = "dim_down"; type = "remote_button_long_press"; }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_dim_down_release"; platform = "device"; subtype = "dim_down"; type = "remote_button_long_release"; }];
+    }
+    {
+      id = "1700044534";
+      alias = "Toggle office light";
+      description = "";
+      action = [{
+        choose = [
+          {
+            conditions = [{ condition = "trigger"; id = [ "office_light_on" ]; }];
+            sequence = [{ device_id = "11afd3425cb60c9990a447eb82bae007"; domain = "light"; entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3"; type = "turn_on"; }];
+          }
+          {
+            conditions = [{ condition = "trigger"; id = [ "office_light_off" ]; }];
+            sequence = [{ device_id = "11afd3425cb60c9990a447eb82bae007"; domain = "light"; entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3"; type = "turn_off"; }];
+          }
+        ];
+      }];
+      condition = [ ];
+      mode = "single";
+      trigger = [{
+        device_id = "513fe3edce40d4f49349dfd9e9b0d007";
+        domain = "zha";
+        id = "office_light_on";
+        platform = "device";
+        subtype = "turn_on";
+        type = "remote_button_short_press";
+      }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_light_off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }];
+    }
+    {
+      id = "1700036303";
+      alias = "Toggle kitchen light";
+      description = "";
       action = [
         {
           choose = [
-            { conditions = [{ condition = "trigger"; id = [ "Morning" ]; }]; sequence = [{ service = "light.turn_on"; target = { device_id = "6ef89c16b98084bfc4344652a0baf4e0"; }; data = { }; }]; }
-            { conditions = [{ condition = "trigger"; id = [ "Evening" ]; }]; sequence = [{ service = "light.turn_off"; target = { device_id = "6ef89c16b98084bfc4344652a0baf4e0"; }; data = { }; }]; }
+            {
+              conditions = [{ condition = "trigger"; id = [ "kitchen_light_on" ]; }];
+              sequence = [{ device_id = "dfab35ab8c823997e867512bbbafa532"; domain = "light"; entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68"; type = "turn_on"; }];
+            }
+            {
+              conditions = [{ condition = "trigger"; id = [ "kitchen_light_off" ]; }];
+              sequence = [{ device_id = "dfab35ab8c823997e867512bbbafa532"; domain = "light"; entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68"; type = "turn_off"; }];
+            }
           ];
         }
       ];
+      condition = [ ];
       mode = "single";
+      trigger = [{
+        device_id = "6f7e9b5860763551a83df23c1dbef7c4";
+        domain = "zha";
+        id = "kitchen_light_on";
+        platform = "device";
+        subtype = "turn_on";
+        type = "remote_button_short_press";
+      }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_light_off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }];
     }
   ];
   config = format.generate "configuration.yaml" {
@@ -140,7 +345,7 @@ let
     "script ui" = "!include scripts.yaml";
     default_config = { };
     http.server_port = 8124;
-    frontend.themes = "themes";
+    frontend.themes = "!include_dir_merge_named themes";
     homeassistant = {
       name = "Home";
       latitude = secrets.address.latitude;
