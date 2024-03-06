@@ -144,23 +144,16 @@ in
         commands = [
           { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
           { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
-          { command = "floating enable"; criteria = { app_id = "firefox-nightly"; title = "About Firefox Nightly"; }; }
           { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
           { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "firefox-nightly"; }; }
-          { command = "floating enable, resize set width 600px height 800px"; criteria = { title = "Save File"; }; }
+          { command = "floating enable"; criteria = { title = "Save File"; }; }
           # browser zoom|meet|bluejeans
           { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans)|(Meet)|(Zoom Meeting)"; }; }
-          { command = "inhibit_idle visible, floating enable"; criteria = { title = "(Sharing Indicator)"; }; }
         ];
       };
       startup = [
-        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"; } #workaround
         { command = "${idleCmd}"; }
         { command = "${importGsettings}"; always = true; }
-        { command = "wezterm start --always-new-process"; }
-        { command = "firefox"; }
-        { command = "slack --logLevel=error"; }
       ];
     };
     extraConfig = ''
