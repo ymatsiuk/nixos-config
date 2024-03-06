@@ -67,8 +67,8 @@ in
       eplt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field LS | awk '{print $2}')";
       epnt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field NuO | awk '{print $2}')";
       upt = "unset PAGERDUTY_TOKEN";
-      vpn-staging = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
-      vpn-production = "${pkgs.awsvpnclient}/bin/awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
+      vpn-staging = "awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
+      vpn-production = "awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
   };
 }

@@ -14,6 +14,7 @@
     aws-iam-authenticator
     aws-sso-cli
     awscli2
+    awsvpnclient
     delve
     exercism
     gcc
