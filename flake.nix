@@ -53,7 +53,7 @@
           system = "x86_64-linux";
           overlays = [
             nur.overlay
-            self.overlays.firmware
+            self.overlays.wrk
           ];
           modules = [
             ./nixps.nix
@@ -86,7 +86,7 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        firmware = final: prev: {
+        wrk = final: prev: {
           vault = prev.vault-bin;
           terragrunt = prev.terragrunt.override {
             buildGoModule = args: final.buildGoModule (args // rec {
@@ -123,11 +123,10 @@
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
-        pkgs = makeOpinionatedNixpkgs system [ self.overlays.firmware ];
+        pkgs = makeOpinionatedNixpkgs system [ self.overlays.wrk ];
       in
       {
         packages = {
-          linux-firmware = pkgs.linux-firmware;
           linux_latest = pkgs.linux_latest;
         };
       }
