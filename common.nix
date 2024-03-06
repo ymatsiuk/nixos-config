@@ -36,9 +36,11 @@ in
     };
   };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.ymatsiuk = import ./hm-cli.nix;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.ymatsiuk = import ./hm-common.nix;
+  };
 
   hardware = {
     bluetooth = {

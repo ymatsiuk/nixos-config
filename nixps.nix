@@ -13,7 +13,7 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  home-manager.users.ymatsiuk = import ./hm-gui.nix;
+  home-manager.users.ymatsiuk = import ./hm-nixps.nix;
 
   powerManagement.cpuFreqGovernor = "powersave";
 
