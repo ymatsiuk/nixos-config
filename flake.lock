@@ -10,16 +10,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1704286742,
+        "lastModified": 1709887232,
         "narHash": "sha256-SpJv0a1QORJ0V1I2qWMGGTjkk3i3gb41ELOetlmM8oA=",
         "owner": "ymatsiuk",
         "repo": "awsvpnclient",
-        "rev": "a67649f5bbd1b72e47d2d5c7ca2f5c5edffe75bb",
+        "rev": "56ca114e3f7fe4db9d745a0ab8ed70c6bd803a8f",
         "type": "github"
       },
       "original": {
         "owner": "ymatsiuk",
-        "ref": "ymatsiuk/openvpn-2.6.8",
+        "ref": "main",
         "repo": "awsvpnclient",
         "type": "github"
       }
