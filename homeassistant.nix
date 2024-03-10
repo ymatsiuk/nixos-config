@@ -346,6 +346,17 @@ let
     default_config = { };
     http.server_port = 8124;
     frontend.themes = "!include_dir_merge_named themes";
+    cover = [
+      {
+        platform = "group";
+        name = "Shutters";
+        entities = [
+          "cover.kitchen_shutter"
+          "cover.living_room_shutter_door"
+          "cover.living_room_shutter_window"
+        ];
+      }
+    ];
     homeassistant = {
       name = "Home";
       latitude = secrets.address.latitude;
@@ -355,8 +366,6 @@ let
       time_zone = "Europe/Amsterdam";
       customize = {
         "cover.living_room_awning" = { device_class = "awning"; icon = "mdi:awning-outline"; };
-        "cover.living_room_shutter_door" = { device_class = "shutter"; icon = "mdi:window-shutter"; };
-        "cover.living_room_shutter_window" = { device_class = "shutter"; icon = "mdi:window-shutter"; };
         "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = { icon = "mdi:ceiling-light"; };
         "light.ikea_of_sweden_tradfri_driver_10w_light" = { friendly_name = "Table top light"; icon = "mdi:led-strip"; };
         "switch.kitchen_floor_heating" = { icon = "mdi:heating-coil"; };
@@ -448,7 +457,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.2.5";
+        image = "ghcr.io/home-assistant/home-assistant:2024.3.0";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
