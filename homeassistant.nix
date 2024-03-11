@@ -57,7 +57,7 @@ let
     }
     {
       id = "1702295114892";
-      alias = "Smart washer/dryer";
+      alias = "Smart laundry";
       description = "";
       trigger = [{
         type = "power";
@@ -72,7 +72,7 @@ let
       action = [{
         service = "notify.mobile_app_pixel_8";
         data = {
-          message = "cycle has finished";
+          message = "Laundry cycle has finished";
           data = { ttl = 0; priority = "high"; };
         };
       }];
@@ -346,10 +346,49 @@ let
     default_config = { };
     http.server_port = 8124;
     frontend.themes = "!include_dir_merge_named themes";
+    # TODO: add all light groups
+    # light = [
+    #   {
+    #     platform = "group";
+    #     name = "Lights";
+    #     unique_id = "light.lights";
+    #     entities = [
+    #       "light.backyard"
+    #       "light.kitchen"
+    #       "light.living_room"
+    #       "light.office"
+    #     ];
+    #   }
+    #   {
+    #     platform = "group";
+    #     name = "Kitchen";
+    #     unique_id = "light.kitchen";
+    #     entities = [
+    #       ""
+    #     ];
+    #   }
+    #   {
+    #     platform = "group";
+    #     name = "Living room";
+    #     unique_id = "light.living_room";
+    #     entities = [
+    #       ""
+    #     ];
+    #   }
+    #   {
+    #     platform = "group";
+    #     name = "Office";
+    #     unique_id = "light.office";
+    #     entities = [
+    #       ""
+    #     ];
+    #   }
+    # ];
     cover = [
       {
         platform = "group";
         name = "Shutters";
+        unique_id = "cover.shutters";
         entities = [
           "cover.kitchen_shutter"
           "cover.living_room_shutter_door"
@@ -365,11 +404,18 @@ let
       unit_system = "metric";
       time_zone = "Europe/Amsterdam";
       customize = {
+        "cover.kitchen_shutter".device_class = "shutter";
         "cover.living_room_awning" = { device_class = "awning"; icon = "mdi:awning-outline"; };
-        "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = { icon = "mdi:ceiling-light"; };
-        "light.ikea_of_sweden_tradfri_driver_10w_light" = { friendly_name = "Table top light"; icon = "mdi:led-strip"; };
-        "switch.kitchen_floor_heating" = { icon = "mdi:heating-coil"; };
-        "switch.living_room_floor_heating" = { icon = "mdi:heating-coil"; };
+        "cover.living_room_shutter_door".device_class = "shutter";
+        "cover.living_room_shutter_window".device_class = "shutter";
+        "cover.shutters".device_class = "shutter";
+        "ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
+        "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = { friendly_name = "Office light"; icon = "mdi:ceiling-light"; };
+        "light.ikea_of_sweden_tradfri_driver_10w_light" = { friendly_name = "Table top light"; icon = "mdi:led-strip-variant"; };
+        "switch.backyard_main".friendly_name = "Backyard light";
+        "switch.garage_dryer_socket".device_class = "outlet";
+        "switch.kitchen_floor_heating".icon = "mdi:heating-coil";
+        "switch.living_room_floor_heating".icon = "mdi:heating-coil";
       };
     };
     recorder.db_url = "postgresql://hass@/homeassistant";
