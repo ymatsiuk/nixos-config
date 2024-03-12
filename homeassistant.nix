@@ -418,7 +418,7 @@ let
         "switch.living_room_floor_heating".icon = "mdi:heating-coil";
       };
     };
-    recorder.db_url = "postgresql://hass@/homeassistant";
+    recorder.db_url = "postgresql://homeassistant@/homeassistant";
     panel_iframe = {
       grafana = { title = "Grafana"; url = "http://nixpi4:3000"; icon = "mdi:chart-timeline"; };
       esphome = { title = "ESPHome"; url = "http://nixpi4:6052"; icon = "mdi:chip"; };
@@ -471,21 +471,16 @@ in
   services.postgresql = {
     enable = true;
     authentication = ''
-      local homeassistant hass ident map=ha
+      local homeassistant homeassistant ident map=ha
     '';
     identMap = ''
-      ha root hass
+      ha root homeassistant
     '';
     ensureDatabases = [ "homeassistant" ];
     ensureUsers = [
-      { name = "hass"; ensurePermissions = { "DATABASE homeassistant" = "ALL PRIVILEGES"; }; }
+      { name = "homeassistant"; ensureDBOwnership = true; }
     ];
   };
-
-  # quick workaround for postgresql 15 permissions change
-  systemd.services.postgresql.postStart = lib.mkAfter ''
-    $PSQL homeassistant -tAc 'GRANT ALL ON SCHEMA public TO hass'
-  '';
 
   virtualisation.oci-containers = {
     backend = "docker";
