@@ -266,6 +266,98 @@ let
       ];
       mode = "single";
     }
+    {
+      id = "1710357901";
+      alias = "Laundry on";
+      initial_state = true;
+      description = "";
+      trigger = [
+        {
+          platform = "numeric_state";
+          entity_id = [ "sensor.garage_dryer_socket_power" ];
+          for = { hours = 0; minutes = 3; seconds = 0; };
+          above = 3;
+        }
+      ];
+      condition = [
+        {
+          condition = "state";
+          entity_id = "binary_sensor.laundry_state";
+          state = "Off";
+        }
+      ];
+      action = [
+        {
+          service = "mqtt.publish";
+          metadata = { };
+          data = {
+            retain = true;
+            topic = "home/laundry/state";
+            payload = "On";
+          };
+        }
+      ];
+      mode = "single";
+    }
+    {
+      id = "1710357902";
+      alias = "Laundry off";
+      initial_state = true;
+      description = "";
+      trigger = [
+        {
+          platform = "numeric_state";
+          entity_id = [ "sensor.garage_dryer_socket_power" ];
+          for = { hours = 0; minutes = 3; seconds = 0; };
+          below = 3;
+        }
+      ];
+      condition = [
+        {
+          condition = "state";
+          entity_id = "binary_sensor.laundry_state";
+          state = "On";
+        }
+      ];
+      action = [
+        {
+          service = "mqtt.publish";
+          metadata = { };
+          data = {
+            retain = true;
+            topic = "home/laundry/state";
+            payload = "Off";
+          };
+        }
+      ];
+      mode = "single";
+    }
+    {
+      id = "1710357903";
+      alias = "Laundry notify";
+      description = "";
+      trigger = [
+        {
+          platform = "state";
+          entity_id = [ "binary_sensor.laundry_state" ];
+        }
+      ];
+      condition = [ ];
+      action = [
+        {
+          service = "notify.mobile_app_pixel_8";
+          metadata = { };
+          data = {
+            data = {
+              priority = "high";
+              ttl = 0;
+            };
+            message = "Laundry is {{ states.binary_sensor.laundry_state.state | lower }} now";
+          };
+        }
+      ];
+      mode = "single";
+    }
   ];
   config = format.generate "configuration.yaml" {
     "automation manual" = "!include automations_manual.yaml";
@@ -334,6 +426,19 @@ let
         ];
       }
     ];
+    mqtt = {
+      binary_sensor = [
+        {
+          name = "Laundry State";
+          device_class = "running";
+          icon = "mdi:washing-machine";
+          state_topic = "home/laundry/state";
+          unique_id = "laundry_state";
+          payload_on = "On";
+          payload_off = "Off";
+        }
+      ];
+    };
     homeassistant = {
       name = "Home";
       latitude = secrets.address.latitude;
@@ -343,9 +448,9 @@ let
       time_zone = "Europe/Amsterdam";
       customize = {
         "automation.doorbell".icon = "mdi:doorbell-video";
-        "automation.laundry_complete".icon = "mdi:washing-machine-off";
+        "automation.laundry_off".icon = "mdi:washing-machine-off";
         "automation.laundry_notify".icon = "mdi:washing-machine-alert";
-        "automation.laundry_running".icon = "mdi:washing-machine";
+        "automation.laundry_on".icon = "mdi:washing-machine";
         "automation.toggle_living_room_lights".icon = "mdi:home-lightbulb-outline";
         "binary_sensor.ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
         "cover.kitchen_shutter".device_class = "shutter";
