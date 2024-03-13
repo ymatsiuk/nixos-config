@@ -6,79 +6,6 @@ let
   scenes = format.generate "scenes_manual.yaml" [ ];
   automations = format.generate "automations_manual.yaml" [
     {
-      id = "1702192130957";
-      alias = "Office light";
-      description = "";
-      trigger = [{
-        type = "motion";
-        platform = "device";
-        device_id = "e1b7fc52c2cac8578bdd3d86d2f1d8a3";
-        entity_id = "9fc29384a8533e48bde78e10a75566ca";
-        domain = "binary_sensor";
-        id = "office_motion";
-      }
-        {
-          type = "no_motion";
-          platform = "device";
-          device_id = "e1b7fc52c2cac8578bdd3d86d2f1d8a3";
-          entity_id = "9fc29384a8533e48bde78e10a75566ca";
-          domain = "binary_sensor";
-          id = "office_no_motion";
-        }];
-      condition = [{
-        condition = "sun";
-        before = "sunrise";
-        after = "sunset";
-      }];
-      action = [{
-        choose = [{
-          conditions = [{
-            condition = "trigger";
-            id = [ "office_motion" ];
-          }];
-          sequence = [{
-            service = "light.turn_on";
-            target = { area_id = "office"; };
-            data = { brightness_pct = 50; };
-          }];
-        }
-          {
-            conditions = [{
-              condition = "trigger";
-              id = [ "office_no_motion" ];
-            }];
-            sequence = [{
-              delay = { hours = 0; minutes = 2; seconds = 0; milliseconds = 0; };
-            }
-              { service = "light.turn_off"; target = { area_id = "office"; }; data = { }; }];
-          }];
-      }];
-      mode = "single";
-    }
-    {
-      id = "1702295114892";
-      alias = "Smart laundry";
-      description = "";
-      trigger = [{
-        type = "power";
-        platform = "device";
-        device_id = "84683e13b344f125337275de40cbd019";
-        entity_id = "1675fcb4fde3f00ca03cbc62c268fe37";
-        domain = "sensor";
-        below = 5;
-        for = { hours = 0; minutes = 5; seconds = 0; };
-      }];
-      condition = [ ];
-      action = [{
-        service = "notify.mobile_app_pixel_8";
-        data = {
-          message = "Laundry cycle has finished";
-          data = { ttl = 0; priority = "high"; };
-        };
-      }];
-      mode = "single";
-    }
-    {
       id = "1702981478448";
       alias = "Doorbell";
       description = "";
@@ -158,41 +85,6 @@ let
           }];
       }];
       mode = "single";
-    }
-    {
-      alias = "rodret";
-      description = "";
-      id = "1700336750";
-      use_blueprint = {
-        input = {
-          off_press_action = [{
-            service = "light.turn_off";
-            target = {
-              entity_id = [
-                "light.group_kitchen"
-                "light.group_living_room"
-                "light.ikea_of_sweden_tradfri_driver_10w_light"
-              ];
-            };
-          }];
-          on_press_action = [{
-            data = {
-              brightness_pct = "60";
-              kelvin = "2700";
-            };
-            service = "light.turn_on";
-            target = {
-              entity_id = [
-                "light.group_kitchen"
-                "light.group_living_room"
-                "light.ikea_of_sweden_tradfri_driver_10w_light"
-              ];
-            };
-          }];
-          remote_device = "443456bd59ce8a49e36e4820d6548165";
-        };
-        path = "damru/ikea-rodret_E2201_ZHA-Z2M_control-anything.yaml";
-      };
     }
     {
       id = "1700045924";
@@ -335,6 +227,45 @@ let
       }
         { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_light_off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }];
     }
+    {
+      id = "1710336460";
+      alias = "Toggle living room lights";
+      description = "";
+      trigger = [
+        {
+          device_id = "443456bd59ce8a49e36e4820d6548165";
+          domain = "zha";
+          platform = "device";
+          type = "remote_button_short_press";
+          subtype = "turn_on";
+          id = "on";
+        }
+        {
+          device_id = "443456bd59ce8a49e36e4820d6548165";
+          domain = "zha";
+          platform = "device";
+          type = "remote_button_short_press";
+          subtype = "turn_off";
+          id = "off";
+        }
+      ];
+      condition = [ ];
+      action = [
+        {
+          choose = [
+            {
+              conditions = [{ condition = "and"; conditions = [{ condition = "trigger"; id = [ "on" ]; } { condition = "state"; entity_id = "light.kitchen"; state = "off"; }]; }];
+              sequence = [{ service = "light.turn_on"; target = { entity_id = [ "light.kitchen" "light.living_room" ]; }; data = { brightness_pct = 70; kelvin = 2700; }; }];
+            }
+            {
+              conditions = [{ condition = "and"; conditions = [{ condition = "trigger"; id = [ "off" ]; } { condition = "state"; entity_id = "light.kitchen"; state = "on"; }]; }];
+              sequence = [{ service = "light.turn_off"; target = { entity_id = [ "light.kitchen" "light.living_room" ]; }; data = { }; }];
+            }
+          ];
+        }
+      ];
+      mode = "single";
+    }
   ];
   config = format.generate "configuration.yaml" {
     "automation manual" = "!include automations_manual.yaml";
@@ -346,44 +277,51 @@ let
     default_config = { };
     http.server_port = 8124;
     frontend.themes = "!include_dir_merge_named themes";
-    # TODO: add all light groups
-    # light = [
-    #   {
-    #     platform = "group";
-    #     name = "Lights";
-    #     unique_id = "light.lights";
-    #     entities = [
-    #       "light.backyard"
-    #       "light.kitchen"
-    #       "light.living_room"
-    #       "light.office"
-    #     ];
-    #   }
-    #   {
-    #     platform = "group";
-    #     name = "Kitchen";
-    #     unique_id = "light.kitchen";
-    #     entities = [
-    #       ""
-    #     ];
-    #   }
-    #   {
-    #     platform = "group";
-    #     name = "Living room";
-    #     unique_id = "light.living_room";
-    #     entities = [
-    #       ""
-    #     ];
-    #   }
-    #   {
-    #     platform = "group";
-    #     name = "Office";
-    #     unique_id = "light.office";
-    #     entities = [
-    #       ""
-    #     ];
-    #   }
-    # ];
+    light = [
+      {
+        platform = "group";
+        name = "Lights";
+        unique_id = "light.lights";
+        entities = [
+          "light.backyard"
+          "light.kitchen"
+          "light.living_room"
+          "light.office"
+        ];
+      }
+      {
+        platform = "group";
+        name = "Kitchen";
+        unique_id = "light.kitchen";
+        entities = [
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_5"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_6"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_7"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_8"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_9"
+        ];
+      }
+      {
+        platform = "group";
+        name = "Living room";
+        unique_id = "light.living_room";
+        entities = [
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_0"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_1"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_2"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_3"
+          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_4"
+        ];
+      }
+      {
+        platform = "group";
+        name = "Office";
+        unique_id = "light.office";
+        entities = [
+          "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light"
+        ];
+      }
+    ];
     cover = [
       {
         platform = "group";
@@ -404,13 +342,28 @@ let
       unit_system = "metric";
       time_zone = "Europe/Amsterdam";
       customize = {
+        "automation.doorbell".icon = "mdi:doorbell-video";
+        "automation.laundry_complete".icon = "mdi:washing-machine-off";
+        "automation.laundry_notify".icon = "mdi:washing-machine-alert";
+        "automation.laundry_running".icon = "mdi:washing-machine";
+        "automation.toggle_living_room_lights".icon = "mdi:home-lightbulb-outline";
+        "binary_sensor.ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
         "cover.kitchen_shutter".device_class = "shutter";
         "cover.living_room_awning" = { device_class = "awning"; icon = "mdi:awning-outline"; };
         "cover.living_room_shutter_door".device_class = "shutter";
         "cover.living_room_shutter_window".device_class = "shutter";
         "cover.shutters".device_class = "shutter";
-        "ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
         "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = { friendly_name = "Office light"; icon = "mdi:ceiling-light"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_0" = { friendly_name = "Spot #0"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_1" = { friendly_name = "Spot #1"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_2" = { friendly_name = "Spot #2"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_3" = { friendly_name = "Spot #3"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_4" = { friendly_name = "Spot #4"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_5" = { friendly_name = "Spot #5"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_6" = { friendly_name = "Spot #6"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_7" = { friendly_name = "Spot #7"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_8" = { friendly_name = "Spot #8"; icon = "mdi:lightbulb-spot"; };
+        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_9" = { friendly_name = "Spot #9"; icon = "mdi:lightbulb-spot"; };
         "light.ikea_of_sweden_tradfri_driver_10w_light" = { friendly_name = "Table top light"; icon = "mdi:led-strip-variant"; };
         "switch.backyard_main".friendly_name = "Backyard light";
         "switch.garage_dryer_socket".device_class = "outlet";
