@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
   secrets = import ./secrets.nix;
   format = pkgs.formats.yaml { };
@@ -274,7 +274,7 @@ let
       trigger = [
         {
           platform = "numeric_state";
-          entity_id = [ "sensor.garage_dryer_socket_power" ];
+          entity_id = [ "sensor.garage_socket_power" ];
           for = { hours = 0; minutes = 3; seconds = 0; };
           above = 3;
         }
@@ -283,7 +283,7 @@ let
         {
           condition = "state";
           entity_id = "binary_sensor.laundry_state";
-          state = "Off";
+          state = "off";
         }
       ];
       action = [
@@ -293,7 +293,7 @@ let
           data = {
             retain = true;
             topic = "home/laundry/state";
-            payload = "On";
+            payload = "ON";
           };
         }
       ];
@@ -307,7 +307,7 @@ let
       trigger = [
         {
           platform = "numeric_state";
-          entity_id = [ "sensor.garage_dryer_socket_power" ];
+          entity_id = [ "sensor.garage_socket_power" ];
           for = { hours = 0; minutes = 3; seconds = 0; };
           below = 3;
         }
@@ -316,7 +316,7 @@ let
         {
           condition = "state";
           entity_id = "binary_sensor.laundry_state";
-          state = "On";
+          state = "on";
         }
       ];
       action = [
@@ -326,7 +326,7 @@ let
           data = {
             retain = true;
             topic = "home/laundry/state";
-            payload = "Off";
+            payload = "OFF";
           };
         }
       ];
@@ -352,7 +352,7 @@ let
               priority = "high";
               ttl = 0;
             };
-            message = "Laundry is {{ states.binary_sensor.laundry_state.state | lower }} now";
+            message = "Laundry is {{ states.binary_sensor.laundry_state.state }} now";
           };
         }
       ];
@@ -434,8 +434,6 @@ let
           icon = "mdi:washing-machine";
           state_topic = "home/laundry/state";
           unique_id = "laundry_state";
-          payload_on = "On";
-          payload_off = "Off";
         }
       ];
     };
@@ -471,7 +469,7 @@ let
         "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_9" = { friendly_name = "Spot #9"; icon = "mdi:lightbulb-spot"; };
         "light.ikea_of_sweden_tradfri_driver_10w_light" = { friendly_name = "Table top light"; icon = "mdi:led-strip-variant"; };
         "switch.backyard_main".friendly_name = "Backyard light";
-        "switch.garage_dryer_socket".device_class = "outlet";
+        "switch.garage_socket".device_class = "outlet";
         "switch.kitchen_floor_heating".icon = "mdi:heating-coil";
         "switch.living_room_floor_heating".icon = "mdi:heating-coil";
       };
