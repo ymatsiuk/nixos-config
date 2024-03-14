@@ -4,9 +4,10 @@ let
     dhcpV4Config.RouteMetric = weight;
     matchConfig.Name = name;
     networkConfig = {
+      MulticastDNS = true;
       DNSSEC = true;
       DHCP = "yes";
-      DNS = [ "9.9.9.9" "149.112.112.112" ];
+      DNS = [ "1.1.1.1" "1.0.0.1" ];
     };
     dhcpV4Config.UseDNS = false;
     dhcpV6Config.UseDNS = false;
