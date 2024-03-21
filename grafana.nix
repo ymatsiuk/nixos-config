@@ -31,10 +31,15 @@ in
       security = {
         admin_user = "ymatsiuk";
         admin_password = "$__file{${adminPasswordPath}}";
-        allow_embedding = true; # for home-assistant
+        cookie_secure = true;
+        cookie_samesite = "strict";
+        content_security_policy = true;
+        content_security_policy_template = ''
+          script-src 'self' 'unsafe-eval' 'unsafe-inline' 'strict-dynamic' $NONCE;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://$ROOT_PATH wss://$ROOT_PATH;manifest-src 'self';media-src 'none';form-action 'self';
+        '';
       };
       analytics.reporting_enabled = false;
-      "auth.anonymous".enabled = true;
+      "auth.anonymous".hide_version = true;
     };
     provision = {
       enable = true;
