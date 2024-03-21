@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ./cloudflared.nix
     ./grafana.nix
     ./homeassistant.nix
     ./telegraf.nix
