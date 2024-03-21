@@ -237,7 +237,15 @@ let
     "script manual" = "!include scripts_manual.yaml";
     "script ui" = "!include scripts.yaml";
     default_config = { };
-    http.server_port = 8124;
+    http = {
+      ip_ban_enabled = true;
+      login_attempts_threshold = 5;
+      server_port = 8124;
+      use_x_forwarded_for = true;
+      trusted_proxies = [
+        "127.0.0.1"
+      ];
+    };
     frontend.themes = "!include_dir_merge_named themes";
     light = [
       {
@@ -345,10 +353,6 @@ let
       };
     };
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
-    panel_iframe = {
-      grafana = { title = "Grafana"; url = "http://nixpi4:3000"; icon = "mdi:chart-timeline"; };
-      esphome = { title = "ESPHome"; url = "http://nixpi4:6052"; icon = "mdi:chip"; };
-    };
     influxdb = {
       api_version = 2;
       host = "localhost";
@@ -424,7 +428,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.3.0";
+        image = "ghcr.io/home-assistant/home-assistant:2024.3.1";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
@@ -435,7 +439,7 @@ in
         volumes = [
           "/var/lib/homeassistant/esphome:/config"
         ];
-        image = "ghcr.io/esphome/esphome:2023.9.3";
+        image = "ghcr.io/esphome/esphome:2024.3.0";
         environment = {
           ESPHOME_DASHBOARD_USE_PING = "true";
         };
