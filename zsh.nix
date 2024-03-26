@@ -64,9 +64,6 @@ in
       eglnt = "export GITLAB_TOKEN=$(rbw get ${secrets.nuo.git.url})";
       eglt = "export GITLAB_TOKEN=$(rbw get https://gitlab.com)";
       uglt = "unset GITLAB_TOKEN";
-      eplt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field LS | awk '{print $2}')";
-      epnt = "export PAGERDUTY_TOKEN=$(rbw get 'PD' --field NuO | awk '{print $2}')";
-      upt = "unset PAGERDUTY_TOKEN";
       vpn-staging = "awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
       vpn-production = "awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
