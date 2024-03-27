@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let
   secrets = import ../secrets.nix;
 in
@@ -8,7 +9,7 @@ in
       email = secrets.rbw.email;
       lock_timeout = 86400;
       sync_interval = 600;
-      pinentry = "curses";
+      pinentry = pkgs.pinentry-tty;
     };
   };
 }
