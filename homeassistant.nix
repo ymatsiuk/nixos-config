@@ -122,19 +122,19 @@ let
         choose = [
           {
             conditions = [{ condition = "trigger"; id = [ "on" ]; }];
-            sequence = [{ service = "light.turn_on"; metadata = { }; data = { kelvin = 2700; brightness_pct = 65; }; target = { entity_id = [ "light.kitchen" "light.living_room" "light.ikea_of_sweden_tradfri_driver_10w_light" ]; }; }];
+            sequence = [{ service = "light.turn_on"; metadata = { }; data = { kelvin = 2700; brightness_pct = 65; }; target = { entity_id = [ "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" ]; }; }];
           }
           {
             conditions = [{ condition = "trigger"; id = [ "off" ]; }];
-            sequence = [{ service = "light.turn_off"; metadata = { }; data = { }; target = { entity_id = [ "light.kitchen" "light.living_room" "light.ikea_of_sweden_tradfri_driver_10w_light" ]; }; }];
+            sequence = [{ service = "light.turn_off"; metadata = { }; data = { }; target = { entity_id = [ "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" ]; }; }];
           }
         ];
       }];
       condition = [ ];
       mode = "single";
       trigger = [
-        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_light_on"; platform = "device"; subtype = "turn_on"; type = "remote_button_short_press"; }
-        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "office_light_off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "on"; platform = "device"; subtype = "turn_on"; type = "remote_button_short_press"; }
+        { device_id = "513fe3edce40d4f49349dfd9e9b0d007"; domain = "zha"; id = "off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }
       ];
     }
     {
@@ -144,11 +144,11 @@ let
       action = [{
         choose = [
           {
-            conditions = [{ condition = "trigger"; id = [ "kitchen_light_on" ]; }];
+            conditions = [{ condition = "trigger"; id = [ "on" ]; }];
             sequence = [{ device_id = "dfab35ab8c823997e867512bbbafa532"; domain = "light"; entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68"; type = "turn_on"; }];
           }
           {
-            conditions = [{ condition = "trigger"; id = [ "kitchen_light_off" ]; }];
+            conditions = [{ condition = "trigger"; id = [ "off" ]; }];
             sequence = [{ device_id = "dfab35ab8c823997e867512bbbafa532"; domain = "light"; entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68"; type = "turn_off"; }];
           }
         ];
@@ -156,8 +156,8 @@ let
       condition = [ ];
       mode = "single";
       trigger = [
-        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_light_on"; platform = "device"; subtype = "turn_on"; type = "remote_button_short_press"; }
-        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "kitchen_light_off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "on"; platform = "device"; subtype = "turn_on"; type = "remote_button_short_press"; }
+        { device_id = "6f7e9b5860763551a83df23c1dbef7c4"; domain = "zha"; id = "off"; platform = "device"; subtype = "turn_off"; type = "remote_button_short_press"; }
       ];
     }
     {
@@ -172,12 +172,12 @@ let
       action = [{
         choose = [
           {
-            conditions = [{ condition = "and"; conditions = [{ condition = "trigger"; id = [ "on" ]; } { condition = "state"; entity_id = "light.kitchen"; state = "off"; }]; }];
-            sequence = [{ service = "light.turn_on"; target = { entity_id = [ "light.kitchen" "light.living_room" ]; }; data = { brightness_pct = 70; kelvin = 2700; }; }];
+            conditions = [{ condition = "trigger"; id = [ "on" ]; }];
+            sequence = [{ service = "light.turn_on"; target = { entity_id = [ "light.dresden_elektronik_raspbee_ii_kitchenlights" "light.dresden_elektronik_raspbee_ii_livingroomlights" ]; }; data = { brightness_pct = 70; kelvin = 2700; }; }];
           }
           {
-            conditions = [{ condition = "and"; conditions = [{ condition = "trigger"; id = [ "off" ]; } { condition = "state"; entity_id = "light.kitchen"; state = "on"; }]; }];
-            sequence = [{ service = "light.turn_off"; target = { entity_id = [ "light.kitchen" "light.living_room" ]; }; data = { }; }];
+            conditions = [{ condition = "trigger"; id = [ "off" ]; }];
+            sequence = [{ service = "light.turn_off"; target = { entity_id = [ "light.dresden_elektronik_raspbee_ii_kitchenlights" "light.dresden_elektronik_raspbee_ii_livingroomlights" ]; }; data = { }; }];
           }
         ];
       }];
@@ -247,51 +247,6 @@ let
       ];
     };
     frontend.themes = "!include_dir_merge_named themes";
-    light = [
-      {
-        platform = "group";
-        name = "Lights";
-        unique_id = "light.lights";
-        entities = [
-          "light.backyard"
-          "light.kitchen"
-          "light.living_room"
-          "light.office"
-        ];
-      }
-      {
-        platform = "group";
-        name = "Kitchen";
-        unique_id = "light.kitchen";
-        entities = [
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_5"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_6"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_7"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_8"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_9"
-        ];
-      }
-      {
-        platform = "group";
-        name = "Living room";
-        unique_id = "light.living_room";
-        entities = [
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_0"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_1"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_2"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_3"
-          "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_4"
-        ];
-      }
-      {
-        platform = "group";
-        name = "Office";
-        unique_id = "light.office";
-        entities = [
-          "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light"
-        ];
-      }
-    ];
     cover = [
       {
         platform = "group";
@@ -334,6 +289,8 @@ let
         "cover.living_room_shutter_door".device_class = "shutter";
         "cover.living_room_shutter_window".device_class = "shutter";
         "cover.shutters".device_class = "shutter";
+        "light.dresden_elektronik_raspbee_ii_kitchenlights" = { friendly_name = "Kitchen light"; icon = "mdi:lightbulb-group"; };
+        "light.dresden_elektronik_raspbee_ii_livingroomlights" = { friendly_name = "Living room light"; icon = "mdi:lightbulb-group"; };
         "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = { friendly_name = "Office light"; icon = "mdi:ceiling-light"; };
         "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_0" = { friendly_name = "Spot #0"; icon = "mdi:lightbulb-spot"; };
         "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_1" = { friendly_name = "Spot #1"; icon = "mdi:lightbulb-spot"; };
@@ -428,7 +385,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.3.3";
+        image = "ghcr.io/home-assistant/home-assistant:2024.4.0";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
@@ -439,10 +396,7 @@ in
         volumes = [
           "/var/lib/homeassistant/esphome:/config"
         ];
-        image = "ghcr.io/esphome/esphome:2024.3.0";
-        environment = {
-          ESPHOME_DASHBOARD_USE_PING = "true";
-        };
+        image = "ghcr.io/esphome/esphome:2024.3.1";
         ports = [
           "6052:6052"
         ];
