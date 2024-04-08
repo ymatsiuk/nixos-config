@@ -381,6 +381,7 @@ in
           "${scripts}:/config/scripts_manual.yaml"
           "/run/dbus:/run/dbus:ro"
           "/run/postgresql:/run/postgresql:ro"
+          "/media:/media"
         ];
         environment = {
           TZ = "Europe/Amsterdam";
