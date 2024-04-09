@@ -386,25 +386,25 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.4.0";
+        image = "ghcr.io/home-assistant/home-assistant:2024.4.2";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
           "--network=host"
         ];
       };
-      esphome = {
-        volumes = [
-          "/var/lib/homeassistant/esphome:/config"
-        ];
-        image = "ghcr.io/esphome/esphome:2024.3.1";
-        ports = [
-          "6052:6052"
-        ];
-        extraOptions = [
-          "--init"
-        ];
-      };
+      # esphome = {
+      #   volumes = [
+      #     "/var/lib/homeassistant/esphome:/config"
+      #   ];
+      #   image = "ghcr.io/esphome/esphome:2024.3.2";
+      #   ports = [
+      #     "6052:6052"
+      #   ];
+      #   extraOptions = [
+      #     "--init"
+      #   ];
+      # };
     };
   };
 }
