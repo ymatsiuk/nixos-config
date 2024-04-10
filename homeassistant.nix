@@ -15,13 +15,18 @@ let
       condition = [ ];
       action = [
         {
+          service = "camera.snapshot";
+          data = { filename = "/media/front_door.jpg"; };
+          target = { entity_id = "camera.reolink_video_doorbell_fluent"; };
+        }
+        {
           service = "notify.mobile_app_pixel_8";
           data = {
             title = "Doorbell rings";
             data = {
               ttl = 0;
               priority = "high";
-              image = "/api/camera_proxy/camera.reolink_video_doorbell_sub";
+              image = "/media/local/front_door.jpg";
               actions = [
                 { action = "URI"; title = "Open HA"; uri = "/lovelace/0"; }
                 { action = "URI"; title = "Open Reolink"; uri = "app://com.mcu.reolink"; }
