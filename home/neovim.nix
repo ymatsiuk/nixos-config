@@ -60,7 +60,6 @@
     '';
     plugins = with pkgs.vimPlugins; [
       colorizer
-      copilot-vim
       vim-helm
       vim-nix
       vim-sleuth
