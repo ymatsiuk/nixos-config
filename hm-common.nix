@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   imports = [
     ./home/git.nix
@@ -12,7 +11,6 @@
     # packages common to all hosts
     ./home/common-packages.nix
   ];
-  programs.fzf.enable = true;
   programs.gpg.enable = true;
   programs.htop.enable = true;
   home.stateVersion = "23.11";
