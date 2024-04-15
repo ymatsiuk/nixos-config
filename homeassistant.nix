@@ -22,17 +22,15 @@ let
         {
           service = "notify.mobile_app_pixel_8";
           data = {
-            title = "Doorbell rings";
+            message = "Doorbell rings";
             data = {
               ttl = 0;
               priority = "high";
               image = "/media/local/front_door.jpg";
               actions = [
-                { action = "URI"; title = "Open HA"; uri = "/lovelace/0"; }
                 { action = "URI"; title = "Open Reolink"; uri = "app://com.mcu.reolink"; }
               ];
             };
-            message = "Someone's at the door";
           };
         }
       ];
@@ -339,7 +337,10 @@ let
         ];
       };
     };
-    zha.zigpy_config.ota.ikea_provider = true;
+    zha.zigpy_config.ota = {
+      ikea_provider = true;
+      otau_directory = "/config/zigpy_ota";
+    };
   };
   # hack to fix yaml functions
   configuration = pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
@@ -391,7 +392,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.4.2";
+        image = "ghcr.io/home-assistant/home-assistant:2024.4.3";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
