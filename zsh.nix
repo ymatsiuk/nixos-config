@@ -56,10 +56,10 @@ in
       groot = "cd $(git rev-parse --show-toplevel)";
       k = "kubectl";
       ks = "kubectl -n kube-system";
-      # kube print secret (mind the space in the end to separate ' from '' :facepalm.nix:)
-      kps = ''kubectl -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' '';
-      # kube print sorted images
-      kpsi = ''kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c'';
+      # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
+      kds = ''kubectl get secrets -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' '';
+      # kube get pods' images
+      kgpi = ''kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c'';
       tf = "terraform";
       tg = "terragrunt";
       # Export/Unset GitHub/GitLab/Pagerduty <Nu/Ls> Token
