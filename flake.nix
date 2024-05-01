@@ -2,7 +2,7 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/main";
+    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/ymatsiuk/addoverlay";
     awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
     awsvpnclient.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
@@ -25,7 +25,6 @@
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
-              awsvpnclient = awsvpnclient.packages.${system}.awsvpnclient;
             })
           ] ++ overlays;
         };
@@ -54,6 +53,7 @@
           overlays = [
             nur.overlay
             self.overlays.wrk
+            awsvpnclient.overlays.vpn
           ];
           modules = [
             ./nixps.nix
@@ -123,11 +123,21 @@
       };
     } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
-        pkgs = makeOpinionatedNixpkgs system [ self.overlays.wrk ];
+        pkgs = makeOpinionatedNixpkgs system [
+          self.overlays.wrk
+          awsvpnclient.overlays.vpn
+        ];
       in
       {
         packages = {
           linux_latest = pkgs.linux_latest;
+        };
+        devShells = {
+          work = pkgs.mkShell {
+            buildInputs = [
+              pkgs.awsvpnclient
+            ];
+          };
         };
       }
     );

@@ -10,16 +10,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1709887232,
-        "narHash": "sha256-SpJv0a1QORJ0V1I2qWMGGTjkk3i3gb41ELOetlmM8oA=",
+        "lastModified": 1714568252,
+        "narHash": "sha256-oRtORK3yyLS/TeieDsm80aOpfZ6VH8ZGO5F7nIS+2Z4=",
         "owner": "ymatsiuk",
         "repo": "awsvpnclient",
-        "rev": "56ca114e3f7fe4db9d745a0ab8ed70c6bd803a8f",
+        "rev": "10977160664e8f6ed4aa01db44b7eec3f8174099",
         "type": "github"
       },
       "original": {
         "owner": "ymatsiuk",
-        "ref": "main",
+        "ref": "ymatsiuk/addoverlay",
         "repo": "awsvpnclient",
         "type": "github"
       }
