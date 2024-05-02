@@ -48,7 +48,10 @@ in
     ];
 
     extraConfig = {
-      credential.helper = "rbw";
+      credential = {
+        helper = "rbw";
+        username = "ymatsiuk";
+      };
       fetch.prune = true;
       init.defaultBranch = "main";
       pull.rebase = false;
