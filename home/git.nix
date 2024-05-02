@@ -49,7 +49,7 @@ in
 
     extraConfig = {
       credential = {
-        helper = "rbw";
+        helper = "!f() { test \"$1\" = get && while read -r line; do case $line in protocol=*) protocol=\${line#*=} ;; host=*) host=\${line#*=} ;; username=*) user=\${line#*=} ;; esac done && test \"$protocol\" = \"https\" && test -n \"$host\" && token=$(rbw get \"$host\" \"$user\") && printf 'password=%s\n' \"$token\"; }; f";
         username = "ymatsiuk";
       };
       fetch.prune = true;
@@ -67,3 +67,5 @@ in
     };
   };
 }
+
+
