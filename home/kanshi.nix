@@ -18,7 +18,7 @@
             status = "disable";
           }
           {
-            criteria = "DP-1";
+            criteria = "LG Electronics LG HDR 4K 0x0001C950";
             status = "enable";
             scale = 2.0;
           }
