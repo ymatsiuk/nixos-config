@@ -392,7 +392,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.4.4";
+        image = "ghcr.io/home-assistant/home-assistant:2024.5.2";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--privileged"
