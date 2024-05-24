@@ -1,18 +1,20 @@
 {
   services.kanshi = {
     enable = true;
-    profiles = {
-      internal = {
-        outputs = [
+    settings = [
+      {
+        profile.name = "internal";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "enable";
             scale = 2.0;
           }
         ];
-      };
-      external = {
-        outputs = [
+      }
+      {
+        profile.name = "external";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "disable";
@@ -23,7 +25,7 @@
             scale = 2.0;
           }
         ];
-      };
-    };
+      }
+    ];
   };
 }
