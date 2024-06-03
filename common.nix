@@ -12,10 +12,8 @@ let
     dhcpV4Config.UseDNS = false;
     dhcpV6Config.UseDNS = false;
     routes = [{
-      routeConfig = {
-        InitialCongestionWindow = 50;
-        InitialAdvertisedReceiveWindow = 50;
-      };
+      InitialCongestionWindow = 50;
+      InitialAdvertisedReceiveWindow = 50;
     }];
   };
 in
