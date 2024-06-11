@@ -44,7 +44,10 @@ in
   hardware = {
     bluetooth = {
       enable = true;
-      settings.General.Experimental = true;
+      settings.General = {
+        Experimental = true;
+        KernelExperimental = true;
+      };
     };
     firmware = with pkgs; [
       linux-firmware
