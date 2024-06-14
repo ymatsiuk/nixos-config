@@ -7,7 +7,7 @@
     extraPackages = with pkgs; [
       gopls
       nil
-      nodePackages.pyright
+      pyright
       nodePackages.bash-language-server
       terraform-ls
     ];
