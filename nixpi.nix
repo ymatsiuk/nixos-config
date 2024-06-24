@@ -7,7 +7,7 @@
 
   boot = {
     initrd.availableKernelModules = lib.mkForce [ ];
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
