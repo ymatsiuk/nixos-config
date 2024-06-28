@@ -8,8 +8,6 @@ in
       bottom = {
         blocks = [
           { block = "pomodoro"; }
-          { block = "net"; missing_format = ""; device = "^sk0$"; format = " $icon "; icons_format = ""; } # "\ue4a5"
-          { block = "net"; missing_format = ""; device = "^nu0$"; format = " $icon "; icons_format = ""; } # "\ue4d6"
           { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; disconnected_format = ""; format = " $icon { $percentage|} "; }
           { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; disconnected_format = ""; format = " $icon { $percentage|} "; }
           { block = "net"; device = "wlan0"; format = " $icon $ssid $signal_strength "; }
@@ -28,11 +26,6 @@ in
           };
           icons = {
             icons = "awesome6";
-            overrides = {
-              tux = ""; # "\uf17c"
-              upd = ""; # "\uf055"
-              noupd = ""; # "\uf056"
-            };
           };
         };
       };

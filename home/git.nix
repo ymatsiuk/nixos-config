@@ -1,6 +1,3 @@
-let
-  secrets = import ../secrets.nix;
-in
 {
   programs.git = {
     enable = true;
@@ -22,27 +19,6 @@ in
         contents.user = {
           email = "3461170-ymatsiuk@users.noreply.gitlab.com";
           signingKey = "~/.ssh/gitlab.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/lightspeed*/";
-        contents.user = {
-          email = secrets.git.lightspeed.email;
-          signingKey = "~/.ssh/lightspeedhq.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/nuorder/";
-        contents.user = {
-          email = secrets.git.lightspeed.email;
-          signingKey = "~/.ssh/nuorder.pub";
-        };
-      }
-      {
-        condition = "gitdir:~/git/shopkeep/";
-        contents.user = {
-          email = secrets.git.lightspeed.email;
-          signingKey = "~/.ssh/lightspeedhq.pub";
         };
       }
     ];
@@ -67,5 +43,3 @@ in
     };
   };
 }
-
-

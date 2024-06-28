@@ -65,7 +65,6 @@ in
       # Export/Unset GitHub/GitLab/Pagerduty <Nu/Ls> Token
       eght = "export GITHUB_TOKEN=$(rbw get https://github.com)";
       ught = "unset GITHUB_TOKEN";
-      eglnt = "export GITLAB_TOKEN=$(rbw get ${secrets.nuo.git.url})";
       eglt = "export GITLAB_TOKEN=$(rbw get https://gitlab.com)";
       uglt = "unset GITLAB_TOKEN";
       vpn-staging = "awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
