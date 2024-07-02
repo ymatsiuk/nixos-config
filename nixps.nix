@@ -7,6 +7,7 @@
       ./greetd.nix
       ./opengl.nix
       ./pipewire.nix
+      ./tailscale.nix
       ./telegraf.nix
     ];
 
