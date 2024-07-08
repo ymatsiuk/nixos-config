@@ -9,7 +9,6 @@ let
     "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
   ];
   plugins = builtins.concatStringsSep "\n" (source);
-  secrets = import ./secrets.nix;
 in
 {
   programs.zsh = {
