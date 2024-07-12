@@ -2,6 +2,7 @@
 {
   imports =
     [
+      ./apfs.nix
       ./boot.nix
       ./fonts.nix
       ./greetd.nix
