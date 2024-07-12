@@ -135,7 +135,7 @@ in
         };
       };
       output = {
-        DP-1 = { pos = "0 0"; scale = "2"; };
+        "LG Electronics LG HDR 4K 0x0001C950" = { pos = "0 0"; scale = "2"; };
         eDP-1 = { pos = "0 1080"; scale = "2"; };
       };
       window = {
