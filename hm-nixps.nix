@@ -24,6 +24,7 @@
     kind
     kubectl
     kustomize
+    step-cli
     terraform
     yq-go
     (wrapHelm kubernetes-helm {
