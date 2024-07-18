@@ -11,6 +11,7 @@
   ];
   xdg.userDirs.enable = true;
   home.packages = with pkgs;[
+    _1password
     aws-iam-authenticator
     aws-sso-cli
     awscli2
@@ -26,6 +27,7 @@
     kustomize
     step-cli
     terraform
+    postgresql
     yq-go
     (wrapHelm kubernetes-helm {
       plugins = with pkgs.kubernetes-helmPlugins; [
