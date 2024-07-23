@@ -18,6 +18,7 @@
     awsvpnclient
     delve
     exercism
+    fluxcd
     gcc
     gnumake
     go
