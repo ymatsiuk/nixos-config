@@ -61,14 +61,6 @@ in
       kgpi = ''kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c'';
       tf = "terraform";
       tg = "terragrunt";
-      # Export/Unset GitHub/GitLab/Pagerduty <Nu/Ls> Token
-      eght = "export GITHUB_TOKEN=$(rbw get https://github.com)";
-      ught = "unset GITHUB_TOKEN";
-      eglt = "export GITLAB_TOKEN=$(rbw get https://gitlab.com)";
-      uglt = "unset GITLAB_TOKEN";
-      vpn-staging = "awsvpnclient start --config ~/.config/awsvpn/staging.ovpn";
-      vpn-production = "awsvpnclient start --config ~/.config/awsvpn/production.ovpn";
     };
   };
 }
-
