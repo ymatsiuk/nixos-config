@@ -87,6 +87,8 @@
       };
       overlays = {
         wrk = final: prev: {
+          fprintd-tod = final.callPackage test/tod.nix { };
+          libfprint-tod = final.callPackage test/libfprint-tod.nix { };
           terraform = prev.mkTerraform {
             version = "1.2.4";
             hash = "sha256-FpRn0cFO3/CKdFDeAIu02Huez4Jpunpf6QH9KFVn2lQ=";
@@ -104,6 +106,8 @@
       {
         packages = {
           linux_latest = pkgs.linux_latest;
+          fprintd-tod = pkgs.fprintd-tod;
+          libfprint-tod = pkgs.libfprint-tod;
         };
         devShells = {
           work = pkgs.mkShell {
