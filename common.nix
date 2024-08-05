@@ -5,9 +5,7 @@ let
     matchConfig.Name = name;
     networkConfig = {
       MulticastDNS = true;
-      DNSSEC = true;
       DHCP = "yes";
-      DNS = [ "1.1.1.1" "1.0.0.1" ];
     };
     dhcpV4Config.UseDNS = false;
     dhcpV6Config.UseDNS = false;
@@ -99,9 +97,10 @@ in
 
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
+    dnsovertls = "true";
+    dnssec = "true";
+    domains = [ "~." ];
+    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
   };
 
   system.stateVersion = "23.11";
