@@ -10,14 +10,14 @@ let
       alias = "Doorbell notify";
       description = "";
       trigger = [
-        { type = "turned_on"; platform = "device"; device_id = "6ec43bd1e46a027cceea113df0b4ae4a"; entity_id = "c675ef6e1b21cec358f651083e6e6f30"; domain = "binary_sensor"; }
+        { type = "turned_on"; platform = "device"; device_id = "6ec43bd1e46a027cceea113df0b4ae4a"; entity_id = "657e87321790b350d32c1b2208eba789"; domain = "binary_sensor"; }
       ];
       condition = [ ];
       action = [
         {
           service = "camera.snapshot";
           data = { filename = "/media/front_door.jpg"; };
-          target = { entity_id = "camera.reolink_video_doorbell_fluent"; };
+          target = { entity_id = "camera.reolink_video_doorbell_clear"; };
         }
         {
           service = "notify.mobile_app_pixel_8";
@@ -395,6 +395,7 @@ in
         image = "ghcr.io/home-assistant/home-assistant:2024.8.1";
         extraOptions = [
           "--device=/dev/ttyACM0"
+          "--device=/dev/ttyUSB0"
           "--privileged"
           "--network=host"
         ];
