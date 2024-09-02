@@ -1,29 +1,5 @@
 {
   "nodes": {
-    "awsvpnclient": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1714568252,
-        "narHash": "sha256-oRtORK3yyLS/TeieDsm80aOpfZ6VH8ZGO5F7nIS+2Z4=",
-        "owner": "ymatsiuk",
-        "repo": "awsvpnclient",
-        "rev": "10977160664e8f6ed4aa01db44b7eec3f8174099",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ymatsiuk",
-        "ref": "ymatsiuk/addoverlay",
-        "repo": "awsvpnclient",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -127,7 +103,6 @@
     },
     "root": {
       "inputs": {
-        "awsvpnclient": "awsvpnclient",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",

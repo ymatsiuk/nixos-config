@@ -56,8 +56,6 @@ What's inside:
 1. NixOS:
     * latest stable kernel from `nixpkgs-small`
     * stable `nix`
-    * overlays:
-      * [`awsvpnclient`](https://github.com/ymatsiuk/awsvpnclient)
     * modules:
       * `podman`
       * `docker` (buildkit enabled)

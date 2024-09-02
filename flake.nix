@@ -2,9 +2,6 @@
   description = "ymatsiuk NixOS configuration";
 
   inputs = {
-    awsvpnclient.url = "github:ymatsiuk/awsvpnclient/ymatsiuk/addoverlay";
-    awsvpnclient.inputs.nixpkgs.follows = "nixpkgs";
-    awsvpnclient.inputs.flake-utils.follows = "flake-utils";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -14,7 +11,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, awsvpnclient, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware }:
+  outputs = { self, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -53,7 +50,6 @@
           overlays = [
             nur.overlay
             self.overlays.wrk
-            awsvpnclient.overlays.vpn
           ];
           modules = [
             ./nixps.nix
@@ -100,7 +96,6 @@
       let
         pkgs = makeOpinionatedNixpkgs system [
           self.overlays.wrk
-          awsvpnclient.overlays.vpn
         ];
       in
       {
@@ -111,9 +106,7 @@
         };
         devShells = {
           work = pkgs.mkShell {
-            buildInputs = [
-              pkgs.awsvpnclient
-            ];
+            buildInputs = [ ];
           };
         };
       }
