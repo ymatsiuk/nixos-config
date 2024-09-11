@@ -68,7 +68,7 @@ What's inside:
 2. Home-Manager:
     * `alacritty` (gruvbox theme)
     * `firefox` with Wayland support
-    * `foot` (gruvbox theme)
+    * `foot` main terminal (gruvbox theme)
     * `gammastep`
     * `git` (`rbw` credentials helper)
     * `gtk` (gruvbox theme)
@@ -79,5 +79,5 @@ What's inside:
     * `starship` (as shell prompt)
     * `sway` (gruvbox theme)
     * `rbw`
-    * `tofi` tiny dynamic menu for Wayland
-    * `wezterm` main terminal (gruvbox theme)
+    * `fuzzel` application launcher for Wayland
+    * `wezterm` (gruvbox theme)

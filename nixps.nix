@@ -34,7 +34,6 @@
       slurp #sway dep
       swayidle #sway dep
       swaylock #sway dep
-      tofi #sway dep
       wf-recorder #sway
       wl-clipboard #sway dep
     ];
