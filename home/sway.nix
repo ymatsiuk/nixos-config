@@ -30,7 +30,7 @@ in
       };
       modifier = "Mod4";
       menu = "tofi-drun --drun-launch=true";
-      terminal = "wezterm start --always-new-process";
+      terminal = "footclient";
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;
