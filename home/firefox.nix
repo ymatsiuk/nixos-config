@@ -9,6 +9,7 @@
           bitwarden
           decentraleyes
           multi-account-containers
+          onepassword-password-manager
           ublock-origin
         ];
       };
