@@ -33,7 +33,7 @@ in
       };
       outputs = {
         influxdb_v2 = {
-          urls = [ "http://nixpi4:8086" ];
+          urls = [ secrets.telegraf.system.host ];
           token = secrets.telegraf.system.token;
           organization = secrets.telegraf.system.org;
           bucket = secrets.telegraf.system.bucket;
