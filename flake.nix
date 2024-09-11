@@ -9,9 +9,11 @@
     nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware }:
+  outputs = { self, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware, nixpkgs-wayland }:
     let
       makeOpinionatedNixpkgs = system: overlays:
         import nixpkgs {
@@ -38,6 +40,16 @@
               nix.extraOptions = "experimental-features = nix-command flakes";
               nix.package = pkgs.nixVersions.nix_2_19;
               nix.registry.nixpkgs.flake = nixpkgs;
+              nix.settings = {
+                trusted-public-keys = [
+                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                  "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+                ];
+                substituters = [
+                  "https://cache.nixos.org"
+                  "https://nixpkgs-wayland.cachix.org"
+                ];
+              };
               nixpkgs = { inherit pkgs; };
             }
           ] ++ modules;
@@ -50,6 +62,7 @@
           overlays = [
             nur.overlay
             self.overlays.wrk
+            nixpkgs-wayland.overlay
           ];
           modules = [
             ./nixps.nix
