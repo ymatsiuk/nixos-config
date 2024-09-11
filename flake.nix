@@ -106,7 +106,7 @@
         };
         devShells = {
           work = pkgs.mkShell {
-            buildInputs = [ ];
+            buildInputs = [ pkgs.python312Packages.pip pkgs.python3 pkgs.zip ];
           };
         };
       }
