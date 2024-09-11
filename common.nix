@@ -103,7 +103,7 @@ in
     fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
 
   time.timeZone = "Europe/Amsterdam";
 

@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   imports = [
     ./home/git.nix
@@ -15,5 +14,5 @@
   programs.fzf.enable = true;
   programs.gpg.enable = true;
   programs.htop.enable = true;
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 }
