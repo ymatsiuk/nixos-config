@@ -338,7 +338,7 @@ let
       };
     };
     zha.zigpy_config.ota = {
-      ikea_provider = true;
+      extra_providers = [{ type = "ikea"; }];
       otau_directory = "/config/zigpy_ota";
     };
   };
