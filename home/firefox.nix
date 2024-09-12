@@ -7,6 +7,7 @@
         isDefault = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           bitwarden
+          consent-o-matic
           decentraleyes
           multi-account-containers
           onepassword-password-manager
