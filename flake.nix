@@ -38,7 +38,6 @@
             home-manager.nixosModules.home-manager
             {
               nix.extraOptions = "experimental-features = nix-command flakes";
-              nix.package = pkgs.nixVersions.nix_2_19;
               nix.registry.nixpkgs.flake = nixpkgs;
               nix.settings = {
                 trusted-public-keys = [
