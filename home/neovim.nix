@@ -28,6 +28,7 @@
       vim.opt.showmode = false
       vim.opt.swapfile = false
       vim.opt.termguicolors = true
+      vim.opt.diffopt = "vertical,iwhite,hiddenoff,foldcolumn:0,context:4,algorithm:histogram,indent-heuristic"
 
       -- Move selection up/down
       vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
