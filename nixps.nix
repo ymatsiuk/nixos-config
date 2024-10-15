@@ -10,6 +10,7 @@
       ./pipewire.nix
       ./tailscale.nix
       ./telegraf.nix
+      ./upgrade-diff.nix
     ];
 
   hardware.cpu.intel.updateMicrocode = true;
