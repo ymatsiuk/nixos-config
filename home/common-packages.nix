@@ -6,6 +6,8 @@
     fd
     jq
     nixpkgs-fmt
+    alejandra
+    nixfmt-rfc-style
     nixpkgs-review
     openssl
     procps
