@@ -7,15 +7,63 @@ in
     bars = {
       bottom = {
         blocks = [
-          { block = "bluetooth"; mac = "CC:98:8B:93:08:1F"; disconnected_format = ""; format = " $icon { $percentage|} "; }
-          { block = "bluetooth"; mac = "18:B9:6E:D8:41:A9"; disconnected_format = ""; format = " $icon { $percentage|} "; }
-          { block = "net"; device = "^eth0$"; }
-          { block = "net"; device = "^tailscale0$"; }
-          { block = "net"; device = "^wlan0$"; }
-          { block = "weather"; service = { name = "openweathermap"; city_id = secrets.i3status-rust.cityId; api_key = secrets.i3status-rust.openWeatherApiKey; }; }
-          { block = "sound"; driver = "pulseaudio"; click = [{ button = "left"; cmd = "pavucontrol"; }]; }
-          { block = "battery"; driver = "upower"; device = "BAT0"; }
-          { block = "time"; format = " $icon $timestamp.datetime(f:'%a %e %b %R', l:nl_NL) "; click = [{ button = "left"; cmd = "gsimplecal"; }]; }
+          {
+            block = "bluetooth";
+            mac = "CC:98:8B:93:08:1F";
+            disconnected_format = "";
+            format = " $icon { $percentage|} ";
+          }
+          {
+            block = "bluetooth";
+            mac = "18:B9:6E:D8:41:A9";
+            disconnected_format = "";
+            format = " $icon { $percentage|} ";
+          }
+          {
+            block = "net";
+            device = "^eth0$";
+          }
+          {
+            block = "net";
+            device = "^tailscale0$";
+          }
+          {
+            block = "net";
+            device = "^wlan0$";
+          }
+          {
+            block = "weather";
+            service = {
+              name = "openweathermap";
+              city_id = secrets.i3status-rust.cityId;
+              api_key = secrets.i3status-rust.openWeatherApiKey;
+            };
+          }
+          {
+            block = "sound";
+            driver = "pulseaudio";
+            click = [
+              {
+                button = "left";
+                cmd = "pavucontrol";
+              }
+            ];
+          }
+          {
+            block = "battery";
+            driver = "upower";
+            device = "BAT0";
+          }
+          {
+            block = "time";
+            format = " $icon $timestamp.datetime(f:'%a %e %b %R', l:nl_NL) ";
+            click = [
+              {
+                button = "left";
+                cmd = "gsimplecal";
+              }
+            ];
+          }
         ];
         settings = {
           theme = {

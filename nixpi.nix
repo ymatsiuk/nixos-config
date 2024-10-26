@@ -1,4 +1,9 @@
-{ pkgs, modulesPath, lib, ... }:
+{
+  pkgs,
+  modulesPath,
+  lib,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image.nix"
@@ -24,6 +29,9 @@
   services.openssh.enable = true;
 
   swapDevices = [
-    { device = "/swapfile"; size = 2048; }
+    {
+      device = "/swapfile";
+      size = 2048;
+    }
   ];
 }

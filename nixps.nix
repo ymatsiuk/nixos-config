@@ -1,17 +1,16 @@
 { pkgs, ... }:
 {
-  imports =
-    [
-      ./apfs.nix
-      ./boot.nix
-      ./fonts.nix
-      ./greetd.nix
-      ./opengl.nix
-      ./pipewire.nix
-      ./tailscale.nix
-      ./telegraf.nix
-      ./upgrade-diff.nix
-    ];
+  imports = [
+    ./apfs.nix
+    ./boot.nix
+    ./fonts.nix
+    ./greetd.nix
+    ./opengl.nix
+    ./pipewire.nix
+    ./tailscale.nix
+    ./telegraf.nix
+    ./upgrade-diff.nix
+  ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -23,20 +22,23 @@
   programs.ssh.startAgent = true;
   programs.sway = {
     enable = true;
-    wrapperFeatures = { base = true; gtk = true; };
+    wrapperFeatures = {
+      base = true;
+      gtk = true;
+    };
     extraPackages = with pkgs; [
-      grim #sway dep
-      gsimplecal #i3status-rust dep
-      light #sway dep
-      pavucontrol #i3status-rust dep
-      playerctl #sway dep
-      pulseaudio #i3status-rust dep
+      grim # sway dep
+      gsimplecal # i3status-rust dep
+      light # sway dep
+      pavucontrol # i3status-rust dep
+      playerctl # sway dep
+      pulseaudio # i3status-rust dep
       slack
-      slurp #sway dep
-      swayidle #sway dep
-      swaylock #sway dep
-      wf-recorder #sway
-      wl-clipboard #sway dep
+      slurp # sway dep
+      swayidle # sway dep
+      swaylock # sway dep
+      wf-recorder # sway
+      wl-clipboard # sway dep
     ];
   };
 
@@ -91,7 +93,9 @@
       fsType = "vfat";
     };
   };
-  swapDevices = [{
-    device = "/dev/disk/by-uuid/8f3d360d-9fea-44d2-802e-f9ccfe932521";
-  }];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/8f3d360d-9fea-44d2-802e-f9ccfe932521";
+    }
+  ];
 }

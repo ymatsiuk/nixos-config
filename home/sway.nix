@@ -1,11 +1,17 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
-  idleCmd = ''swayidle -w \
-    timeout 300 'swaylock --daemonize --color 3c3836' \
-    timeout 600 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock --daemonize --color 3c3836'
+  idleCmd = ''
+    swayidle -w \
+        timeout 300 'swaylock --daemonize --color 3c3836' \
+        timeout 600 'swaymsg "output * dpms off"' \
+             resume 'swaymsg "output * dpms on"' \
+        before-sleep 'swaylock --daemonize --color 3c3836'
   '';
   gsettings = "${pkgs.glib}/bin/gsettings";
   gtkSettings = import ./gtk.nix { inherit pkgs; };
@@ -26,7 +32,11 @@ in
         smartBorders = "on";
       };
       fonts = {
-        names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
+        names = [
+          "Iosevka"
+          "Font Awesome 6 Free"
+          "Font Awesome 6 Brands"
+        ];
       };
       modifier = "Mod4";
       menu = "fuzzel";
@@ -91,7 +101,11 @@ in
         {
           statusCommand = "i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           fonts = {
-            names = [ "Iosevka" "Font Awesome 6 Free" "Font Awesome 6 Brands" ];
+            names = [
+              "Iosevka"
+              "Font Awesome 6 Free"
+              "Font Awesome 6 Brands"
+            ];
             size = 10.0;
           };
           position = "bottom";
@@ -135,25 +149,65 @@ in
         };
       };
       output = {
-        "LG Electronics LG HDR 4K 0x0001C950" = { pos = "0 0"; scale = "2"; };
-        eDP-1 = { pos = "0 1080"; scale = "2"; };
+        "LG Electronics LG HDR 4K 0x0001C950" = {
+          pos = "0 0";
+          scale = "2";
+        };
+        eDP-1 = {
+          pos = "0 1080";
+          scale = "2";
+        };
       };
       window = {
         titlebar = false;
         hideEdgeBorders = "smart";
         commands = [
-          { command = "floating enable"; criteria = { app_id = "gsimplecal"; }; }
-          { command = "floating enable"; criteria = { app_id = "firefox"; title = "About Mozilla Firefox"; }; }
-          { command = "move container to workspace 2"; criteria = { app_id = "^(?i)slack$"; }; }
-          { command = "move container to workspace 3"; criteria = { app_id = "firefox"; }; }
-          { command = "floating enable"; criteria = { title = "Save File"; }; }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "gsimplecal";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "firefox";
+              title = "About Mozilla Firefox";
+            };
+          }
+          {
+            command = "move container to workspace 2";
+            criteria = {
+              app_id = "^(?i)slack$";
+            };
+          }
+          {
+            command = "move container to workspace 3";
+            criteria = {
+              app_id = "firefox";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              title = "Save File";
+            };
+          }
           # browser zoom|meet|bluejeans
-          { command = "inhibit_idle visible"; criteria = { title = "(Blue Jeans)|(Meet)|(Zoom Meeting)"; }; }
+          {
+            command = "inhibit_idle visible";
+            criteria = {
+              title = "(Blue Jeans)|(Meet)|(Zoom Meeting)";
+            };
+          }
         ];
       };
       startup = [
         { command = "${idleCmd}"; }
-        { command = "${importGsettings}"; always = true; }
+        {
+          command = "${importGsettings}";
+          always = true;
+        }
       ];
     };
     extraConfig = ''
@@ -162,4 +216,3 @@ in
     '';
   };
 }
-

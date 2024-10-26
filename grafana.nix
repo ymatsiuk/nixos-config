@@ -14,7 +14,10 @@ in
     enable = true;
     ensureDatabases = [ "grafana" ];
     ensureUsers = [
-      { name = "grafana"; ensureDBOwnership = true; }
+      {
+        name = "grafana";
+        ensureDBOwnership = true;
+      }
     ];
   };
 
@@ -45,29 +48,33 @@ in
       enable = true;
       dashboards.settings = {
         apiVersion = 1;
-        providers = [{
-          name = "default";
-          options.path = ./grafana;
-        }];
+        providers = [
+          {
+            name = "default";
+            options.path = ./grafana;
+          }
+        ];
       };
       datasources.settings = {
         apiVersion = 1;
-        datasources = [{
-          name = "InfluxDB";
-          type = "influxdb";
-          uid = "influxdb2";
-          access = "proxy";
-          url = "http://localhost:8086";
-          secureJsonData = {
-            token = "$__file{${influxDBTokenPath}}";
-          };
-          jsonData = {
-            version = "Flux";
-            organization = "home";
-            defaultBucket = "hass";
-            tlsSkipVerify = true;
-          };
-        }];
+        datasources = [
+          {
+            name = "InfluxDB";
+            type = "influxdb";
+            uid = "influxdb2";
+            access = "proxy";
+            url = "http://localhost:8086";
+            secureJsonData = {
+              token = "$__file{${influxDBTokenPath}}";
+            };
+            jsonData = {
+              version = "Flux";
+              organization = "home";
+              defaultBucket = "hass";
+              tlsSkipVerify = true;
+            };
+          }
+        ];
       };
     };
   };

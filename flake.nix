@@ -13,9 +13,20 @@
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flake-utils, nixpkgs-small, nixos-hardware, nixpkgs-wayland }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nur,
+      home-manager,
+      flake-utils,
+      nixpkgs-small,
+      nixos-hardware,
+      nixpkgs-wayland,
+    }:
     let
-      makeOpinionatedNixpkgs = system: overlays:
+      makeOpinionatedNixpkgs =
+        system: overlays:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
@@ -27,7 +38,12 @@
             })
           ] ++ overlays;
         };
-      makeOpinionatedNixosConfig = { system, modules, overlays }:
+      makeOpinionatedNixosConfig =
+        {
+          system,
+          modules,
+          overlays,
+        }:
         let
           pkgs = makeOpinionatedNixpkgs system overlays;
         in
@@ -49,7 +65,9 @@
                   "https://nixpkgs-wayland.cachix.org"
                 ];
               };
-              nixpkgs = { inherit pkgs; };
+              nixpkgs = {
+                inherit pkgs;
+              };
             }
           ] ++ modules;
         };
@@ -104,23 +122,35 @@
           };
         };
       };
-    } // flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
-        pkgs = makeOpinionatedNixpkgs system [
-          self.overlays.wrk
-        ];
-      in
-      {
-        packages = {
-          linux_latest = pkgs.linux_latest;
-          fprintd-tod = pkgs.fprintd-tod;
-          libfprint-tod = pkgs.libfprint-tod;
-        };
-        devShells = {
-          work = pkgs.mkShell {
-            buildInputs = [ pkgs.python312Packages.pip pkgs.python3 pkgs.zip ];
-          };
-        };
-      }
-    );
+    }
+    //
+      flake-utils.lib.eachSystem
+        [
+          "x86_64-linux"
+          "aarch64-linux"
+        ]
+        (
+          system:
+          let
+            pkgs = makeOpinionatedNixpkgs system [
+              self.overlays.wrk
+            ];
+          in
+          {
+            packages = {
+              linux_latest = pkgs.linux_latest;
+              fprintd-tod = pkgs.fprintd-tod;
+              libfprint-tod = pkgs.libfprint-tod;
+            };
+            devShells = {
+              work = pkgs.mkShell {
+                buildInputs = [
+                  pkgs.python312Packages.pip
+                  pkgs.python3
+                  pkgs.zip
+                ];
+              };
+            };
+          }
+        );
 }

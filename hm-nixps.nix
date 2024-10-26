@@ -10,7 +10,7 @@
     ./home/sway.nix
   ];
   xdg.userDirs.enable = true;
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     _1password
     aws-iam-authenticator
     aws-sso-cli

@@ -1,19 +1,23 @@
 { pkgs, ... }:
 let
-  defaultNetworkConfig = { name, weight }: {
-    dhcpV4Config.RouteMetric = weight;
-    matchConfig.Name = name;
-    networkConfig = {
-      MulticastDNS = true;
-      DHCP = "yes";
+  defaultNetworkConfig =
+    { name, weight }:
+    {
+      dhcpV4Config.RouteMetric = weight;
+      matchConfig.Name = name;
+      networkConfig = {
+        MulticastDNS = true;
+        DHCP = "yes";
+      };
+      dhcpV4Config.UseDNS = false;
+      dhcpV6Config.UseDNS = false;
+      routes = [
+        {
+          InitialCongestionWindow = 50;
+          InitialAdvertisedReceiveWindow = 50;
+        }
+      ];
     };
-    dhcpV4Config.UseDNS = false;
-    dhcpV6Config.UseDNS = false;
-    routes = [{
-      InitialCongestionWindow = 50;
-      InitialAdvertisedReceiveWindow = 50;
-    }];
-  };
 in
 {
   imports = [
@@ -24,7 +28,10 @@ in
 
   environment = {
     shells = [ pkgs.zsh ];
-    pathsToLink = [ "/libexec" "/share/zsh" ];
+    pathsToLink = [
+      "/libexec"
+      "/share/zsh"
+    ];
     variables = {
       MANPAGER = "nvim +Man!";
       EDITOR = "nvim";
@@ -74,8 +81,14 @@ in
     enable = true;
     wait-online.anyInterface = true;
     networks = {
-      "wlan0" = defaultNetworkConfig { name = "wlan0"; weight = 4096; };
-      "eth0" = defaultNetworkConfig { name = "eth0"; weight = 1024; };
+      "wlan0" = defaultNetworkConfig {
+        name = "wlan0";
+        weight = 4096;
+      };
+      "eth0" = defaultNetworkConfig {
+        name = "eth0";
+        weight = 1024;
+      };
     };
   };
 
@@ -100,7 +113,10 @@ in
     dnsovertls = "true";
     dnssec = "true";
     domains = [ "~." ];
-    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+    fallbackDns = [
+      "1.1.1.1#one.one.one.one"
+      "1.0.0.1#one.one.one.one"
+    ];
   };
 
   system.stateVersion = "24.11";
@@ -112,7 +128,14 @@ in
     users = {
       ymatsiuk = {
         description = "Yurii Matsiuk";
-        extraGroups = [ "audio" "dialout" "docker" "video" "wheel" "ymatsiuk" ];
+        extraGroups = [
+          "audio"
+          "dialout"
+          "docker"
+          "video"
+          "wheel"
+          "ymatsiuk"
+        ];
         shell = pkgs.zsh;
         home = "/home/ymatsiuk";
         isNormalUser = true;
@@ -133,10 +156,14 @@ in
       enable = true;
       enableOnBoot = true;
       extraOptions = ''--config-file=${
-      pkgs.writeText "daemon.json" (builtins.toJSON {
-        features = { buildkit = true; };
-      })
-    }'';
+        pkgs.writeText "daemon.json" (
+          builtins.toJSON {
+            features = {
+              buildkit = true;
+            };
+          }
+        )
+      }'';
     };
     podman.enable = true;
   };

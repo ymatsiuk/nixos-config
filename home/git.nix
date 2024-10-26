@@ -42,14 +42,17 @@ in
       init.defaultBranch = "main";
       pull.rebase = false;
       gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers"; #manual -> echo "$(git config --get user.email) namespaces=\"git\" $(cat ~/.ssh/<MY_KEY>.pub)" >> ~/.ssh/allowed_signers
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers"; # manual -> echo "$(git config --get user.email) namespaces=\"git\" $(cat ~/.ssh/<MY_KEY>.pub)" >> ~/.ssh/allowed_signers
       rebase = {
         autoStash = true;
         autoSquash = true;
         abbreviateCommands = true;
         missingCommitsCheck = "warn";
       };
-      url."https://github.com/".insteadOf = [ "gh:" "github:" ];
+      url."https://github.com/".insteadOf = [
+        "gh:"
+        "github:"
+      ];
     };
   };
 }

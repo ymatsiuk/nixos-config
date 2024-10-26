@@ -5,7 +5,13 @@
     options iwlwifi power_save=1
     options snd_hda_intel power_save=1
   '';
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "vmd"
+    "nvme"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.compressor = "xz";
   boot.initrd.kernelModules = [ "i915" ];
   boot.initrd.luks.devices = {
@@ -14,7 +20,10 @@
       device = "/dev/disk/by-uuid/0cebcb03-e616-4d3b-8044-cd1715c4899d";
     };
   };
-  boot.initrd.systemd = { enable = true; emergencyAccess = true; };
+  boot.initrd.systemd = {
+    enable = true;
+    emergencyAccess = true;
+  };
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [
     "quiet"
@@ -32,4 +41,3 @@
   boot.loader.timeout = 1;
   boot.tmp.useTmpfs = true;
 }
-
