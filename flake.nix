@@ -120,6 +120,11 @@
             hash = "sha256-FpRn0cFO3/CKdFDeAIu02Huez4Jpunpf6QH9KFVn2lQ=";
             vendorHash = "sha256-1RKnNF3NC0fGiU2VKz43UBGP33QrLxESVuH6IV6kYqA=";
           };
+          tf_1_5_7 = prev.mkTerraform {
+            version = "1.5.7";
+            hash = "sha256-pIhwJfa71/gW7lw/KRFBO4Q5Z5YMcTt3r9kD25k8cqM=";
+            vendorHash = "sha256-lQgWNMBf+ioNxzAV7tnTQSIS840XdI9fg9duuwoK+U4=";
+          };
         };
       };
     }
@@ -141,6 +146,8 @@
               linux_latest = pkgs.linux_latest;
               fprintd-tod = pkgs.fprintd-tod;
               libfprint-tod = pkgs.libfprint-tod;
+              terraform = pkgs.terraform;
+              tf_1_5_7 = pkgs.tf_1_5_7;
             };
             devShells = {
               work = pkgs.mkShell {
@@ -148,6 +155,15 @@
                   pkgs.python312Packages.pip
                   pkgs.python3
                   pkgs.zip
+                  pkgs.terraform
+                ];
+              };
+              wrk = pkgs.mkShell {
+                buildInputs = [
+                  pkgs.python312Packages.pip
+                  pkgs.python3
+                  pkgs.zip
+                  pkgs.tf_1_5_7
                 ];
               };
             };
