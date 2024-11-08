@@ -40,7 +40,7 @@ in
       };
       modifier = "Mod4";
       menu = "fuzzel";
-      terminal = "footclient";
+      terminal = "alacritty";
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;

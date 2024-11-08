@@ -4,7 +4,6 @@
     enable = true;
     settings = {
       colors = {
-        draw_bold_text_with_bright_colors = true;
         primary = {
           background = "0x282828";
           foreground = "0xebdbb2";
@@ -35,10 +34,9 @@
         size = 12;
       };
       hints = {
-        alphabet = "jfkdls;ahgurieowpq";
         enabled = [
           {
-            regex = "(https:|http:|git:|ftp:)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\\\s{-}\\\\^⟨⟩`]+";
+            regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+";
             command = "${pkgs.xdg-utils}/bin/xdg-open";
             post_processing = true;
             mouse = {
