@@ -11,7 +11,7 @@
   ];
   xdg.userDirs.enable = true;
   home.packages = with pkgs; [
-    _1password
+    _1password-cli
     aws-iam-authenticator
     aws-sso-cli
     awscli2
