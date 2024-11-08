@@ -1,3 +1,4 @@
+{ pkgs, config, ... }:
 {
   imports = [
     ./home/git.nix
@@ -15,4 +16,7 @@
   programs.gpg.enable = true;
   programs.htop.enable = true;
   home.stateVersion = "24.11";
+  home.activation.report-changes = config.lib.dag.entryAnywhere ''
+    ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff $oldGenPath $newGenPath
+  '';
 }
