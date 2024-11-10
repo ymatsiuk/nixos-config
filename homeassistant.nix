@@ -30,7 +30,7 @@ let
           };
         }
         {
-          service = "notify.mobile_app_pixel_8";
+          service = "notify.family";
           data = {
             message = "Doorbell rings";
             data = {
@@ -641,7 +641,7 @@ let
       condition = [ ];
       action = [
         {
-          service = "notify.mobile_app_pixel_8";
+          service = "notify.family";
           metadata = { };
           data = {
             data = {
@@ -653,6 +653,114 @@ let
         }
       ];
       mode = "single";
+    }
+    {
+      alias = "Shutters close";
+      id = "1731264820";
+      description = "";
+      triggers = [
+        {
+          entity_id = [ "sun.sun" ];
+          attribute = "elevation";
+          trigger = "numeric_state";
+          below = -8;
+        }
+      ];
+      conditions = [
+        {
+          condition = "state";
+          entity_id = "cover.shutters";
+          state = "open";
+        }
+      ];
+      actions = [
+        {
+          action = "cover.close_cover";
+          target = {
+            entity_id = [ "cover.shutters" ];
+          };
+          data = { };
+        }
+        {
+          action = "light.turn_on";
+          target = {
+            area_id = [
+              "living_room"
+              "kitchen"
+            ];
+          };
+          data = { };
+        }
+      ];
+      mode = "single";
+    }
+    {
+      alias = "Shutters open";
+      id = "1731264874";
+      description = "";
+      triggers = [
+        {
+          entity_id = [ "sun.sun" ];
+          attribute = "elevation";
+          above = 0;
+          trigger = "numeric_state";
+        }
+      ];
+      conditions = [
+        {
+          condition = "state";
+          entity_id = "cover.shutters";
+          state = "closed";
+        }
+      ];
+      actions = [
+        {
+          metadata = { };
+          data = { };
+          target = {
+            entity_id = [ "cover.shutters" ];
+          };
+          action = "cover.open_cover";
+        }
+        {
+          action = "light.turn_off";
+          metadata = { };
+          data = { };
+          target = {
+            area_id = [
+              "living_room"
+              "kitchen"
+            ];
+          };
+        }
+      ];
+      mode = "single";
+    }
+    {
+      alias = "Failed login notify";
+      id = "1731264884";
+      description = "";
+      triggers = [
+        {
+          update_type = "added";
+          trigger = "persistent_notification";
+        }
+      ];
+      conditions = [
+        {
+          condition = "template";
+          value_template = "{% set message = trigger.notification.message %} {{'Too many login attempts' in message or\n  'invalid authentication' in message or 'login attempt' in message}}\n";
+        }
+      ];
+      actions = [
+        {
+          data = {
+            title = "{% set title = trigger.notification.title %} ⚠️Ha Main: {{title}}⚠️\n";
+            message = "{% set message = trigger.notification.message %} {% set now = now().strftime('%d %b: %X') %} {% if 'Too many login attempts' in message %}\n Login notification: {{now}}: {{message}}\n{% elif 'invalid authentication' in message or 'login attempt' in message %}\n  Login notification: {{now}}: {{message}}\n  IP {{message.split('from ')[1]}}\n{% else %}\n  Login notification other: {{now}}: {{message}}\n{% endif %}\n";
+          };
+          action = "notify.mobile_app_ymatsiuk";
+        }
+      ];
     }
   ];
   config = format.generate "configuration.yaml" {
@@ -685,6 +793,16 @@ let
         ];
       }
     ];
+    notify = [
+      {
+        platform = "group";
+        name = "Family";
+        services = [
+          { action = "mobile_app_imatsiuk"; }
+          { action = "mobile_app_ymatsiuk"; }
+        ];
+      }
+    ];
     mqtt = {
       binary_sensor = [
         {
@@ -705,9 +823,13 @@ let
       time_zone = "Europe/Amsterdam";
       customize = {
         "automation.doorbell".icon = "mdi:doorbell-video";
-        "automation.laundry_off".icon = "mdi:washing-machine-off";
+        "automation.failed_login_notify".icon = "mdi:home-alert-outline";
         "automation.laundry_notify".icon = "mdi:washing-machine-alert";
+        "automation.laundry_off".icon = "mdi:washing-machine-off";
         "automation.laundry_on".icon = "mdi:washing-machine";
+        "automation.plant_lights".icon = "mdi:flower";
+        "automation.shutters_close".icon = "mdi:window-shutter";
+        "automation.shutters_open".icon = "mdi:window-shutter-open";
         "automation.toggle_living_room_lights".icon = "mdi:home-lightbulb-outline";
         "binary_sensor.ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
         "cover.kitchen_shutter".device_class = "shutter";
@@ -865,7 +987,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.10.4";
+        image = "ghcr.io/home-assistant/home-assistant:2024.11.1";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
@@ -873,18 +995,6 @@ in
           "--network=host"
         ];
       };
-      # esphome = {
-      #   volumes = [
-      #     "/var/lib/homeassistant/esphome:/config"
-      #   ];
-      #   image = "ghcr.io/esphome/esphome:2024.3.2";
-      #   ports = [
-      #     "6052:6052"
-      #   ];
-      #   extraOptions = [
-      #     "--init"
-      #   ];
-      # };
     };
   };
 }
