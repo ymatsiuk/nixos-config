@@ -155,7 +155,7 @@ in
         };
         eDP-1 = {
           pos = "0 1080";
-          scale = "2";
+          scale = "2.5";
         };
       };
       window = {
