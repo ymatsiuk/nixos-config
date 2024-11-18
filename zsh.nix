@@ -52,7 +52,6 @@ in
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza --group-directories-first";
       tree = "${pkgs.eza}/bin/eza --tree";
-      groot = "cd $(git rev-parse --show-toplevel)";
       k = "kubectl";
       ks = "kubectl -n kube-system";
       # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
@@ -60,7 +59,6 @@ in
       # kube get pods' images
       kgpi = ''kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c'';
       tf = "terraform";
-      tg = "terragrunt";
     };
   };
 }
