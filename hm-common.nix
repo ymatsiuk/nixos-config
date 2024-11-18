@@ -15,7 +15,7 @@
   programs.fzf.enable = true;
   programs.gpg.enable = true;
   programs.htop.enable = true;
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
   home.activation.report-changes = config.lib.dag.entryAnywhere ''
     ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff $oldGenPath $newGenPath
   '';
