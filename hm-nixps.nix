@@ -29,7 +29,6 @@
     postgresql
     terraform
     yq-go
-    zoxide
     (wrapHelm kubernetes-helm {
       plugins = with pkgs.kubernetes-helmPlugins; [
         helm-diff

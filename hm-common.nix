@@ -1,10 +1,12 @@
 { pkgs, config, ... }:
 {
   imports = [
+    ./home/atuin.nix
     ./home/git.nix
     ./home/neovim.nix
     ./home/rbw.nix
     ./home/starship.nix
+    ./home/zoxide.nix
     # terminals here for terminfo/ssh
     ./home/alacritty.nix
     ./home/foot.nix

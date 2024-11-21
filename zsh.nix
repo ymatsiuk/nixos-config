@@ -3,9 +3,6 @@
 let
   source = map (source: "source ${source}") [
     "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
-    "${pkgs.fzf}/share/fzf/completion.zsh"
-    "${pkgs.fzf}/share/fzf/key-bindings.zsh"
     "${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/git.zsh"
     "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/git/git.plugin.zsh"
   ];
@@ -40,14 +37,11 @@ in
       # keybindings for zsh-autosuggestions
       bindkey '^[[1;5C' forward-word # CTRL >
       bindkey '^[[1;5D' backward-word # CTRL <
-      # keybindings for zsh-history-substring-search
-      bindkey "$terminfo[kcuu1]" history-substring-search-up
-      bindkey "$terminfo[kcud1]" history-substring-search-down
-      bindkey -M vicmd 'k' history-substring-search-up
-      bindkey -M vicmd 'j' history-substring-search-down
     '';
     promptInit = ''
       which starship >/dev/null && eval "$(starship init zsh)"
+      which zoxide >/dev/null && eval "$(zoxide init zsh)"
+      which atuin >/dev/null && eval "$(atuin init zsh --disable-up-arrow)"
     '';
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza --group-directories-first";
