@@ -632,17 +632,16 @@ let
       id = "1710357903";
       alias = "Laundry notify";
       description = "";
-      trigger = [
+      triggers = [
         {
-          platform = "state";
           entity_id = [ "binary_sensor.laundry_state" ];
+          trigger = "state";
+          to = "off";
         }
       ];
-      condition = [ ];
-      action = [
+      conditions = [ ];
+      actions = [
         {
-          service = "notify.family";
-          metadata = { };
           data = {
             data = {
               priority = "high";
@@ -650,6 +649,8 @@ let
             };
             message = "Laundry is {{ states.binary_sensor.laundry_state.state }} now";
           };
+          metadata = { };
+          action = "notify.family";
         }
       ];
       mode = "single";
@@ -987,7 +988,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.11.1";
+        image = "ghcr.io/home-assistant/home-assistant:2024.11.3";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
