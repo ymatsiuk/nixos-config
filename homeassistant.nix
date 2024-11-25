@@ -904,6 +904,7 @@ let
       };
     };
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
+    prometheus = { };
     influxdb = {
       api_version = 2;
       host = "localhost";
