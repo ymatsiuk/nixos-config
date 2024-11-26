@@ -16,8 +16,6 @@
     aws-sso-cli
     awscli2
     delve
-    exercism
-    fluxcd
     gcc
     gnumake
     go
@@ -25,8 +23,9 @@
     kind
     kubectl
     kustomize
+    postgresql # psql
+    redis # redis-cli
     step-cli
-    postgresql
     terraform
     yq-go
     (wrapHelm kubernetes-helm {
