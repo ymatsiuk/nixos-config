@@ -142,14 +142,16 @@
         '';
       }
       {
-        plugin = fzf-vim;
+        plugin = telescope-nvim;
         type = "lua";
         config = ''
-          vim.keymap.set("n", "<A-l>", "<cmd>BLines<CR>")
-          vim.keymap.set("n", "<A-r>", "<cmd>Rg<CR>")
-          vim.keymap.set("n", "<A-g>", "<cmd>GFiles<CR>")
-          vim.keymap.set("n", "<A-b>", "<cmd>Buffers<CR>")
-          vim.keymap.set("n", "<A-f>", "<cmd>Files<CR>")
+          require('telescope').setup{}
+          local builtin = require('telescope.builtin')
+          vim.keymap.set('n', '<space>ff', builtin.find_files, { desc = 'Telescope find files' })
+          vim.keymap.set('n', '<space>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+          vim.keymap.set('n', '<space>fb', builtin.buffers, { desc = 'Telescope buffers' })
+          vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, { desc = 'Telescope current buffer' })
+          vim.keymap.set('n', '<space>fh', builtin.help_tags, { desc = 'Telescope help tags' })
         '';
       }
       {
