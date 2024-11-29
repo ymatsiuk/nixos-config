@@ -8,6 +8,12 @@ in
       bottom = {
         blocks = [
           {
+            block = "custom";
+            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo ";
+            interval = 5;
+            hide_when_empty = true;
+          }
+          {
             block = "bluetooth";
             mac = "CC:98:8B:93:08:1F";
             disconnected_format = "";
@@ -22,10 +28,6 @@ in
           {
             block = "net";
             device = "^eth0$";
-          }
-          {
-            block = "net";
-            device = "^tailscale0$";
           }
           {
             block = "net";
