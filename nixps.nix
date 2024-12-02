@@ -8,7 +8,6 @@
     ./opengl.nix
     ./pipewire.nix
     ./tailscale.nix
-    ./upgrade-diff.nix
   ];
 
   hardware.cpu.intel.updateMicrocode = true;

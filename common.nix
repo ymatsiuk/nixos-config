@@ -22,6 +22,7 @@ in
 {
   imports = [
     ./zsh.nix
+    ./upgrade-diff.nix
   ];
 
   documentation.nixos.enable = false;
