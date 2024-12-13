@@ -55,7 +55,7 @@
       vim.keymap.set({ "n" }, "<space>tf", ":NvimTreeFocus<CR>", { silent = true })
 
       -- Remove trailing white spaces on save
-      vim.api.nvim_create_autocmd('BufWritePre', {
+      vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*",
         command = ":%s/\\s\\+$//e"
       })
@@ -71,26 +71,26 @@
         plugin = nvim-web-devicons;
         type = "lua";
         config = ''
-          require'nvim-web-devicons'.setup{}
+          require("nvim-web-devicons").setup()
         '';
       }
       {
         plugin = nvim-tree-lua;
         type = "lua";
         config = ''
-          require("nvim-tree").setup {
+          require("nvim-tree").setup({
             disable_netrw = true,
             hijack_netrw = true,
             hijack_cursor = true,
             sync_root_with_cwd = true,
-          }
+          })
         '';
       }
       {
         plugin = comment-nvim;
         type = "lua";
         config = ''
-          require('Comment').setup()
+          require("Comment").setup()
         '';
       }
       {
@@ -101,10 +101,10 @@
           vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
           vim.opt.foldenable = false
 
-          require'nvim-treesitter.configs'.setup {
+          require("nvim-treesitter.configs").setup({
             indent = { enable = true, },
             highlight = { enable = true, },
-          }
+          })
         '';
       }
       {
@@ -115,22 +115,24 @@
           vim.opt.listchars:append "space:⋅"
           vim.opt.listchars:append "eol:↴"
 
-          require("ibl").setup{
+          require("ibl").setup({
             scope = { enabled = false, },
-          }
+          })
         '';
       }
       {
         plugin = nvim-lastplace;
         type = "lua";
         config = ''
-          require'nvim-lastplace'.setup{}
+          require("nvim-lastplace").setup()
         '';
       }
       {
         plugin = gruvbox-nvim;
         type = "lua";
         config = ''
+          require("gruvbox").setup()
+          -- Setup should be always called before setting the colorscheme
           vim.cmd.colorscheme("gruvbox")
         '';
       }
@@ -138,20 +140,20 @@
         plugin = lualine-nvim;
         type = "lua";
         config = ''
-          require('lualine').setup()
+          require("lualine").setup()
         '';
       }
       {
         plugin = telescope-nvim;
         type = "lua";
         config = ''
-          require('telescope').setup{}
-          local builtin = require('telescope.builtin')
-          vim.keymap.set('n', '<space>ff', builtin.find_files, { desc = 'Telescope find files' })
-          vim.keymap.set('n', '<space>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-          vim.keymap.set('n', '<space>fb', builtin.buffers, { desc = 'Telescope buffers' })
-          vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, { desc = 'Telescope current buffer' })
-          vim.keymap.set('n', '<space>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+          require("telescope").setup()
+          local builtin = require("telescope.builtin")
+          vim.keymap.set("n", "<space>ff", builtin.find_files, { desc = "Telescope find files" })
+          vim.keymap.set("n", "<space>fg", builtin.live_grep, { desc = "Telescope live grep" })
+          vim.keymap.set("n", "<space>fb", builtin.buffers, { desc = "Telescope buffers" })
+          vim.keymap.set("n", "<space>fc", builtin.current_buffer_fuzzy_find, { desc = "Telescope current buffer" })
+          vim.keymap.set("n", "<space>fh", builtin.help_tags, { desc = "Telescope help tags" })
         '';
       }
       {
@@ -159,7 +161,7 @@
         type = "lua";
         config = ''
           -- Setup language servers.
-          local lspconfig = require('lspconfig')
+          local lspconfig = require("lspconfig")
           lspconfig.pyright.setup {}
           lspconfig.gopls.setup {}
           lspconfig.terraformls.setup {}
@@ -167,7 +169,7 @@
           lspconfig.nil_ls.setup{
             autostart = true,
             settings = {
-              ['nil'] = {
+              ["nil"] = {
                 formatting = {
                   command = { "nixfmt" },
                 },
@@ -177,37 +179,37 @@
 
           -- Global mappings.
           -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-          vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-          vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-          vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+          vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+          vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 
           -- Use LspAttach autocommand to only map the following keys
           -- after the language server attaches to the current buffer
-          vim.api.nvim_create_autocmd('LspAttach', {
-            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+          vim.api.nvim_create_autocmd("LspAttach", {
+            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
               -- Enable completion triggered by <c-x><c-o>
-              vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+              vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
               -- Buffer local mappings.
               -- See `:help vim.lsp.*` for documentation on any of the below functions
               local opts = { buffer = ev.buf }
-              vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-              vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-              vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-              vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-              vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-              vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-              vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-              vim.keymap.set('n', '<space>wl', function()
+              vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+              vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+              vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+              vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+              vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+              vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+              vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+              vim.keymap.set("n", "<space>wl", function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
               end, opts)
-              vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-              vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-              vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-              vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-              vim.keymap.set('n', '<space>f', function()
+              vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+              vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+              vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+              vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+              vim.keymap.set("n", "<space>f", function()
                 vim.lsp.buf.format { async = true }
               end, opts)
             end,
