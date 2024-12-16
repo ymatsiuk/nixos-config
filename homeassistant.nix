@@ -672,7 +672,7 @@ let
           trigger = "numeric_state";
           entity_id = [ "sun.sun" ];
           attribute = "elevation";
-          below = 0;
+          below = -2;
           id = "sunset";
         }
       ];
