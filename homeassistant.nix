@@ -656,86 +656,111 @@ let
       mode = "single";
     }
     {
-      alias = "Shutters close";
+      alias = "Winter shutters auto open/close";
       id = "1731264820";
-      description = "";
-      triggers = [
-        {
-          entity_id = [ "sun.sun" ];
-          attribute = "elevation";
-          trigger = "numeric_state";
-          below = -8;
-        }
-      ];
-      conditions = [
-        {
-          condition = "state";
-          entity_id = "cover.shutters";
-          state = "open";
-        }
-      ];
-      actions = [
-        {
-          action = "cover.close_cover";
-          target = {
-            entity_id = [ "cover.shutters" ];
-          };
-          data = { };
-        }
-        {
-          action = "light.turn_on";
-          target = {
-            area_id = [
-              "living_room"
-              "kitchen"
-            ];
-          };
-          data = { };
-        }
-      ];
+      description = "During winter period open shutters when sun is up and close when sun is down";
       mode = "single";
-    }
-    {
-      alias = "Shutters open";
-      id = "1731264874";
-      description = "";
       triggers = [
         {
-          entity_id = [ "sun.sun" ];
-          attribute = "elevation";
           above = 0;
+          attribute = "elevation";
+          entity_id = [ "sun.sun" ];
           trigger = "numeric_state";
+          id = "sunrise";
         }
-      ];
-      conditions = [
         {
-          condition = "state";
-          entity_id = "cover.shutters";
-          state = "closed";
+          trigger = "numeric_state";
+          entity_id = [ "sun.sun" ];
+          attribute = "elevation";
+          below = 0;
+          id = "sunset";
         }
       ];
+      conditions = [ ];
       actions = [
         {
-          metadata = { };
-          data = { };
-          target = {
-            entity_id = [ "cover.shutters" ];
-          };
-          action = "cover.open_cover";
-        }
-        {
-          action = "light.turn_off";
-          metadata = { };
-          data = { };
-          target = {
-            area_id = [
-              "living_room"
-              "kitchen"
-            ];
-          };
+          choose = [
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "sunrise" ];
+                }
+                {
+                  condition = "and";
+                  conditions = [
+                    {
+                      condition = "state";
+                      entity_id = "cover.shutters";
+                      state = "closed";
+                    }
+                  ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "cover.open_cover";
+                  metadata = { };
+                  data = { };
+                  target = {
+                    entity_id = "cover.shutters";
+                  };
+                }
+                {
+                  action = "light.turn_off";
+                  metadata = { };
+                  data = { };
+                  target = {
+                    area_id = [
+                      "kitchen"
+                      "living_room"
+                    ];
+                  };
+                }
+              ];
+            }
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "sunset" ];
+                }
+                {
+                  condition = "and";
+                  conditions = [
+                    {
+                      condition = "state";
+                      entity_id = "cover.shutters";
+                      state = "open";
+                    }
+                  ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "cover.close_cover";
+                  metadata = { };
+                  data = { };
+                  target = {
+                    entity_id = "cover.shutters";
+                  };
+                }
+                {
+                  action = "light.turn_on";
+                  metadata = { };
+                  data = { };
+                  target = {
+                    area_id = [
+                      "kitchen"
+                      "living_room"
+                    ];
+                  };
+                }
+              ];
+            }
+          ];
         }
       ];
-      mode = "single";
     }
     {
       alias = "Failed login notify";
@@ -760,6 +785,49 @@ let
             message = "{% set message = trigger.notification.message %} {% set now = now().strftime('%d %b: %X') %} {% if 'Too many login attempts' in message %}\n Login notification: {{now}}: {{message}}\n{% elif 'invalid authentication' in message or 'login attempt' in message %}\n  Login notification: {{now}}: {{message}}\n  IP {{message.split('from ')[1]}}\n{% else %}\n  Login notification other: {{now}}: {{message}}\n{% endif %}\n";
           };
           action = "notify.mobile_app_ymatsiuk";
+        }
+      ];
+    }
+    {
+      alias = "Fan MAX on humidity";
+      id = "1734104875";
+      description = "";
+      mode = "single";
+      triggers = [
+        {
+          value_template = "{{ is_state_attr('fan.itho_wifi_itho_itho_fan', 'hum', '50') }}";
+          for = {
+            hours = 0;
+            minutes = 5;
+            seconds = 0;
+          };
+          trigger = "template";
+        }
+      ];
+      conditions = [ ];
+      actions = [
+        {
+          target = {
+            entity_id = "fan.itho_wifi_itho_itho_fan";
+          };
+          data = {
+            percentage = 100;
+          };
+          action = "fan.set_percentage";
+        }
+        {
+          wait_template = "";
+          timeout = "00:25:00";
+          continue_on_timeout = true;
+        }
+        {
+          target = {
+            entity_id = "fan.itho_wifi_itho_itho_fan";
+          };
+          data = {
+            percentage = 33;
+          };
+          action = "fan.set_percentage";
         }
       ];
     }
@@ -989,7 +1057,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.11.3";
+        image = "ghcr.io/home-assistant/home-assistant:2024.12.3";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
