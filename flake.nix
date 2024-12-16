@@ -77,7 +77,7 @@
         nixps = makeOpinionatedNixosConfig {
           system = "x86_64-linux";
           overlays = [
-            nur.overlay
+            nur.overlays.default
             self.overlays.wrk
             nixpkgs-wayland.overlay
           ];
