@@ -555,110 +555,186 @@ let
       mode = "single";
     }
     {
-      id = "1710357901";
-      alias = "Laundry on";
-      initial_state = true;
-      description = "";
-      trigger = [
-        {
-          platform = "numeric_state";
-          entity_id = [ "sensor.garage_socket_power" ];
-          for = {
-            hours = 0;
-            minutes = 3;
-            seconds = 0;
-          };
-          above = 3;
-        }
-      ];
-      condition = [
-        {
-          condition = "state";
-          entity_id = "binary_sensor.laundry_state";
-          state = "off";
-        }
-      ];
-      action = [
-        {
-          service = "mqtt.publish";
-          metadata = { };
-          data = {
-            retain = true;
-            topic = "home/laundry/state";
-            payload = "ON";
-          };
-        }
-      ];
-      mode = "single";
-    }
-    {
-      id = "1710357902";
-      alias = "Laundry off";
-      initial_state = true;
-      description = "";
-      trigger = [
-        {
-          platform = "numeric_state";
-          entity_id = [ "sensor.garage_socket_power" ];
-          for = {
-            hours = 0;
-            minutes = 3;
-            seconds = 0;
-          };
-          below = 3;
-        }
-      ];
-      condition = [
-        {
-          condition = "state";
-          entity_id = "binary_sensor.laundry_state";
-          state = "on";
-        }
-      ];
-      action = [
-        {
-          service = "mqtt.publish";
-          metadata = { };
-          data = {
-            retain = true;
-            topic = "home/laundry/state";
-            payload = "OFF";
-          };
-        }
-      ];
-      mode = "single";
-    }
-    {
-      id = "1710357903";
-      alias = "Laundry notify";
-      description = "";
+      id = "1734518766";
+      alias = "Laundry";
+      description = "Change state of laundry sensor based on power consumption of washing machine";
       triggers = [
         {
-          entity_id = [ "binary_sensor.laundry_state" ];
-          trigger = "state";
-          to = "off";
+          below = 3;
+          entity_id = [ "sensor.garage_socket_power" ];
+          for = {
+            hours = 0;
+            minutes = 3;
+            seconds = 0;
+          };
+          id = "off";
+          trigger = "numeric_state";
+        }
+        {
+          above = 3;
+          entity_id = [ "sensor.garage_socket_power" ];
+          for = {
+            hours = 0;
+            minutes = 3;
+            seconds = 0;
+          };
+          id = "on";
+          trigger = "numeric_state";
         }
       ];
       conditions = [ ];
       actions = [
         {
-          data = {
-            data = {
-              priority = "high";
-              ttl = 0;
-            };
-            message = "Laundry is {{ states.binary_sensor.laundry_state.state }} now";
-          };
-          metadata = { };
-          action = "notify.family";
+          choose = [
+            {
+              conditions = [
+                {
+                  condition = "and";
+                  conditions = [
+                    {
+                      condition = "trigger";
+                      id = [ "on" ];
+                    }
+                    {
+                      condition = "state";
+                      entity_id = "binary_sensor.laundry_state";
+                      state = "off";
+                    }
+                  ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "mqtt.publish";
+                  data = {
+                    payload = "ON";
+                    retain = true;
+                    topic = "home/laundry/state";
+                  };
+                  metadata = { };
+                }
+              ];
+            }
+            {
+              conditions = [
+                {
+                  condition = "and";
+                  conditions = [
+                    {
+                      condition = "trigger";
+                      id = [ "off" ];
+                    }
+                    {
+                      condition = "state";
+                      entity_id = "binary_sensor.laundry_state";
+                      state = "on";
+                    }
+                  ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "mqtt.publish";
+                  data = {
+                    payload = "OFF";
+                    retain = true;
+                    topic = "home/laundry/state";
+                  };
+                  metadata = { };
+                }
+                {
+                  action = "notify.family";
+                  data = {
+                    data = {
+                      priority = "high";
+                      ttl = 0;
+                    };
+                    message = "Laundry is {{ states.binary_sensor.laundry_state.state }} now";
+                  };
+                  metadata = { };
+                }
+              ];
+            }
+          ];
         }
       ];
       mode = "single";
     }
     {
-      alias = "Winter shutters auto open/close";
-      id = "1731264820";
-      description = "During winter period open shutters when sun is up and close when sun is down";
+      id = "1734462148";
+      alias = "Shutters vacation";
+      description = "Open shutters on sunrise and close on sunset (vacation mode)";
+      mode = "single";
+      triggers = [
+        {
+          above = 0;
+          attribute = "elevation";
+          entity_id = [ "sun.sun" ];
+          id = "sunrise";
+          trigger = "numeric_state";
+        }
+        {
+          attribute = "elevation";
+          below = 0;
+          entity_id = [ "sun.sun" ];
+          id = "sunset";
+          trigger = "numeric_state";
+        }
+      ];
+      conditions = [ ];
+      actions = [
+        {
+          choose = [
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "sunrise" ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "cover.open_cover";
+                  data = { };
+                  metadata = { };
+                  target = {
+                    entity_id = [
+                      "cover.living_room_shutter_door"
+                      "cover.living_room_shutter_window"
+                    ];
+                  };
+                }
+              ];
+            }
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "sunset" ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "cover.close_cover";
+                  data = { };
+                  metadata = { };
+                  target = {
+                    entity_id = [
+                      "cover.living_room_shutter_door"
+                      "cover.living_room_shutter_window"
+                    ];
+                  };
+                }
+              ];
+            }
+          ];
+        }
+      ];
+    }
+    {
+      alias = "Shutters";
+      id = "1734459054";
+      description = "Open shutters on sunrise and close on sunset";
       mode = "single";
       triggers = [
         {
@@ -789,13 +865,13 @@ let
       ];
     }
     {
-      alias = "Fan MAX on humidity";
-      id = "1734104875";
-      description = "";
+      alias = "Fan";
+      id = "1734461719";
+      description = "Set fan to maximum speed for 25 min when humidity spikes higher than 60% for more than 5 min";
       mode = "single";
       triggers = [
         {
-          value_template = "{{ is_state_attr('fan.itho_wifi_itho_itho_fan', 'hum', '50') }}";
+          value_template = "{% set state = state_attr('fan.itho_wifi_itho_itho_fan', 'hum') %}{{ is_number(state) and state | float > 50 }}";
           for = {
             hours = 0;
             minutes = 5;
@@ -893,12 +969,11 @@ let
       customize = {
         "automation.doorbell".icon = "mdi:doorbell-video";
         "automation.failed_login_notify".icon = "mdi:home-alert-outline";
-        "automation.laundry_notify".icon = "mdi:washing-machine-alert";
-        "automation.laundry_off".icon = "mdi:washing-machine-off";
-        "automation.laundry_on".icon = "mdi:washing-machine";
+        "automation.fan".icon = "mdi:fan-auto";
+        "automation.laundry".icon = "mdi:washing-machine";
         "automation.plant_lights".icon = "mdi:flower";
-        "automation.shutters_close".icon = "mdi:window-shutter";
-        "automation.shutters_open".icon = "mdi:window-shutter-open";
+        "automation.shutters".icon = "mdi:window-shutter-auto";
+        "automation.shutters_vacation".icon = "mdi:window-shutter-auto";
         "automation.toggle_living_room_lights".icon = "mdi:home-lightbulb-outline";
         "binary_sensor.ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
         "cover.kitchen_shutter".device_class = "shutter";
@@ -1057,7 +1132,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.12.3";
+        image = "ghcr.io/home-assistant/home-assistant:2024.12.4";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
