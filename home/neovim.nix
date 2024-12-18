@@ -82,6 +82,10 @@
         type = "lua";
         config = ''
           require("gitsigns").setup({
+            signs = {
+              add          = { text = '+' },
+              change       = { text = '~' },
+            },
             on_attach = function(bufnr)
               local gitsigns = require('gitsigns')
 
