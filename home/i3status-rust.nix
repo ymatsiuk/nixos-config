@@ -9,7 +9,12 @@ in
         blocks = [
           {
             block = "custom";
-            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo ";
+            command = "pactl list source-outputs | egrep -q '(Source Output #|State: RUNNING)' && echo '  ' || echo '  '";
+            interval = 1;
+          }
+          {
+            block = "custom";
+            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  '";
             interval = 5;
             hide_when_empty = true;
           }
