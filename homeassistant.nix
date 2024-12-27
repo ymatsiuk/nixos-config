@@ -667,18 +667,16 @@ let
       mode = "single";
       triggers = [
         {
-          above = 0;
-          attribute = "elevation";
-          entity_id = [ "sun.sun" ];
+          trigger = "sun";
           id = "sunrise";
-          trigger = "numeric_state";
+          event = "sunrise";
+          offset = 0;
         }
         {
-          attribute = "elevation";
-          below = 0;
-          entity_id = [ "sun.sun" ];
+          trigger = "sun";
           id = "sunset";
-          trigger = "numeric_state";
+          event = "sunset";
+          offset = 0;
         }
       ];
       conditions = [ ];
@@ -738,18 +736,16 @@ let
       mode = "single";
       triggers = [
         {
-          above = 0;
-          attribute = "elevation";
-          entity_id = [ "sun.sun" ];
-          trigger = "numeric_state";
+          trigger = "sun";
           id = "sunrise";
+          event = "sunrise";
+          offset = 0;
         }
         {
-          trigger = "numeric_state";
-          entity_id = [ "sun.sun" ];
-          attribute = "elevation";
-          below = -2;
+          trigger = "sun";
           id = "sunset";
+          event = "sunset";
+          offset = 0;
         }
       ];
       conditions = [ ];
@@ -868,42 +864,53 @@ let
       alias = "Fan";
       id = "1734461719";
       description = "Set fan to maximum speed for 25 min when humidity spikes higher than 60% for more than 5 min";
-      mode = "single";
+      mode = "restart";
       triggers = [
         {
-          value_template = "{% set state = state_attr('fan.itho_wifi_itho_itho_fan', 'hum') %}{{ is_number(state) and state | float > 50 }}";
-          for = {
-            hours = 0;
-            minutes = 5;
-            seconds = 0;
-          };
-          trigger = "template";
+          trigger = "state";
+          entity_id = [ "binary_sensor.humidity_rising" ];
+          from = "off";
+          to = "on";
         }
       ];
       conditions = [ ];
       actions = [
         {
-          target = {
-            entity_id = "fan.itho_wifi_itho_itho_fan";
-          };
+          action = "fan.set_percentage";
+          metadata = { };
           data = {
             percentage = 100;
           };
-          action = "fan.set_percentage";
-        }
-        {
-          wait_template = "";
-          timeout = "00:25:00";
-          continue_on_timeout = true;
-        }
-        {
           target = {
             entity_id = "fan.itho_wifi_itho_itho_fan";
           };
-          data = {
-            percentage = 33;
+        }
+        {
+          wait_for_trigger = [
+            {
+              trigger = "state";
+              entity_id = [ "binary_sensor.humidity_rising" ];
+              from = "off";
+              to = "on";
+            }
+          ];
+          timeout = {
+            hours = 0;
+            minutes = 25;
+            seconds = 0;
+            milliseconds = 0;
           };
+          continue_on_timeout = false;
+        }
+        {
           action = "fan.set_percentage";
+          metadata = { };
+          data = {
+            percentage = 15;
+          };
+          target = {
+            entity_id = "fan.itho_wifi_itho_itho_fan";
+          };
         }
       ];
     }
@@ -937,6 +944,15 @@ let
           "cover.living_room_shutter_window"
         ];
       }
+      {
+        platform = "group";
+        name = "Living room shutters";
+        unique_id = "cover.living_room_shutters";
+        entities = [
+          "cover.living_room_shutter_door"
+          "cover.living_room_shutter_window"
+        ];
+      }
     ];
     notify = [
       {
@@ -946,6 +962,26 @@ let
           { action = "mobile_app_imatsiuk"; }
           { action = "mobile_app_ymatsiuk"; }
         ];
+      }
+    ];
+    binary_sensor = [
+      {
+        platform = "threshold";
+        name = "humidity_rising";
+        entity_id = "sensor.humidity_derivative";
+        device_class = "moisture";
+        upper = 0;
+        hysteresis = 0.1;
+      }
+    ];
+    sensor = [
+      {
+        platform = "derivative";
+        name = "humidity_derivative";
+        source = "sensor.itho_wifi_itho_itho_humidity";
+        round = 0;
+        unit_time = "min";
+        time_window = "00:05:00";
       }
     ];
     mqtt = {
@@ -983,6 +1019,7 @@ let
         };
         "cover.living_room_shutter_door".device_class = "shutter";
         "cover.living_room_shutter_window".device_class = "shutter";
+        "cover.living_room_shutters".device_class = "shutter";
         "cover.shutters".device_class = "shutter";
         "light.dresden_elektronik_raspbee_ii_kitchenlights" = {
           friendly_name = "Kitchen light";
@@ -1042,6 +1079,7 @@ let
         };
         "switch.backyard_main".friendly_name = "Backyard light";
         "switch.garage_socket".device_class = "outlet";
+        "switch.bathroom_floor_heating".icon = "mdi:heating-coil";
         "switch.kitchen_floor_heating".icon = "mdi:heating-coil";
         "switch.living_room_floor_heating".icon = "mdi:heating-coil";
       };
@@ -1132,7 +1170,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.12.4";
+        image = "ghcr.io/home-assistant/home-assistant:2024.12.5";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
