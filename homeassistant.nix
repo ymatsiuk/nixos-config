@@ -900,7 +900,7 @@ let
             seconds = 0;
             milliseconds = 0;
           };
-          continue_on_timeout = false;
+          continue_on_timeout = true;
         }
         {
           action = "fan.set_percentage";
