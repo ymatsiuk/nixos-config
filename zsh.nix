@@ -40,7 +40,7 @@ in
     '';
     promptInit = ''
       which starship >/dev/null && eval "$(starship init zsh)"
-      which zoxide >/dev/null && eval "$(zoxide init zsh)"
+      which zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
       which atuin >/dev/null && eval "$(atuin init zsh --disable-up-arrow)"
     '';
     shellAliases = {
