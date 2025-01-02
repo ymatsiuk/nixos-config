@@ -14,7 +14,7 @@ in
           }
           {
             block = "custom";
-            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  '";
+            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  '";
             interval = 5;
             hide_when_empty = true;
           }
