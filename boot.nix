@@ -13,7 +13,10 @@
     "rtsx_pci_sdmmc"
   ];
   boot.initrd.compressor = "xz";
-  boot.initrd.kernelModules = [ "i915" ];
+  boot.initrd.kernelModules = [
+    "i915"
+    "xe"
+  ];
   boot.initrd.luks.devices = {
     nixps = {
       crypttabExtraOpts = [ "tpm2-device=auto" ];
@@ -27,13 +30,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [
     "quiet"
-    "i915.enable_fbc=1"
-    "i915.enable_guc=2"
-    "i915.enable_psr=2"
-    "i915.fastboot=1"
-    "i915.mitigations=off"
-    "i915.modeset=1"
-    "mitigations=off"
+    "i915.force_probe=!9a49"
+    "xe.force_probe=9a49"
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
