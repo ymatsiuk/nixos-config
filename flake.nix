@@ -35,6 +35,7 @@
             (final: prev: {
               linuxPackages = prev.recurseIntoAttrs (prev.linuxPackagesFor final.linux_latest);
               linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
+              rbw = nixpkgs-small.legacyPackages.${system}.rbw;
             })
           ] ++ overlays;
         };
@@ -125,23 +126,6 @@
             hash = "sha256-pIhwJfa71/gW7lw/KRFBO4Q5Z5YMcTt3r9kD25k8cqM=";
             vendorHash = "sha256-lQgWNMBf+ioNxzAV7tnTQSIS840XdI9fg9duuwoK+U4=";
           };
-          rbw = prev.rbw.overrideAttrs (_: {
-            src = prev.fetchFromGitHub {
-              owner = "davla";
-              repo = "rbw";
-              rev = "fix/client-name-header";
-              sha256 = "sha256-Sgs+qjKdtS5i7zF86TLSZMVKTDoeYhIgKEwjUUXw/cc=";
-            };
-            cargoDeps = prev.rustPlatform.importCargoLock {
-              lockFile = (
-                prev.fetchurl {
-                  url = "https://raw.githubusercontent.com/davla/rbw/dd6b65427de3a4b38d27350d8ad7ebacb29e97ff/Cargo.lock";
-                  hash = "sha256-bAELLBb0x0BOGPMLBRX/s0qxqN8XOxUW9OUa55WjeaA=";
-                }
-              );
-              allowBuiltinFetchGit = true;
-            };
-          });
         };
       };
     }
