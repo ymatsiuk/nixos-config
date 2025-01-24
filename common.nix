@@ -8,15 +8,12 @@ let
       networkConfig = {
         MulticastDNS = true;
         DHCP = "yes";
+        DNSOverTLS = "opportunistic";
+        DNSDefaultRoute = true;
+        Domains = [ "~." ];
       };
-      dhcpV4Config.UseDNS = false;
-      dhcpV6Config.UseDNS = false;
-      routes = [
-        {
-          InitialCongestionWindow = 50;
-          InitialAdvertisedReceiveWindow = 50;
-        }
-      ];
+      dhcpV4Config.UseDNS = true;
+      dhcpV6Config.UseDNS = true;
     };
 in
 {
@@ -81,7 +78,7 @@ in
       };
       "eth0" = defaultNetworkConfig {
         name = "eth0";
-        weight = 1024;
+        weight = 0;
       };
     };
   };
@@ -102,16 +99,8 @@ in
     }
   ];
 
-  services.resolved = {
-    enable = true;
-    dnsovertls = "true";
-    dnssec = "true";
-    domains = [ "~." ];
-    fallbackDns = [
-      "1.1.1.1#one.one.one.one"
-      "1.0.0.1#one.one.one.one"
-    ];
-  };
+  # systemd.services."systemd-resolved".environment.SYSTEMD_LOG_LEVEL = "debug";
+  services.resolved.enable = true;
 
   system.stateVersion = "25.05";
 
