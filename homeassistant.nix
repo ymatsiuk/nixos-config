@@ -964,6 +964,38 @@ in
     ];
   };
 
+  services.zigbee2mqtt = {
+    enable = true;
+    settings = {
+      version = 4;
+      frontend.enabled = true;
+      homeassistant.enabled = true;
+      serial = {
+        port = "tcp://slzb-06m.local:6638";
+        baudrate = 115200;
+        adapter = "ember";
+      };
+      advanced = {
+        elapsed = true;
+        last_seen = "ISO_8601";
+        transmit_power = 20;
+        channel = 25;
+        network_key = secrets.zigbee2mqtt.network_key;
+        pan_id = secrets.zigbee2mqtt.pan_id;
+        ext_pan_id = secrets.zigbee2mqtt.ext_pan_id;
+
+        # disable legacy:
+        homeassistant_legacy_entity_attributes = false;
+        homeassistant_legacy_triggers = false;
+        legacy_api = false;
+        legacy_availability_payload = false;
+        device_options = {
+          legacy = false;
+        };
+      };
+    };
+  };
+
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
