@@ -110,125 +110,6 @@ let
       mode = "single";
     }
     {
-      id = "1700045924";
-      alias = "Office light dim";
-      description = "";
-      action = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "office_dim_up" ];
-                }
-              ];
-              sequence = [
-                {
-                  repeat = {
-                    sequence = [
-                      {
-                        device_id = "11afd3425cb60c9990a447eb82bae007";
-                        domain = "light";
-                        entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3";
-                        type = "brightness_increase";
-                      }
-                      {
-                        delay = {
-                          hours = 0;
-                          milliseconds = 100;
-                          minutes = 0;
-                          seconds = 0;
-                        };
-                      }
-                    ];
-                    while = [
-                      {
-                        condition = "trigger";
-                        id = [ "office_dim_up" ];
-                      }
-                    ];
-                  };
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "office_dim_down" ];
-                }
-              ];
-              sequence = [
-                {
-                  repeat = {
-                    sequence = [
-                      {
-                        device_id = "11afd3425cb60c9990a447eb82bae007";
-                        domain = "light";
-                        entity_id = "5ce992fb6ec0aa3adaefc844c98d76f3";
-                        type = "brightness_decrease";
-                      }
-                      {
-                        delay = {
-                          hours = 0;
-                          milliseconds = 100;
-                          minutes = 0;
-                          seconds = 0;
-                        };
-                      }
-                    ];
-                    while = [
-                      {
-                        condition = "trigger";
-                        id = [ "office_dim_down" ];
-                      }
-                    ];
-                  };
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      condition = [ ];
-      mode = "restart";
-      trigger = [
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "office_dim_up";
-          platform = "device";
-          subtype = "dim_up";
-          type = "remote_button_long_press";
-        }
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "office_dim_up_release";
-          platform = "device";
-          subtype = "dim_up";
-          type = "remote_button_long_release";
-        }
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "office_dim_down";
-          platform = "device";
-          subtype = "dim_down";
-          type = "remote_button_long_press";
-        }
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "office_dim_down_release";
-          platform = "device";
-          subtype = "dim_down";
-          type = "remote_button_long_release";
-        }
-      ];
-    }
-    {
       id = "1700040918";
       alias = "Kitchen light dim";
       description = "";
@@ -344,76 +225,6 @@ let
           platform = "device";
           subtype = "dim_down";
           type = "remote_button_long_release";
-        }
-      ];
-    }
-    {
-      id = "1700044534";
-      alias = "Office light toggle";
-      description = "";
-      action = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "on" ];
-                }
-              ];
-              sequence = [
-                {
-                  service = "light.turn_on";
-                  metadata = { };
-                  data = {
-                    kelvin = 2700;
-                    brightness_pct = 65;
-                  };
-                  target = {
-                    entity_id = [ "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" ];
-                  };
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "off" ];
-                }
-              ];
-              sequence = [
-                {
-                  service = "light.turn_off";
-                  metadata = { };
-                  data = { };
-                  target = {
-                    entity_id = [ "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" ];
-                  };
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      condition = [ ];
-      mode = "single";
-      trigger = [
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "on";
-          platform = "device";
-          subtype = "turn_on";
-          type = "remote_button_short_press";
-        }
-        {
-          device_id = "513fe3edce40d4f49349dfd9e9b0d007";
-          domain = "zha";
-          id = "off";
-          platform = "device";
-          subtype = "turn_off";
-          type = "remote_button_short_press";
         }
       ];
     }
@@ -1170,7 +981,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.12.5";
+        image = "ghcr.io/home-assistant/home-assistant:2025.1.4";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
