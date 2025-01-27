@@ -88,6 +88,10 @@ in
       users = [ "ymatsiuk" ];
       commands = [
         {
+          command = "/run/current-system/sw/bin/tailscale";
+          options = [ "NOPASSWD" ];
+        }
+        {
           command = "/run/current-system/sw/bin/nixos-rebuild";
           options = [ "NOPASSWD" ];
         }

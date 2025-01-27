@@ -14,9 +14,22 @@ in
           }
           {
             block = "custom";
-            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  '";
+            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  ' || echo '  '";
             interval = 5;
-            hide_when_empty = true;
+            click = [
+              {
+                button = "left";
+                sync = true;
+                update = true;
+                cmd = "sudo tailscale up";
+              }
+              {
+                button = "right";
+                sync = true;
+                update = true;
+                cmd = "sudo tailscale down";
+              }
+            ];
           }
           {
             block = "bluetooth";
