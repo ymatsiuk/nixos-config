@@ -110,368 +110,6 @@ let
       mode = "single";
     }
     {
-      id = "1700040918";
-      alias = "Kitchen light dim";
-      description = "";
-      action = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "kitchen_dim_up" ];
-                }
-              ];
-              sequence = [
-                {
-                  repeat = {
-                    sequence = [
-                      {
-                        device_id = "dfab35ab8c823997e867512bbbafa532";
-                        domain = "light";
-                        entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68";
-                        type = "brightness_increase";
-                      }
-                      {
-                        delay = {
-                          hours = 0;
-                          milliseconds = 100;
-                          minutes = 0;
-                          seconds = 0;
-                        };
-                      }
-                    ];
-                    while = [
-                      {
-                        condition = "trigger";
-                        id = [ "kitchen_dim_up" ];
-                      }
-                    ];
-                  };
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "kitchen_dim_down" ];
-                }
-              ];
-              sequence = [
-                {
-                  repeat = {
-                    sequence = [
-                      {
-                        device_id = "dfab35ab8c823997e867512bbbafa532";
-                        domain = "light";
-                        entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68";
-                        type = "brightness_decrease";
-                      }
-                      {
-                        delay = {
-                          hours = 0;
-                          milliseconds = 100;
-                          minutes = 0;
-                          seconds = 0;
-                        };
-                      }
-                    ];
-                    while = [
-                      {
-                        condition = "trigger";
-                        id = [ "kitchen_dim_down" ];
-                      }
-                    ];
-                  };
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      condition = [ ];
-      mode = "restart";
-      trigger = [
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "kitchen_dim_up";
-          platform = "device";
-          subtype = "dim_up";
-          type = "remote_button_long_press";
-        }
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "kitchen_dim_up_release";
-          platform = "device";
-          subtype = "dim_up";
-          type = "remote_button_long_release";
-        }
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "kitchen_dim_down";
-          platform = "device";
-          subtype = "dim_down";
-          type = "remote_button_long_press";
-        }
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "kitchen_dim_down_release";
-          platform = "device";
-          subtype = "dim_down";
-          type = "remote_button_long_release";
-        }
-      ];
-    }
-    {
-      id = "1700036303";
-      alias = "Kitchen light toggle";
-      description = "";
-      action = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "on" ];
-                }
-              ];
-              sequence = [
-                {
-                  device_id = "dfab35ab8c823997e867512bbbafa532";
-                  domain = "light";
-                  entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68";
-                  type = "turn_on";
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "off" ];
-                }
-              ];
-              sequence = [
-                {
-                  device_id = "dfab35ab8c823997e867512bbbafa532";
-                  domain = "light";
-                  entity_id = "a44ba48e3a06da7869a0bc6da4cf8f68";
-                  type = "turn_off";
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      condition = [ ];
-      mode = "single";
-      trigger = [
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "on";
-          platform = "device";
-          subtype = "turn_on";
-          type = "remote_button_short_press";
-        }
-        {
-          device_id = "6f7e9b5860763551a83df23c1dbef7c4";
-          domain = "zha";
-          id = "off";
-          platform = "device";
-          subtype = "turn_off";
-          type = "remote_button_short_press";
-        }
-      ];
-    }
-    {
-      id = "1710336460";
-      alias = "Living room light toggle";
-      description = "";
-      trigger = [
-        {
-          device_id = "443456bd59ce8a49e36e4820d6548165";
-          domain = "zha";
-          platform = "device";
-          type = "remote_button_short_press";
-          subtype = "turn_on";
-          id = "on";
-        }
-        {
-          device_id = "443456bd59ce8a49e36e4820d6548165";
-          domain = "zha";
-          platform = "device";
-          type = "remote_button_short_press";
-          subtype = "turn_off";
-          id = "off";
-        }
-      ];
-      condition = [ ];
-      action = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "on" ];
-                }
-              ];
-              sequence = [
-                {
-                  service = "light.turn_on";
-                  target = {
-                    entity_id = [
-                      "light.dresden_elektronik_raspbee_ii_kitchenlights"
-                      "light.dresden_elektronik_raspbee_ii_livingroomlights"
-                    ];
-                  };
-                  data = {
-                    brightness_pct = 70;
-                    kelvin = 2700;
-                  };
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "trigger";
-                  id = [ "off" ];
-                }
-              ];
-              sequence = [
-                {
-                  service = "light.turn_off";
-                  target = {
-                    entity_id = [
-                      "light.dresden_elektronik_raspbee_ii_kitchenlights"
-                      "light.dresden_elektronik_raspbee_ii_livingroomlights"
-                    ];
-                  };
-                  data = { };
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      mode = "single";
-    }
-    {
-      id = "1734518766";
-      alias = "Laundry";
-      description = "Change state of laundry sensor based on power consumption of washing machine";
-      triggers = [
-        {
-          below = 3;
-          entity_id = [ "sensor.garage_socket_power" ];
-          for = {
-            hours = 0;
-            minutes = 3;
-            seconds = 0;
-          };
-          id = "off";
-          trigger = "numeric_state";
-        }
-        {
-          above = 3;
-          entity_id = [ "sensor.garage_socket_power" ];
-          for = {
-            hours = 0;
-            minutes = 3;
-            seconds = 0;
-          };
-          id = "on";
-          trigger = "numeric_state";
-        }
-      ];
-      conditions = [ ];
-      actions = [
-        {
-          choose = [
-            {
-              conditions = [
-                {
-                  condition = "and";
-                  conditions = [
-                    {
-                      condition = "trigger";
-                      id = [ "on" ];
-                    }
-                    {
-                      condition = "state";
-                      entity_id = "binary_sensor.laundry_state";
-                      state = "off";
-                    }
-                  ];
-                }
-              ];
-              sequence = [
-                {
-                  action = "mqtt.publish";
-                  data = {
-                    payload = "ON";
-                    retain = true;
-                    topic = "home/laundry/state";
-                  };
-                  metadata = { };
-                }
-              ];
-            }
-            {
-              conditions = [
-                {
-                  condition = "and";
-                  conditions = [
-                    {
-                      condition = "trigger";
-                      id = [ "off" ];
-                    }
-                    {
-                      condition = "state";
-                      entity_id = "binary_sensor.laundry_state";
-                      state = "on";
-                    }
-                  ];
-                }
-              ];
-              sequence = [
-                {
-                  action = "mqtt.publish";
-                  data = {
-                    payload = "OFF";
-                    retain = true;
-                    topic = "home/laundry/state";
-                  };
-                  metadata = { };
-                }
-                {
-                  action = "notify.family";
-                  data = {
-                    data = {
-                      priority = "high";
-                      ttl = 0;
-                    };
-                    message = "Laundry is {{ states.binary_sensor.laundry_state.state }} now";
-                  };
-                  metadata = { };
-                }
-              ];
-            }
-          ];
-        }
-      ];
-      mode = "single";
-    }
-    {
       id = "1734462148";
       alias = "Shutters vacation";
       description = "Open shutters on sunrise and close on sunset (vacation mode)";
@@ -725,6 +363,75 @@ let
         }
       ];
     }
+    {
+      id = "1710357903";
+      alias = "Laundry notify";
+      description = "Send notification when washing or drying is done";
+      triggers = [
+        {
+          trigger = "state";
+          entity_id = [ "binary_sensor.washing_machine" ];
+          from = "on";
+          to = "off";
+          id = "washer";
+        }
+        {
+          trigger = "state";
+          entity_id = [ "binary_sensor.tumble_dryer" ];
+          from = "on";
+          to = "off";
+          id = "dryer";
+        }
+      ];
+      conditions = [ ];
+      actions = [
+        {
+          choose = [
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "dryer" ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "notify.family";
+                  data = {
+                    data = {
+                      priority = "high";
+                      ttl = 0;
+                    };
+                    message = "{{state_attr('binary_sensor.tumble_dryer', 'friendly_name')}} is {{states('binary_sensor.tumble_dryer')}} now";
+                  };
+                }
+              ];
+            }
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "washer" ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "notify.family";
+                  data = {
+                    data = {
+                      priority = "high";
+                      ttl = 0;
+                    };
+                    message = "{{state_attr('binary_sensor.washing_machine', 'friendly_name')}} is {{states('binary_sensor.washing_machine')}} now";
+                  };
+                }
+              ];
+            }
+          ];
+        }
+      ];
+      mode = "single";
+    }
   ];
   config = format.generate "configuration.yaml" {
     "automation manual" = "!include automations_manual.yaml";
@@ -796,16 +503,113 @@ let
       }
     ];
     mqtt = {
-      binary_sensor = [
-        {
-          name = "Laundry State";
-          device_class = "running";
-          icon = "mdi:washing-machine";
-          state_topic = "home/laundry/state";
-          unique_id = "laundry_state";
-        }
-      ];
+      binary_sensor = [ ];
     };
+    utility_meter = {
+      daily_office_energy = {
+        source = "sensor.0x70b3d52b601329c7_energy";
+        name = "Daily Office Energy";
+        cycle = "daily";
+      };
+      monthly_office_energy = {
+        source = "sensor.daily_office_energy";
+        name = "Monthly Office Energy";
+        cycle = "monthly";
+      };
+      monthly_dryer_energy = {
+        source = "sensor.0x70b3d52b601329c7_energy";
+        name = "Monthly Dryer Energy";
+        cycle = "monthly";
+      };
+      monthly_washer_energy = {
+        source = "sensor.0x70b3d52b601352e1_energy";
+        name = "Monthly Washer Energy";
+        cycle = "monthly";
+      };
+      monthly_rack_energy = {
+        source = "sensor.0x70b3d52b60132af9_energy";
+        name = "Monthly Rack Energy";
+        cycle = "monthly";
+      };
+
+      daily_energy_offpeak = {
+        source = "sensor.energy_consumed_tariff_1";
+        name = "Daily Energy (Offpeak)";
+        cycle = "daily";
+      };
+      daily_energy_peak = {
+        source = "sensor.energy_consumed_tariff_2";
+        name = "Daily Energy (Peak)";
+        cycle = "daily";
+      };
+      daily_gas = {
+        source = "sensor.gas_consumed";
+        name = "Daily Gas";
+        cycle = "daily";
+      };
+      monthly_energy_offpeak = {
+        source = "sensor.energy_consumed_tariff_1";
+        name = "Monthly Energy (Offpeak)";
+        cycle = "monthly";
+      };
+      monthly_energy_peak = {
+        source = "sensor.energy_consumed_tariff_2";
+        name = "Monthly Energy (Peak)";
+        cycle = "monthly";
+      };
+      monthly_gas = {
+        source = "sensor.gas_consumed";
+        name = "Monthly Gas";
+        cycle = "monthly";
+      };
+    };
+    template = [
+      {
+        sensor = [
+          {
+            name = "Daily Energy Total";
+            device_class = "energy";
+            unit_of_measurement = "kWh";
+            state = "{% if is_number(states('sensor.daily_energy_offpeak')) and is_number(states('sensor.daily_energy_peak')) %}\n  {{ states('sensor.daily_energy_offpeak') | float + states('sensor.daily_energy_peak') | float }}\n{% else %}\n  None\n{% endif %}\n";
+          }
+          {
+            name = "Monthly Energy Total";
+            device_class = "energy";
+            unit_of_measurement = "kWh";
+            state = "{% if is_number(states('sensor.monthly_energy_offpeak')) and is_number(states('sensor.monthly_energy_peak')) %}\n  {{ states('sensor.monthly_energy_offpeak') | float + states('sensor.monthly_energy_peak') | float }}\n{% else %}\n  None\n{% endif %}";
+          }
+          {
+            name = "Monthly Laundry Total";
+            device_class = "energy";
+            unit_of_measurement = "kWh";
+            state = "{% if is_number(states('sensor.monthly_washer_energy')) and is_number(states('sensor.monthly_dryer_energy')) %}\n  {{ states('sensor.monthly_washer_energy') | float + states('sensor.monthly_dryer_energy') | float }}\n{% else %}\n  None\n{% endif %}";
+          }
+        ];
+      }
+      {
+        binary_sensor = [
+          {
+            name = "Washing Machine";
+            state = "{{ is_number(states('sensor.0x70b3d52b601352e1_power')) and states('sensor.0x70b3d52b601352e1_power')|float > 0 }}";
+            icon = "mdi:washing-machine";
+          }
+          {
+            name = "Tumble Dryer";
+            state = "{{ is_number(states('sensor.0x70b3d52b60135977_power')) and states('sensor.0x70b3d52b60135977_power')|float > 3 }}";
+            icon = "mdi:tumble-dryer";
+          }
+        ];
+      }
+    ];
+    switch = [
+      {
+        name = "Fluxer";
+        platform = "flux";
+        mode = "mired";
+        disable_brightness_adjust = true;
+        lights = [ "light.spots" ];
+      }
+    ];
     homeassistant = {
       name = "Home";
       latitude = secrets.address.latitude;
@@ -817,12 +621,11 @@ let
         "automation.doorbell".icon = "mdi:doorbell-video";
         "automation.failed_login_notify".icon = "mdi:home-alert-outline";
         "automation.fan".icon = "mdi:fan-auto";
-        "automation.laundry".icon = "mdi:washing-machine";
+        "automation.laundry_notify".icon = "mdi:washing-machine";
         "automation.plant_lights".icon = "mdi:flower";
         "automation.shutters".icon = "mdi:window-shutter-auto";
         "automation.shutters_vacation".icon = "mdi:window-shutter-auto";
-        "automation.toggle_living_room_lights".icon = "mdi:home-lightbulb-outline";
-        "binary_sensor.ikea_of_sweden_tradfri_motion_sensor_motion".friendly_name = "Office motion";
+
         "cover.kitchen_shutter".device_class = "shutter";
         "cover.living_room_awning" = {
           device_class = "awning";
@@ -832,67 +635,108 @@ let
         "cover.living_room_shutter_window".device_class = "shutter";
         "cover.living_room_shutters".device_class = "shutter";
         "cover.shutters".device_class = "shutter";
-        "light.dresden_elektronik_raspbee_ii_kitchenlights" = {
+
+        "switch.backyard_main".friendly_name = "Backyard light";
+        "switch.bathroom_floor_heating".icon = "mdi:heating-coil";
+        "switch.garage_socket".device_class = "outlet";
+        "switch.kitchen_floor_heating".icon = "mdi:heating-coil";
+        "switch.living_room_floor_heating".icon = "mdi:heating-coil";
+
+        # Zigbee2MQTT devices:
+        "binary_sensor.0x385b44fffe9aaacb_occupancy".friendly_name = "Office occupancy";
+        "sensor.0x385b44fffe9aaacb_battery".friendly_name = "Office occupancy battery";
+        "sensor.0x142d41fffe3f78db_battery".friendly_name = "Office Tradfri battery";
+        "sensor.0xb43522fffe067126_battery".friendly_name = "Living room Rodret battery";
+        "sensor.0xf4b3b1fffe44760b_battery".friendly_name = "Kitchen Tradfri battery";
+        "sensor.0x00124b0029115ddb_battery".friendly_name = "Garage SNZB-02 battery";
+        "sensor.0x00124b0029124530_battery".friendly_name = "Living room SNZB-02 battery";
+        "light.spots" = {
+          friendly_name = "Spot lights";
+          icon = "mdi:lightbulb-spot";
+        };
+        "light.kitchen_lights" = {
           friendly_name = "Kitchen light";
           icon = "mdi:lightbulb-group";
         };
-        "light.dresden_elektronik_raspbee_ii_livingroomlights" = {
+        "light.living_room_lights" = {
           friendly_name = "Living room light";
           icon = "mdi:lightbulb-group";
         };
-        "light.ikea_of_sweden_stoftmoln_ceiling_wall_lamp_ww24_light" = {
+        "light.0x60b647fffeb0862b" = {
           friendly_name = "Office light";
           icon = "mdi:ceiling-light";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_0" = {
+        "light.0x84b4dbfffe67f444" = {
+          friendly_name = "Worktop light";
+          icon = "mdi:led-strip-variant";
+        };
+        "light.0x5cc7c1fffe69963c" = {
           friendly_name = "Spot #0";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_1" = {
+        "light.0x5cc7c1fffe2de077" = {
           friendly_name = "Spot #1";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_2" = {
+        "light.0x287681fffe46dbae" = {
           friendly_name = "Spot #2";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_3" = {
+        "light.0x287681fffe09a632" = {
           friendly_name = "Spot #3";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_4" = {
+        "light.0x287681fffe8fff12" = {
           friendly_name = "Spot #4";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_5" = {
+        "light.0x5cc7c1fffe2e2709" = {
           friendly_name = "Spot #5";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_6" = {
+        "light.0x5cc7c1fffeeeff1e" = {
           friendly_name = "Spot #6";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_7" = {
+        "light.0xf082c0fffe40ceda" = {
           friendly_name = "Spot #7";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_8" = {
+        "light.0x5cc7c1fffe16cd17" = {
           friendly_name = "Spot #8";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_bulb_gu10_ws_345lm_light_9" = {
+        "light.0x287681fffe4382f4" = {
           friendly_name = "Spot #9";
           icon = "mdi:lightbulb-spot";
         };
-        "light.ikea_of_sweden_tradfri_driver_10w_light" = {
-          friendly_name = "Table top light";
-          icon = "mdi:led-strip-variant";
-        };
-        "switch.backyard_main".friendly_name = "Backyard light";
-        "switch.garage_socket".device_class = "outlet";
-        "switch.bathroom_floor_heating".icon = "mdi:heating-coil";
-        "switch.kitchen_floor_heating".icon = "mdi:heating-coil";
-        "switch.living_room_floor_heating".icon = "mdi:heating-coil";
+
+        "sensor.0x70b3d52b601329c7_energy".friendly_name = "Office energy";
+        "sensor.0x70b3d52b601329c7_power".friendly_name = "Office power";
+        "switch.0x70b3d52b601329c7".device_class = "outlet";
+        "switch.0x70b3d52b601329c7".icon = "mdi:power-socket-eu";
+        "switch.0x70b3d52b601329c7".friendly_name = "Office main socket";
+
+        "sensor.0x70b3d52b601352e1_energy".friendly_name = "Washer energy";
+        "sensor.0x70b3d52b601352e1_power".friendly_name = "Washer power";
+        "sensor.0x70b3d52b601352e1_power".icon = "mdi:washing-machine";
+        "switch.0x70b3d52b601352e1".device_class = "outlet";
+        "switch.0x70b3d52b601352e1".icon = "mdi:power-socket-eu";
+        "switch.0x70b3d52b601352e1".friendly_name = "Washer socket";
+
+        "sensor.0x70b3d52b60135977_energy".friendly_name = "Dryer energy";
+        "sensor.0x70b3d52b60135977_power".friendly_name = "Dryer power";
+        "sensor.0x70b3d52b60135977_power".icon = "mdi:tumble-dryer";
+        "switch.0x70b3d52b60135977".device_class = "outlet";
+        "switch.0x70b3d52b60135977".icon = "mdi:power-socket-eu";
+        "switch.0x70b3d52b60135977".friendly_name = "Dryer socket";
+
+        "sensor.0x70b3d52b60132af9_energy".friendly_name = "Rack energy";
+        "sensor.0x70b3d52b60132af9_power".friendly_name = "Rack power";
+        "sensor.0x70b3d52b60132af9_power".icon = "mdi:server-network";
+        "sensor.0x70b3d52b60132af9".device_class = "outlet";
+        "sensor.0x70b3d52b60132af9".icon = "mdi:power-socket-eu";
+        "sensor.0x70b3d52b60132af9".friendly_name = "Rack socket";
       };
     };
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
@@ -920,10 +764,6 @@ let
           "sensor.*_energy"
         ];
       };
-    };
-    zha.zigpy_config.ota = {
-      extra_providers = [ { type = "ikea"; } ];
-      otau_directory = "/config/zigpy_ota";
     };
   };
   # hack to fix yaml functions
@@ -962,38 +802,6 @@ in
         ensureDBOwnership = true;
       }
     ];
-  };
-
-  services.zigbee2mqtt = {
-    enable = true;
-    settings = {
-      version = 4;
-      frontend.enabled = true;
-      homeassistant.enabled = true;
-      serial = {
-        port = "tcp://slzb-06m.local:6638";
-        baudrate = 115200;
-        adapter = "ember";
-      };
-      advanced = {
-        elapsed = true;
-        last_seen = "ISO_8601";
-        transmit_power = 20;
-        channel = 25;
-        network_key = secrets.zigbee2mqtt.network_key;
-        pan_id = secrets.zigbee2mqtt.pan_id;
-        ext_pan_id = secrets.zigbee2mqtt.ext_pan_id;
-
-        # disable legacy:
-        homeassistant_legacy_entity_attributes = false;
-        homeassistant_legacy_triggers = false;
-        legacy_api = false;
-        legacy_availability_payload = false;
-        device_options = {
-          legacy = false;
-        };
-      };
-    };
   };
 
   virtualisation.oci-containers = {
