@@ -11,6 +11,7 @@
         legacy_availability_payload = false;
         transmit_power = 20;
       };
+      availability.enabled = true;
       devices = "devices.yaml";
       frontend.enabled = true;
       groups = "groups.yaml";
