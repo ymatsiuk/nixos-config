@@ -595,8 +595,9 @@ let
           }
           {
             name = "Tumble Dryer";
-            state = "{{ is_number(states('sensor.0x70b3d52b60135977_power')) and states('sensor.0x70b3d52b60135977_power')|float > 3 }}";
+            state = "{{ is_number(states('sensor.0x70b3d52b60135977_power')) and states('sensor.0x70b3d52b60135977_power')|float > 5 }}";
             icon = "mdi:tumble-dryer";
+            delay_off.minutes = 3;
           }
         ];
       }
