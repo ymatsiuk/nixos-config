@@ -9,6 +9,7 @@
         homeassistant_legacy_triggers = false;
         legacy_api = false;
         legacy_availability_payload = false;
+        last_seen = "ISO_8601";
         transmit_power = 20;
       };
       availability.enabled = true;
