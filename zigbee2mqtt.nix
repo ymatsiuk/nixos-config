@@ -16,10 +16,15 @@
       devices = "devices.yaml";
       frontend.enabled = true;
       groups = "groups.yaml";
-      homeassistant.enabled = true;
+      homeassistant = {
+        enabled = true;
+        experimental_event_entities = true;
+        status_topic = "homeassistant/status";
+      };
       mqtt = {
         base_topic = "zigbee2mqtt";
-        server = "mqtt://nixpi4:1883";
+        server = "mqtt://nixlab:1883";
+        version = 5;
       };
       permit_join = false;
       serial = {
