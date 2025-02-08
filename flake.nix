@@ -88,6 +88,15 @@
           ];
         };
 
+        nixlab = makeOpinionatedNixosConfig {
+          system = "x86_64-linux";
+          overlays = [ ];
+          modules = [
+            ./nixlab.nix
+            { networking.hostName = "nixlab"; }
+          ];
+        };
+
         nixpi4 = makeOpinionatedNixosConfig {
           system = "aarch64-linux";
           overlays = [ ];
