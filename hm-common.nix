@@ -1,7 +1,6 @@
 { pkgs, config, ... }:
 {
   imports = [
-    ./home/atuin.nix
     ./home/git.nix
     ./home/neovim.nix
     ./home/rbw.nix
