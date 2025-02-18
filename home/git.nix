@@ -14,6 +14,7 @@ in
 
     userName = "Yurii Matsiuk";
     userEmail = "24990891+ymatsiuk@users.noreply.github.com";
+    signing.format = "ssh";
     signing.key = "~/.ssh/github.pub";
     signing.signByDefault = true;
     includes = [
