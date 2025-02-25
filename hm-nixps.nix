@@ -15,19 +15,24 @@
     aws-iam-authenticator
     aws-sso-cli
     awscli2
+    cmctl
     delve
     gcc
     gnumake
     go
     golangci-lint
+    k9s
     kind
     kubectl
     kustomize
     postgresql # psql
     redis # redis-cli
+    sslscan
     step-cli
     terraform
+    vault-bin
     yq-go
+    wol
     (wrapHelm kubernetes-helm {
       plugins = with pkgs.kubernetes-helmPlugins; [
         helm-diff
