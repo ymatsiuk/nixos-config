@@ -35,11 +35,23 @@ in
     ];
 
     extraConfig = {
+      branch.sort = "-committerdate";
+      commit.verbose = true;
       credential = {
         helper = "!f() { test \"$1\" = get && while read -r line; do case $line in protocol=*) protocol=\${line#*=} ;; host=*) host=\${line#*=} ;; username=*) user=\${line#*=} ;; esac done && test \"$protocol\" = \"https\" && test -n \"$host\" && token=$(rbw get \"$host\" \"$user\") && printf 'password=%s\n' \"$token\"; }; f";
         username = "ymatsiuk";
       };
-      fetch.prune = true;
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
+      };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
       init.defaultBranch = "main";
       pull.rebase = false;
       gpg.format = "ssh";
@@ -47,9 +59,15 @@ in
       rebase = {
         autoStash = true;
         autoSquash = true;
+        updateRefs = true;
         abbreviateCommands = true;
         missingCommitsCheck = "warn";
       };
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
+      tag.sort = "version:refname";
       url."https://github.com/".insteadOf = [
         "gh:"
         "github:"
