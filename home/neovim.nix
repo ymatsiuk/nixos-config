@@ -66,11 +66,17 @@
     plugins = with pkgs.vimPlugins; [
       colorizer
       copilot-vim
-      CopilotChat-nvim
       vim-helm
       vim-nix
       vim-sleuth
       vim-terraform
+      {
+        plugin = CopilotChat-nvim;
+        type = "lua";
+        config = ''
+          require("CopilotChat").setup()
+        '';
+      }
       {
         plugin = noice-nvim;
         type = "lua";
