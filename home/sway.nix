@@ -49,6 +49,8 @@ in
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+f" = "exec firefox";
           "${mod}+Shift+s" = "exec slack --logLevel=error";
+          "${mod}+m" = "output eDP-1 enable";
+          "${mod}+Shift+m" = "output eDP-1 disable";
           "XF86AudioPlay" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
