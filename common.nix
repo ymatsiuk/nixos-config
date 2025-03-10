@@ -14,6 +14,8 @@ let
       };
       dhcpV4Config.UseDNS = true;
       dhcpV6Config.UseDNS = true;
+      dhcpV4Config.UseNTP = false;
+      dhcpV6Config.UseNTP = false;
     };
 in
 {
