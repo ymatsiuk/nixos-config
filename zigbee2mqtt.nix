@@ -24,14 +24,14 @@
       };
       mqtt = {
         base_topic = "zigbee2mqtt";
-        server = "mqtt://nixlab.home:1883";
+        server = "mqtt://nixlab.local:1883";
         version = 5;
       };
       permit_join = false;
       serial = {
         adapter = "ember";
         baudrate = 115200;
-        port = "tcp://slzb-06m.home:6638";
+        port = "tcp://slzb-06m.local:6638";
       };
       version = 4;
     };
