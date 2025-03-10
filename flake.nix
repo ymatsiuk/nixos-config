@@ -99,6 +99,7 @@
       };
       overlays = {
         wrk = final: prev: {
+          zigbee2mqtt = prev.zigbee2mqtt_2;
           fprintd-tod = final.callPackage test/tod.nix { };
           libfprint-tod = final.callPackage test/libfprint-tod.nix { };
           terraform = prev.mkTerraform {
