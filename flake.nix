@@ -99,33 +99,6 @@
       };
       overlays = {
         wrk = final: prev: {
-          obs-studio-plugins = prev.obs-studio-plugins // {
-            droidcam-obs = prev.obs-studio-plugins.droidcam-obs.overrideAttrs (o: rec {
-              version = "2.3.4";
-              src = prev.fetchFromGitHub {
-                owner = "dev47apps";
-                repo = "droidcam-obs-plugin";
-                tag = version;
-                sha256 = "sha256-KWMLhddK561xA+EjvoG4tXRW4xoLil31JcTTfppblmA=";
-              };
-              postPatch = "";
-
-              nativeBuildInputs = [
-                prev.pkg-config
-              ];
-
-              makeFlags = [
-                "ALLOW_STATIC=no"
-                "JPEG_DIR=${prev.lib.getDev prev.libjpeg}"
-                "JPEG_LIB=${prev.lib.getLib prev.libjpeg}/lib"
-                "IMOBILEDEV_DIR=${prev.lib.getLib prev.libimobiledevice}"
-                "LIBOBS_INCLUDES=${prev.obs-studio}/include/obs"
-                "FFMPEG_INCLUDES=${prev.lib.getLib prev.ffmpeg}"
-                "LIBUSBMUXD=libusbmuxd-2.0"
-                "LIBIMOBILEDEV=libimobiledevice-1.0"
-              ];
-            });
-          };
           fprintd-tod = final.callPackage test/tod.nix { };
           libfprint-tod = final.callPackage test/libfprint-tod.nix { };
           terraform = prev.mkTerraform {
@@ -161,7 +134,6 @@
               libfprint-tod = pkgs.libfprint-tod;
               terraform = pkgs.terraform;
               tf_1_5_7 = pkgs.tf_1_5_7;
-              rbw = pkgs.rbw;
             };
             devShells = {
               work = pkgs.mkShell {

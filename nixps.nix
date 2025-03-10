@@ -6,7 +6,6 @@
     ./fonts.nix
     ./greetd.nix
     ./opengl.nix
-    ./obs.nix
     ./pipewire.nix
     ./tailscale.nix
   ];
