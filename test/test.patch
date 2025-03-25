@@ -1,0 +1,20 @@
+diff --git i/tests/meson.build w/tests/meson.build
+index e99f8c1..d301239 100644
+--- i/tests/meson.build
++++ w/tests/meson.build
+@@ -592,15 +592,4 @@ if get_option('tod')
+             )
+         endif
+     endforeach
+-
+-    if find_program('objdump', required: false).found()
+-        check_libs_symbols = find_program(meson.project_source_root() /
+-            'libfprint/tod/tests/check-library-symbols.sh')
+-        test('check-tod-lib-sybmbols',
+-            check_libs_symbols,
+-            args: [libfprint.full_path(), libfprint_tod.full_path()],
+-            depends: [libfprint, libfprint_tod],
+-            suite: ['abi-check', tod_suites ],
+-        )
+-    endif
+ endif

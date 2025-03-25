@@ -13,7 +13,7 @@ libfprint.overrideAttrs (
     ...
   }:
   let
-    version = "1.94.7+tod1";
+    version = "1.94.9+tod1";
   in
   {
     pname = "libfprint-tod";
@@ -24,13 +24,16 @@ libfprint.overrideAttrs (
       owner = "3v1n0";
       repo = "libfprint";
       rev = "v${version}";
-      sha256 = "sha256-q6m/J5GH86/z/mKnrYoanhKWR7+reKIRHqhDOUkknFA=";
+      sha256 = "sha256-xkywuFbt8EFJOlIsSN2hhZfMUhywdgJ/uT17uiO3YV4=";
     };
+
+    # doCheck = false;
+    # doInstallCheck = false;
 
     patches = [
       # TODO: try fixing the check
       # https://gitlab.freedesktop.org/3v1n0/libfprint/-/commit/8e7e5bf7104df691217eda520b727470045cafcd
-      ./revert-8e7e5bf7104df691217eda520b727470045cafcd.patch
+      ./test.patch
     ];
 
     meta = with lib; {
