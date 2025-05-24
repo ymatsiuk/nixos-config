@@ -124,7 +124,6 @@
           in
           {
             packages = {
-              linux_latest = pkgs.linux_latest;
               fprintd-tod = pkgs.fprintd-tod;
               libfprint-tod = pkgs.libfprint-tod;
             };
