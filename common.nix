@@ -67,7 +67,7 @@ in
     useNetworkd = true;
     usePredictableInterfaceNames = false;
     wireless.iwd.enable = true;
-    wireless.iwd.settings.General.UseDefaultInterface = true;
+    wireless.iwd.settings.DriverQuirks.UseDefaultInterface = true;
   };
 
   systemd.network = {
