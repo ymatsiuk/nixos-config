@@ -17,7 +17,6 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   programs.light.enable = true;
-  programs.ssh.startAgent = true;
   programs.sway = {
     enable = true;
     wrapperFeatures = {
