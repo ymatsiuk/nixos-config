@@ -589,6 +589,11 @@ let
       {
         binary_sensor = [
           {
+            name = "Dishwasher";
+            state = "{{ is_number(states('sensor.0x08b95ffffec66e5d_power')) and states('sensor.0x08b95ffffec66e5d_power')|float > 0 }}";
+            icon = "mdi:dishwasher";
+          }
+          {
             name = "Washing Machine";
             state = "{{ is_number(states('sensor.0x70b3d52b601352e1_power')) and states('sensor.0x70b3d52b601352e1_power')|float > 0 }}";
             icon = "mdi:washing-machine";
