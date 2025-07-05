@@ -28,7 +28,6 @@
     postgresql # psql
     redis # redis-cli
     sslscan
-    step-cli
     terraform
     vault-bin
     yq-go
