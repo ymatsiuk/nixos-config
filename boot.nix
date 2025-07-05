@@ -13,10 +13,7 @@
     "rtsx_pci_sdmmc"
   ];
   boot.initrd.compressor = "xz";
-  boot.initrd.kernelModules = [
-    "i915"
-    "xe"
-  ];
+  boot.initrd.kernelModules = [ "i915" ];
   boot.initrd.luks.devices = {
     nixps = {
       crypttabExtraOpts = [ "tpm2-device=auto" ];
@@ -28,11 +25,7 @@
     emergencyAccess = true;
   };
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [
-    "quiet"
-    "i915.force_probe=!9a49"
-    "xe.force_probe=9a49"
-  ];
+  boot.kernelParams = [ "quiet" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "1"; # bigger font in boot menu
