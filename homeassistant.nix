@@ -366,8 +366,15 @@ let
     {
       id = "1710357903";
       alias = "Laundry notify";
-      description = "Send notification when washing or drying is done";
+      description = "Send notification when (dish) washing or drying is done";
       triggers = [
+        {
+          trigger = "state";
+          entity_id = [ "binary_sensor.dishwasher" ];
+          from = "on";
+          to = "off";
+          id = "dishwasher";
+        }
         {
           trigger = "state";
           entity_id = [ "binary_sensor.washing_machine" ];
@@ -387,6 +394,26 @@ let
       actions = [
         {
           choose = [
+            {
+              conditions = [
+                {
+                  condition = "trigger";
+                  id = [ "dishwasher" ];
+                }
+              ];
+              sequence = [
+                {
+                  action = "notify.family";
+                  data = {
+                    data = {
+                      priority = "high";
+                      ttl = 0;
+                    };
+                    message = "{{state_attr('binary_sensor.dishwasher', 'friendly_name')}} is {{states('binary_sensor.dishwasher')}} now";
+                  };
+                }
+              ];
+            }
             {
               conditions = [
                 {
