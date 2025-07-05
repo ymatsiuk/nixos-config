@@ -355,7 +355,7 @@ let
           action = "fan.set_percentage";
           metadata = { };
           data = {
-            percentage = 15;
+            percentage = 0;
           };
           target = {
             entity_id = "fan.itho_wifi_itho_itho_fan";
@@ -718,6 +718,13 @@ let
         "switch.0x70b3d52b601329c7".icon = "mdi:power-socket-eu";
         "switch.0x70b3d52b601329c7".friendly_name = "Office main socket";
 
+        "sensor.0x08b95ffffec66e5d_energy".friendly_name = "Dishwasher energy";
+        "sensor.0x08b95ffffec66e5d_power".friendly_name = "Dishwasher power";
+        "sensor.0x08b95ffffec66e5d_power".icon = "mdi:dishwasher";
+        "switch.0x08b95ffffec66e5d".device_class = "outlet";
+        "switch.0x08b95ffffec66e5d".icon = "mdi:power-socket-eu";
+        "switch.0x08b95ffffec66e5d".friendly_name = "Dishwasher socket";
+
         "sensor.0x70b3d52b601352e1_energy".friendly_name = "Washer energy";
         "sensor.0x70b3d52b601352e1_power".friendly_name = "Washer power";
         "sensor.0x70b3d52b601352e1_power".icon = "mdi:washing-machine";
@@ -811,7 +818,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2025.3.1";
+        image = "ghcr.io/home-assistant/home-assistant:2025.7.1";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
