@@ -5,12 +5,17 @@
     viAlias = true;
     vimAlias = true;
     extraPackages = with pkgs; [
+      gitlab-ci-ls
       gopls
       gotools
       nil
-      pyright
       nodePackages.bash-language-server
+      pyright
       terraform-ls
+      vscode-langservers-extracted
+      yaml-language-server
+      helm-ls
+      lynx
     ];
     extraLuaConfig = ''
       -- Disable netrw in favor of nvim-tree.lua
@@ -66,10 +71,17 @@
     plugins = with pkgs.vimPlugins; [
       colorizer
       copilot-vim
-      vim-helm
       vim-nix
       vim-sleuth
       vim-terraform
+      nui-nvim
+      {
+        plugin = helm-ls-nvim;
+        type = "lua";
+        config = ''
+          require("helm-ls").setup()
+        '';
+      }
       {
         plugin = CopilotChat-nvim;
         type = "lua";
@@ -81,7 +93,22 @@
         plugin = noice-nvim;
         type = "lua";
         config = ''
-          require("noice").setup()
+          require("noice").setup({
+            lsp = {
+              -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+              override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+              },
+            },
+            presets = {
+              bottom_search = true, -- use a classic bottom cmdline for search
+              command_palette = true, -- position the cmdline and popupmenu together
+              long_message_to_split = true, -- long messages will be sent to a split
+              inc_rename = false, -- enables an input dialog for inc-rename.nvim
+              lsp_doc_border = false, -- add a border to hover docs and signature help
+            },
+          })
         '';
       }
       {
@@ -230,15 +257,32 @@
         '';
       }
       {
+        plugin = telescope-ui-select-nvim;
+        type = "lua";
+        config = ''
+          require("telescope").load_extension("ui-select")
+        '';
+      }
+      {
+        plugin = nvim-notify;
+        type = "lua";
+        config = ''
+          require("telescope").load_extension("notify")
+        '';
+      }
+      {
         plugin = nvim-lspconfig;
         type = "lua";
         config = ''
           -- Setup language servers.
           local lspconfig = require("lspconfig")
-          lspconfig.pyright.setup {}
-          lspconfig.gopls.setup {}
-          lspconfig.terraformls.setup {}
           lspconfig.bashls.setup {}
+          lspconfig.gopls.setup {}
+          lspconfig.jsonls.setup{}
+          lspconfig.pyright.setup {}
+          lspconfig.terraformls.setup {}
+          lspconfig.gitlab_ci_ls.setup {}
+          lspconfig.yamlls.setup {}
           lspconfig.nil_ls.setup{
             autostart = true,
             settings = {
@@ -248,6 +292,18 @@
                 },
               },
             },
+          }
+          lspconfig.helm_ls.setup {
+            settings = {
+              ["helm-ls"] = {
+                yamlls = {
+                  path = "yaml-language-server",
+                },
+                helmLint = {
+                  enabled = true,
+                }
+              }
+            }
           }
 
           -- Global mappings.
@@ -320,6 +376,14 @@
             pattern = { "html", "markdown", "text" },
             callback = function()
               vim.opt_local.spell = true
+            end,
+          })
+
+          -- Gitlab CI YAML files
+          vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+            pattern = "*.gitlab-ci*.{yml,yaml}",
+            callback = function()
+              vim.bo.filetype = "yaml.gitlab"
             end,
           })
         '';
