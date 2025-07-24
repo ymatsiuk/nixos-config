@@ -617,8 +617,9 @@ let
         binary_sensor = [
           {
             name = "Dishwasher";
-            state = "{{ is_number(states('sensor.0x08b95ffffec66e5d_power')) and states('sensor.0x08b95ffffec66e5d_power')|float > 0 }}";
+            state = "{{ is_number(states('sensor.0x08b95ffffec66e5d_power')) and states('sensor.0x08b95ffffec66e5d_power')|float > 5 }}";
             icon = "mdi:dishwasher";
+            delay_off.minutes = 10;
           }
           {
             name = "Washing Machine";
@@ -629,7 +630,7 @@ let
             name = "Tumble Dryer";
             state = "{{ is_number(states('sensor.0x70b3d52b60135977_power')) and states('sensor.0x70b3d52b60135977_power')|float > 5 }}";
             icon = "mdi:tumble-dryer";
-            delay_off.minutes = 3;
+            delay_off.minutes = 10;
           }
         ];
       }
@@ -850,7 +851,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2025.7.1";
+        image = "ghcr.io/home-assistant/home-assistant:2025.7.3";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
