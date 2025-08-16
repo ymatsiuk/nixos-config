@@ -851,7 +851,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2025.7.3";
+        image = "ghcr.io/home-assistant/home-assistant:2025.8.2";
         extraOptions = [
           "--device=/dev/ttyACM0"
           "--device=/dev/ttyUSB0"
