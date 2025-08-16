@@ -47,7 +47,8 @@
                 inherit pkgs;
               };
             }
-          ] ++ modules;
+          ]
+          ++ modules;
         };
     in
     {
@@ -66,9 +67,7 @@
 
         nixlab = makeOpinionatedNixosConfig {
           system = "x86_64-linux";
-          overlays = [
-            self.overlays.home
-          ];
+          overlays = [ ];
           modules = [
             ./nixlab.nix
             { networking.hostName = "nixlab"; }
@@ -100,9 +99,6 @@
         nixpisdi3 = self.nixosConfigurations.nixpi3.config.system.build.sdImage;
       };
       overlays = {
-        home = final: prev: {
-          zigbee2mqtt = prev.zigbee2mqtt_2;
-        };
         wrk = final: prev: {
           fprintd-tod = final.callPackage test/tod.nix { };
           libfprint-tod = final.callPackage test/libfprint-tod.nix { };
