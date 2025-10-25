@@ -2,21 +2,23 @@ let
   secrets = import ../secrets.nix;
 in
 {
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      side-by-side = true;
+      syntax-theme = "none";
+    };
+  };
+
   programs.git = {
     enable = true;
-    delta = {
-      enable = true;
-      options = {
-        side-by-side = true;
-        syntax-theme = "none";
-      };
-    };
 
-    userName = "Yurii Matsiuk";
-    userEmail = "24990891+ymatsiuk@users.noreply.github.com";
-    signing.format = "ssh";
-    signing.key = "~/.ssh/github.pub";
-    signing.signByDefault = true;
+    signing = {
+      format = "ssh";
+      key = "~/.ssh/github.pub";
+      signByDefault = true;
+    };
     includes = [
       {
         condition = "gitdir:~/git/gitlab/";
@@ -33,8 +35,13 @@ in
         };
       }
     ];
+    settings = {
+      user = {
+        name = "Yurii Matsiuk";
+        email = "24990891+ymatsiuk@users.noreply.github.com";
+        signingKey = "~/.ssh/github.pub";
+      };
 
-    extraConfig = {
       branch.sort = "-committerdate";
       commit.verbose = true;
       credential = {
