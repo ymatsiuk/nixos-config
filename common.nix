@@ -1,21 +1,24 @@
 { pkgs, ... }:
 let
   defaultNetworkConfig =
-    { name, weight }:
     {
-      dhcpV4Config.RouteMetric = weight;
+      name,
+      weight ? null,
+      vlan ? null,
+    }:
+    {
       matchConfig.Name = name;
       networkConfig = {
         MulticastDNS = true;
         DHCP = "yes";
-        DNSOverTLS = "opportunistic";
-        DNSDefaultRoute = true;
-        Domains = [ "~." ];
-      };
-      dhcpV4Config.UseDNS = true;
+      }
+      // pkgs.lib.optionalAttrs (vlan != null) { VLAN = vlan; };
+
+      dhcpV4Config = {
+        UseDNS = true;
+      }
+      // pkgs.lib.optionalAttrs (weight != null) { RouteMetric = weight; };
       dhcpV6Config.UseDNS = true;
-      dhcpV4Config.UseNTP = false;
-      dhcpV6Config.UseNTP = false;
     };
 in
 {
@@ -79,8 +82,24 @@ in
         weight = 4096;
       };
       "eth0" = defaultNetworkConfig {
+        vlan = [ "eth0.123" ];
         name = "eth0";
         weight = 0;
+      };
+      "eth0.123" = defaultNetworkConfig {
+        name = "eth0.123";
+        weight = 1024;
+      };
+    };
+    netdevs = {
+      "10-vlan123" = {
+        netdevConfig = {
+          Name = "eth0.123";
+          Kind = "vlan";
+        };
+        vlanConfig = {
+          Id = 123;
+        };
       };
     };
   };
