@@ -1,13 +1,14 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    alejandra
     dogdns
     eza
     fd
+    inetutils
     jq
-    nixpkgs-fmt
-    alejandra
     nixfmt-rfc-style
+    nixpkgs-fmt
     nixpkgs-review
     openssl
     procps
