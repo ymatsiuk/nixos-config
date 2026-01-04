@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     alejandra
-    dogdns
+    doggo
     eza
     fd
     inetutils
