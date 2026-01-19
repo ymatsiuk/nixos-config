@@ -533,24 +533,24 @@ let
       binary_sensor = [ ];
     };
     utility_meter = {
-      daily_office_energy = {
-        source = "sensor.0x70b3d52b601329c7_energy";
-        name = "Daily Office Energy";
-        cycle = "daily";
-      };
       monthly_office_energy = {
         source = "sensor.daily_office_energy";
         name = "Monthly Office Energy";
         cycle = "monthly";
       };
       monthly_dryer_energy = {
-        source = "sensor.0x70b3d52b601329c7_energy";
+        source = "sensor.0x08fd52fffe8be87e_energy";
         name = "Monthly Dryer Energy";
         cycle = "monthly";
       };
       monthly_washer_energy = {
-        source = "sensor.0x70b3d52b601352e1_energy";
+        source = "sensor.0xf0fd45fffe0b549f_energy";
         name = "Monthly Washer Energy";
+        cycle = "monthly";
+      };
+      monthly_dishwasher_energy = {
+        source = "sensor.0x08b95ffffec66e5d_energy";
+        name = "Monthly Dishwasher Energy";
         cycle = "monthly";
       };
       monthly_rack_energy = {
@@ -558,7 +558,11 @@ let
         name = "Monthly Rack Energy";
         cycle = "monthly";
       };
-
+      daily_office_energy = {
+        source = "sensor.0x70b3d52b601329c7_energy";
+        name = "Daily Office Energy";
+        cycle = "daily";
+      };
       daily_energy_offpeak = {
         source = "sensor.energy_consumed_tariff_1";
         name = "Daily Energy (Offpeak)";
@@ -623,12 +627,12 @@ let
           }
           {
             name = "Washing Machine";
-            state = "{{ is_number(states('sensor.0x70b3d52b601352e1_power')) and states('sensor.0x70b3d52b601352e1_power')|float > 0 }}";
+            state = "{{ is_number(states('sensor.0xf0fd45fffe0b549f_power')) and states('sensor.0xf0fd45fffe0b549f_power')|float > 0 }}";
             icon = "mdi:washing-machine";
           }
           {
             name = "Tumble Dryer";
-            state = "{{ is_number(states('sensor.0x70b3d52b60135977_power')) and states('sensor.0x70b3d52b60135977_power')|float > 5 }}";
+            state = "{{ is_number(states('sensor.0x08fd52fffe8be87e_power')) and states('sensor.0x08fd52fffe8be87e_power')|float > 5 }}";
             icon = "mdi:tumble-dryer";
             delay_off.minutes = 10;
           }
@@ -745,12 +749,6 @@ let
           icon = "mdi:lightbulb-spot";
         };
 
-        "sensor.0x70b3d52b601329c7_energy".friendly_name = "Office energy";
-        "sensor.0x70b3d52b601329c7_power".friendly_name = "Office power";
-        "switch.0x70b3d52b601329c7".device_class = "outlet";
-        "switch.0x70b3d52b601329c7".icon = "mdi:power-socket-eu";
-        "switch.0x70b3d52b601329c7".friendly_name = "Office main socket";
-
         "sensor.0x08b95ffffec66e5d_energy".friendly_name = "Dishwasher energy";
         "sensor.0x08b95ffffec66e5d_power".friendly_name = "Dishwasher power";
         "sensor.0x08b95ffffec66e5d_power".icon = "mdi:dishwasher";
@@ -758,19 +756,19 @@ let
         "switch.0x08b95ffffec66e5d".icon = "mdi:power-socket-eu";
         "switch.0x08b95ffffec66e5d".friendly_name = "Dishwasher socket";
 
-        "sensor.0x70b3d52b601352e1_energy".friendly_name = "Washer energy";
-        "sensor.0x70b3d52b601352e1_power".friendly_name = "Washer power";
-        "sensor.0x70b3d52b601352e1_power".icon = "mdi:washing-machine";
-        "switch.0x70b3d52b601352e1".device_class = "outlet";
-        "switch.0x70b3d52b601352e1".icon = "mdi:power-socket-eu";
-        "switch.0x70b3d52b601352e1".friendly_name = "Washer socket";
+        "sensor.0xf0fd45fffe0b549f_energy".friendly_name = "Washer energy";
+        "sensor.0xf0fd45fffe0b549f_power".friendly_name = "Washer power";
+        "sensor.0xf0fd45fffe0b549f_power".icon = "mdi:washing-machine";
+        "switch.0xf0fd45fffe0b549f".device_class = "outlet";
+        "switch.0xf0fd45fffe0b549f".icon = "mdi:power-socket-eu";
+        "switch.0xf0fd45fffe0b549f".friendly_name = "Washer socket";
 
-        "sensor.0x70b3d52b60135977_energy".friendly_name = "Dryer energy";
-        "sensor.0x70b3d52b60135977_power".friendly_name = "Dryer power";
-        "sensor.0x70b3d52b60135977_power".icon = "mdi:tumble-dryer";
-        "switch.0x70b3d52b60135977".device_class = "outlet";
-        "switch.0x70b3d52b60135977".icon = "mdi:power-socket-eu";
-        "switch.0x70b3d52b60135977".friendly_name = "Dryer socket";
+        "sensor.0x08fd52fffe8be87e_energy".friendly_name = "Dryer energy";
+        "sensor.0x08fd52fffe8be87e_power".friendly_name = "Dryer power";
+        "sensor.0x08fd52fffe8be87e_power".icon = "mdi:tumble-dryer";
+        "switch.0x08fd52fffe8be87e".device_class = "outlet";
+        "switch.0x08fd52fffe8be87e".icon = "mdi:power-socket-eu";
+        "switch.0x08fd52fffe8be87e".friendly_name = "Dryer socket";
 
         "sensor.0x70b3d52b60132af9_energy".friendly_name = "Rack energy";
         "sensor.0x70b3d52b60132af9_power".friendly_name = "Rack power";
@@ -778,6 +776,12 @@ let
         "sensor.0x70b3d52b60132af9".device_class = "outlet";
         "sensor.0x70b3d52b60132af9".icon = "mdi:power-socket-eu";
         "sensor.0x70b3d52b60132af9".friendly_name = "Rack socket";
+
+        "sensor.0x70b3d52b601329c7_energy".friendly_name = "Office energy";
+        "sensor.0x70b3d52b601329c7_power".friendly_name = "Office power";
+        "switch.0x70b3d52b601329c7".device_class = "outlet";
+        "switch.0x70b3d52b601329c7".icon = "mdi:power-socket-eu";
+        "switch.0x70b3d52b601329c7".friendly_name = "Office main socket";
       };
     };
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
