@@ -7,7 +7,7 @@
     fd
     inetutils
     jq
-    nixfmt-rfc-style
+    nixfmt
     nixpkgs-fmt
     nixpkgs-review
     openssl
