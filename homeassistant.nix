@@ -554,12 +554,12 @@ let
         cycle = "monthly";
       };
       monthly_rack_energy = {
-        source = "sensor.0x70b3d52b60132af9_energy";
+        source = "sensor.0x08fd52fffe01713f_energy";
         name = "Monthly Rack Energy";
         cycle = "monthly";
       };
       daily_office_energy = {
-        source = "sensor.0x70b3d52b601329c7_energy";
+        source = "sensor.0x348d13fffee38a25_energy";
         name = "Daily Office Energy";
         cycle = "daily";
       };
@@ -749,12 +749,26 @@ let
           icon = "mdi:lightbulb-spot";
         };
 
+        "sensor.0x04e3e5fffe0b2f3c_energy".friendly_name = "Stove energy";
+        "sensor.0x04e3e5fffe0b2f3c_power".friendly_name = "Stove power";
+        "sensor.0x04e3e5fffe0b2f3c_power".icon = "mdi:stove";
+        "switch.0x04e3e5fffe0b2f3c".device_class = "outlet";
+        "switch.0x04e3e5fffe0b2f3c".icon = "mdi:power-socket-eu";
+        "switch.0x04e3e5fffe0b2f3c".friendly_name = "Stove socket";
+
         "sensor.0x08b95ffffec66e5d_energy".friendly_name = "Dishwasher energy";
         "sensor.0x08b95ffffec66e5d_power".friendly_name = "Dishwasher power";
         "sensor.0x08b95ffffec66e5d_power".icon = "mdi:dishwasher";
         "switch.0x08b95ffffec66e5d".device_class = "outlet";
         "switch.0x08b95ffffec66e5d".icon = "mdi:power-socket-eu";
         "switch.0x08b95ffffec66e5d".friendly_name = "Dishwasher socket";
+
+        "sensor.0x348d13fffeed300c_energy".friendly_name = "TV energy";
+        "sensor.0x348d13fffeed300c_power".friendly_name = "TV power";
+        "sensor.0x348d13fffeed300c_power".icon = "mdi:television-classic";
+        "switch.0x348d13fffeed300c".device_class = "outlet";
+        "switch.0x348d13fffeed300c".icon = "mdi:power-socket-eu";
+        "switch.0x348d13fffeed300c".friendly_name = "TV socket";
 
         "sensor.0xf0fd45fffe0b549f_energy".friendly_name = "Washer energy";
         "sensor.0xf0fd45fffe0b549f_power".friendly_name = "Washer power";
@@ -770,18 +784,18 @@ let
         "switch.0x08fd52fffe8be87e".icon = "mdi:power-socket-eu";
         "switch.0x08fd52fffe8be87e".friendly_name = "Dryer socket";
 
-        "sensor.0x70b3d52b60132af9_energy".friendly_name = "Rack energy";
-        "sensor.0x70b3d52b60132af9_power".friendly_name = "Rack power";
-        "sensor.0x70b3d52b60132af9_power".icon = "mdi:server-network";
-        "sensor.0x70b3d52b60132af9".device_class = "outlet";
-        "sensor.0x70b3d52b60132af9".icon = "mdi:power-socket-eu";
-        "sensor.0x70b3d52b60132af9".friendly_name = "Rack socket";
+        "sensor.0x08fd52fffe01713f_energy".friendly_name = "Rack energy";
+        "sensor.0x08fd52fffe01713f_power".friendly_name = "Rack power";
+        "sensor.0x08fd52fffe01713f_power".icon = "mdi:server-network";
+        "sensor.0x08fd52fffe01713f".device_class = "outlet";
+        "sensor.0x08fd52fffe01713f".icon = "mdi:power-socket-eu";
+        "sensor.0x08fd52fffe01713f".friendly_name = "Rack socket";
 
-        "sensor.0x70b3d52b601329c7_energy".friendly_name = "Office energy";
-        "sensor.0x70b3d52b601329c7_power".friendly_name = "Office power";
-        "switch.0x70b3d52b601329c7".device_class = "outlet";
-        "switch.0x70b3d52b601329c7".icon = "mdi:power-socket-eu";
-        "switch.0x70b3d52b601329c7".friendly_name = "Office main socket";
+        "sensor.0x348d13fffee38a25_energy".friendly_name = "Office energy";
+        "sensor.0x348d13fffee38a25_power".friendly_name = "Office power";
+        "switch.0x348d13fffee38a25".device_class = "outlet";
+        "switch.0x348d13fffee38a25".icon = "mdi:power-socket-eu";
+        "switch.0x348d13fffee38a25".friendly_name = "Office desk socket";
       };
     };
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
