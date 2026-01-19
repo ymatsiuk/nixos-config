@@ -197,13 +197,37 @@
         plugin = nvim-treesitter.withAllGrammars;
         type = "lua";
         config = ''
-          vim.opt.foldmethod = "expr"
-          vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.opt.foldenable = false
+          require("nvim-treesitter").setup()
 
-          require("nvim-treesitter.configs").setup({
-            indent = { enable = true, },
-            highlight = { enable = true, },
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = {
+              'json',
+              'yaml',
+              'dockerfile',
+              'go',
+              'nix',
+              'hcl',
+              'python',
+              'lua',
+              'helm',
+              'markdown',
+              'nginx',
+              'terraform',
+              'php',
+              'toml',
+              'typst',
+              'zsh',
+            },
+            callback = function()
+              -- syntax highlighting, provided by Neovim
+              vim.treesitter.start()
+              -- folds, provided by Neovim
+              vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+              vim.wo.foldmethod = 'expr'
+              vim.wo.foldlevel = 99
+              -- indentation, provided by nvim-treesitter
+              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
           })
         '';
       }
