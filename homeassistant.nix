@@ -627,7 +627,7 @@ let
           }
           {
             name = "Washing Machine";
-            state = "{{ is_number(states('sensor.0xf0fd45fffe0b549f_power')) and states('sensor.0xf0fd45fffe0b549f_power')|float > 0 }}";
+            state = "{{ is_number(states('sensor.0xf0fd45fffe0b549f_power')) and states('sensor.0xf0fd45fffe0b549f_power')|float > 5 }}";
             icon = "mdi:washing-machine";
           }
           {
