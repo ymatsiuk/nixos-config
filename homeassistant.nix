@@ -146,8 +146,7 @@ let
                   metadata = { };
                   target = {
                     entity_id = [
-                      "cover.living_room_shutter_door"
-                      "cover.living_room_shutter_window"
+                      "cover.living_room_shutters"
                     ];
                   };
                 }
@@ -167,8 +166,7 @@ let
                   metadata = { };
                   target = {
                     entity_id = [
-                      "cover.living_room_shutter_door"
-                      "cover.living_room_shutter_window"
+                      "cover.living_room_shutters"
                     ];
                   };
                 }
@@ -223,20 +221,13 @@ let
                   action = "cover.open_cover";
                   metadata = { };
                   data = { };
-                  target = {
-                    entity_id = "cover.shutters";
-                  };
+                  target.entity_id = "cover.shutters";
                 }
                 {
                   action = "light.turn_off";
                   metadata = { };
                   data = { };
-                  target = {
-                    area_id = [
-                      "kitchen"
-                      "living_room"
-                    ];
-                  };
+                  target.entity_id = [ "light.spots" ];
                 }
               ];
             }
@@ -262,20 +253,13 @@ let
                   action = "cover.close_cover";
                   metadata = { };
                   data = { };
-                  target = {
-                    entity_id = "cover.shutters";
-                  };
+                  target.entity_id = "cover.shutters";
                 }
                 {
                   action = "light.turn_on";
                   metadata = { };
                   data = { };
-                  target = {
-                    area_id = [
-                      "kitchen"
-                      "living_room"
-                    ];
-                  };
+                  target.entity_id = [ "light.spots" ];
                 }
               ];
             }
