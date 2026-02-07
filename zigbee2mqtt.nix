@@ -8,7 +8,7 @@ in
     # Z2M for Deconz USB stick
     zigbee2mqtt_deconz = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.7.2";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.8.0";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
@@ -37,7 +37,7 @@ in
               baudrate = 115200;
               rtscts = false;
             };
-            version = 4;
+            version = 5;
             advanced = {
               log_level = "debug";
               channel = 25;
@@ -73,7 +73,7 @@ in
     # Z2M for SLZB-06M
     zigbee2mqtt_slzb06m = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.7.2";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.8.0";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
@@ -107,7 +107,7 @@ in
               baudrate = 115200;
               port = "tcp://slzb-06m.lan:6638";
             };
-            version = 4;
+            version = 5;
             devices = "devices.yaml";
             groups = "groups.yaml";
           };
