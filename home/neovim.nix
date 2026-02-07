@@ -17,7 +17,7 @@
       helm-ls
       lynx
     ];
-    extraLuaConfig = ''
+    initLua = ''
       -- Disable netrw in favor of nvim-tree.lua
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
