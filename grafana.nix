@@ -40,6 +40,7 @@ in
         content_security_policy_template = ''
           script-src 'self' 'unsafe-eval' 'unsafe-inline' 'strict-dynamic' $NONCE;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://$ROOT_PATH wss://$ROOT_PATH;manifest-src 'self';media-src 'none';form-action 'self';
         '';
+        secret_key = "SW2YcwTIb9zpOOhoPsMm"; # default, historically hardcoded value
       };
       analytics.reporting_enabled = false;
       "auth.anonymous".hide_version = true;
