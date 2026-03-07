@@ -16,7 +16,6 @@
 
   powerManagement.cpuFreqGovernor = "powersave";
 
-  programs.light.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures = {
@@ -26,7 +25,7 @@
     extraPackages = with pkgs; [
       grim # sway dep
       gsimplecal # i3status-rust dep
-      light # sway dep
+      brightnessctl # sway dep
       pavucontrol # i3status-rust dep
       playerctl # sway dep
       pulseaudio # i3status-rust dep

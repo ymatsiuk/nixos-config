@@ -57,8 +57,8 @@ in
           "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
           "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86MonBrightnessDown" = "exec light -U 5%";
-          "XF86MonBrightnessUp" = "exec light -A 5%";
+          "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+          "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
           "--release Print" = "exec GRIM_DEFAULT_DIR=~/scr grim -g \"$(slurp)\"";
           "--release ${mod}+Print" = "exec GRIM_DEFAULT_DIR=~/scr grim";
         };
