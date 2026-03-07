@@ -676,12 +676,12 @@ let
           friendly_name = "Spot lights";
           icon = "mdi:lightbulb-spot";
         };
-        "light.kitchen_lights" = {
-          friendly_name = "Kitchen light";
+        "light.kitchen_spots" = {
+          friendly_name = "Kitchen spots";
           icon = "mdi:lightbulb-group";
         };
-        "light.living_room_lights" = {
-          friendly_name = "Living room light";
+        "light.living_room_spots" = {
+          friendly_name = "Living room spots";
           icon = "mdi:lightbulb-group";
         };
         "light.0x60b647fffeb0862b" = {
@@ -853,7 +853,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2026.2.3";
+        image = "ghcr.io/home-assistant/home-assistant:2026.3.1";
         extraOptions = [
           "--device=/dev/ttyUSB0"
           "--privileged"
