@@ -81,3 +81,87 @@ What's inside:
     * `rbw`
     * `fuzzel` application launcher for Wayland
     * `wezterm` (gruvbox theme)
+
+
+## Upcoming refactoring
+
+Current directory and flake structure doesn't scale. I have to host my work
+configuration for mbp in a separate private repository - not ideal.
+The goal of refactoring is to modularize the configuration better to allow
+different architectures and centralize host management merging both repos.
+Proposed structure:
+
+```
+nixos/
+├── flake.nix
+├── flake.lock
+├── hosts/
+│   ├── nixps/
+│   │   └── default.nix
+│   ├── nixlab/
+│   │   └── default.nix
+│   ├── nixpi3/
+│   │   └── default.nix
+│   ├── nixpi4/
+│   │   └── default.nix
+│   └── mbp/
+│       └── default.nix
+├── modules/
+│   ├── common/
+│   │   ├── boot.nix
+│   │   ├── dev-shells.nix
+│   │   ├── networking.nix
+│   │   ├── users.nix
+│   │   └── packages.nix
+│   ├── darwin/
+│   │   ├── aerospace.nix
+│   │   ├── homebrew.nix
+│   │   ├── jankyborders.nix
+│   │   └── defaults.nix
+│   └── linux/
+│       ├── apfs.nix
+│       ├── greetd.nix
+│       ├── home-assistant.nix
+│       ├── obs.nix
+│       ├── opengl.nix
+│       ├── pipewire.nix
+│       ├── tailscale.nix
+│       ├── telegraf.nix
+│       ├── upgrade-diff.nix
+│       ├── zigbee2mqtt.nix
+│       └── fonts.nix
+└── home/
+    ├── darwin/
+    │   └── i3status-rust.nix
+    ├── linux/
+    │   ├── foot.nix
+    │   ├── gammastep.nix
+    │   ├── gtk.nix
+    │   ├── i3status-rust.nix
+    │   ├── kanshi.nix
+    │   ├── mako.nix
+    │   └── sway.nix
+    ├── common/
+    │   ├── alacritty.nix
+    │   ├── firefox.nix
+    │   ├── gammastep.nix
+    │   ├── git.nix
+    │   ├── gtk.nix
+    │   ├── mcfly.nix
+    │   ├── neovim.nix
+    │   ├── rbw.nix
+    │   ├── starship.nix
+    │   ├── wezterm.nix
+    │   └── zoxide.nix
+    ├── nixps.nix
+    ├── nixlab.nix
+    ├── nixpi3.nix
+    ├── nixpi4.nix
+    └── mbp.nix
+```
+
+Notes:
+* `default.nix` looks redundant, `hosts/nixps.nix` instead of `hosts/nixps/default.nix`
+* `home/` split into `linux` and `darwin`, maybe `graphics|gui` and `terminal|cli` (?)
+* import modules/hm in `flake.nix` per host or chain imports `flake.nix -> hosts/nixps/default.nix -> modules/common/boot.nix ...`
+* does `modules/common` make sense even
