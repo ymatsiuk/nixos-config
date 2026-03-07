@@ -1,18 +1,41 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   secrets = import ./secrets.nix;
   yaml = pkgs.formats.yaml { };
+  hassUser = "homeassistant";
 in
 {
+  users = {
+    users."${hassUser}" = {
+      isNormalUser = true;
+      linger = true;
+      packages = [ config.virtualisation.podman.package ];
+      uid = 1010;
+      group = "${hassUser}";
+      extraGroups = [ "dialout" ]; # for USB zigbee coordinator
+    };
+    groups."${hassUser}".gid = 1010;
+  };
+
+  systemd.user.tmpfiles.users."${hassUser}".rules =
+    let
+      home = config.users.users."${hassUser}".home;
+    in
+    [
+      "d ${home}/mosquitto - - - -"
+      "d ${home}/zigbee2mqtt/slzb06m - - - -"
+      "d ${home}/zigbee2mqtt/deconz - - - -"
+    ];
+
   virtualisation.oci-containers.containers = {
     # Z2M for Deconz USB stick
     zigbee2mqtt_deconz = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.8.0";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.9.1";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
-        user = "ymatsiuk";
+        user = hassUser;
       };
       volumes =
         let
@@ -55,7 +78,7 @@ in
         in
         [
           "/run/dbus:/run/dbus:ro"
-          "/home/ymatsiuk/zigbee2mqtt/deconz:/app/data"
+          "/home/${hassUser}/zigbee2mqtt/deconz:/app/data"
           "${deconz}:/app/data/configuration.yaml:ro"
         ];
       ports = [ "9090:8080" ];
@@ -77,6 +100,7 @@ in
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
+        # TODO(ymatsiuk): switch to hassUser
         user = "ymatsiuk";
       };
       volumes =
@@ -114,6 +138,7 @@ in
         in
         [
           "/run/dbus:/run/dbus:ro"
+          # TODO(ymatsiuk): switch to "${hassUser}"
           "/home/ymatsiuk/zigbee2mqtt/slzb06m:/app/data"
           "${slzb06m}:/app/data/configuration.yaml:ro"
         ];
@@ -131,7 +156,7 @@ in
       image = "docker.io/eclipse-mosquitto:2.0.22"; # itho doesn't support 2.1.x yet
       podman = {
         sdnotify = "healthy";
-        user = "ymatsiuk";
+        user = "${hassUser}";
       };
       extraOptions = [
         "--cap-drop=ALL"
@@ -151,8 +176,9 @@ in
         in
         [
           "${config}:/mosquitto/config/mosquitto.conf:ro"
-          "/home/ymatsiuk/mosquitto:/mosquitto"
+          "/home/${hassUser}/mosquitto:/mosquitto"
         ];
     };
   };
+
 }
