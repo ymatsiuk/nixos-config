@@ -12,7 +12,7 @@ in
       packages = [ config.virtualisation.podman.package ];
       uid = 1010;
       group = "${hassUser}";
-      extraGroups = [ "dialout" ]; # for USB zigbee coordinator
+      extraGroups = [ "dialout" ]; # for USB ConBee II zigbee coordinator
     };
     groups."${hassUser}".gid = 1010;
   };
@@ -96,12 +96,11 @@ in
     # Z2M for SLZB-06M
     zigbee2mqtt_slzb06m = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.8.0";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.9.1";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
-        # TODO(ymatsiuk): switch to hassUser
-        user = "ymatsiuk";
+        user = hassUser;
       };
       volumes =
         let
@@ -138,8 +137,7 @@ in
         in
         [
           "/run/dbus:/run/dbus:ro"
-          # TODO(ymatsiuk): switch to "${hassUser}"
-          "/home/ymatsiuk/zigbee2mqtt/slzb06m:/app/data"
+          "/home/${hassUser}/zigbee2mqtt/slzb06m:/app/data"
           "${slzb06m}:/app/data/configuration.yaml:ro"
         ];
       ports = [ "8090:8080" ];
@@ -156,7 +154,7 @@ in
       image = "docker.io/eclipse-mosquitto:2.0.22"; # itho doesn't support 2.1.x yet
       podman = {
         sdnotify = "healthy";
-        user = "${hassUser}";
+        user = hassUser;
       };
       extraOptions = [
         "--cap-drop=ALL"
