@@ -158,7 +158,7 @@ in
       };
       extraOptions = [
         "--cap-drop=ALL"
-        "--userns=keep-id"
+        "--userns=keep-id:uid=1883,gid=1883" # uid/gid hard coded in Dockerfile
         "--health-cmd"
         "mosquitto_sub -t '$SYS/#' -C 1 -i healthcheck -W 3 || exit 1" # https://github.com/eclipse-mosquitto/mosquitto/issues/1270#issuecomment-1478648748
       ];
