@@ -1,6 +1,7 @@
 {
   imports = [
     ./zigbee2mqtt.nix
+    ./vector.nix
   ];
 
   boot = {

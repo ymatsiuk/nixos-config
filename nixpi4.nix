@@ -4,6 +4,7 @@
     ./cloudflared.nix
     ./grafana.nix
     ./homeassistant.nix
+    ./vector.nix
   ];
 
   boot.extraModprobeConfig = ''
