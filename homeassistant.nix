@@ -785,15 +785,6 @@ let
     recorder.db_url = "postgresql://homeassistant@/homeassistant";
     prometheus = { };
     influxdb = {
-      api_version = 2;
-      host = "localhost";
-      port = "8086";
-      max_retries = 10;
-      ssl = false;
-      verify_ssl = false;
-      token = secrets.influxdb.token;
-      organization = "home";
-      bucket = "hass";
       include = {
         entity_globs = [
           "sensor.current_*"
