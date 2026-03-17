@@ -63,6 +63,7 @@ in
             version = 5;
             advanced = {
               log_level = "debug";
+              log_output = [ "console" ];
               channel = 25;
               last_seen = "ISO_8601";
               network_key = secrets.zigbee2mqtt.deconz.network_key;
@@ -107,6 +108,7 @@ in
           slzb06m = yaml.generate "slzb06m.yaml" {
             advanced = {
               log_level = "debug";
+              log_output = [ "console" ];
               channel = 25;
               last_seen = "ISO_8601";
               transmit_power = 20;
