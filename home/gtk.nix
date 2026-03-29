@@ -2,25 +2,19 @@
 {
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark";
+    colorScheme = "dark";
+    cursorTheme = {
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors";
+      size = 16;
     };
     iconTheme = {
       package = pkgs.gruvbox-dark-icons-gtk;
       name = "gruvbox-dark";
     };
-    gtk2.extraConfig = ''
-      gtk-cursor-theme-size = 16
-      gtk-cursor-theme-name = "capitaine-cursors"
-    '';
-    gtk3.extraConfig = {
-      gtk-cursor-theme-size = 16;
-      gtk-cursor-theme-name = "capitaine-cursors";
+    theme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark";
     };
-  };
-  home.pointerCursor = {
-    name = "capitaine-cursors";
-    package = pkgs.capitaine-cursors;
   };
 }

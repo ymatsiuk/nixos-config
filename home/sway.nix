@@ -1,27 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-
-let
-  idleCmd = ''
-    swayidle -w \
-        timeout 300 'swaylock --daemonize --color 3c3836' \
-        timeout 600 'swaymsg "output * dpms off"' \
-             resume 'swaymsg "output * dpms on"' \
-        before-sleep 'swaylock --daemonize --color 3c3836'
-  '';
-  gsettings = "${pkgs.glib}/bin/gsettings";
-  gtkSettings = import ./gtk.nix { inherit pkgs; };
-  gnomeSchema = "org.gnome.desktop.interface";
-  importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
-    ${gsettings} set ${gnomeSchema} gtk-theme ${gtkSettings.gtk.theme.name}
-    ${gsettings} set ${gnomeSchema} icon-theme ${gtkSettings.gtk.iconTheme.name}
-    ${gsettings} set ${gnomeSchema} cursor-theme ${gtkSettings.gtk.gtk3.extraConfig.gtk-cursor-theme-name}
-  '';
-in
+{ lib, config, ... }:
 {
   wayland.windowManager.sway = {
     enable = true;
@@ -205,10 +182,14 @@ in
         ];
       };
       startup = [
-        { command = "${idleCmd}"; }
         {
-          command = "${importGsettings}";
-          always = true;
+          command = ''
+            swayidle -w \
+                timeout 300 'swaylock --daemonize --color 3c3836' \
+                timeout 600 'swaymsg "output * dpms off"' \
+                     resume 'swaymsg "output * dpms on"' \
+                before-sleep 'swaylock --daemonize --color 3c3836'
+          '';
         }
       ];
     };
