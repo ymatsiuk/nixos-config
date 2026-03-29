@@ -299,25 +299,30 @@
         type = "lua";
         config = ''
           -- Setup language servers.
-          local lspconfig = require("lspconfig")
-          lspconfig.bashls.setup {}
-          lspconfig.gopls.setup {}
-          lspconfig.jsonls.setup{}
-          lspconfig.pyright.setup {}
-          lspconfig.terraformls.setup {}
-          lspconfig.gitlab_ci_ls.setup {}
-          lspconfig.yamlls.setup {}
-          lspconfig.nil_ls.setup{
-            autostart = true,
+          vim.lsp.config("bashls", {})
+          vim.lsp.config("gopls", {})
+          vim.lsp.config("jsonls", {})
+          vim.lsp.config("pyright", {})
+          vim.lsp.config("terraformls", {})
+          vim.lsp.config("gitlab_ci_ls", {})
+          vim.lsp.config("yamlls", {})
+
+          vim.lsp.config("nil_ls", {
             settings = {
               ["nil"] = {
                 formatting = {
                   command = { "nixfmt" },
                 },
+                nix = {
+                  flake = {
+                    autoArchive = true,
+                  },
+                },
               },
             },
-          }
-          lspconfig.helm_ls.setup {
+          })
+
+          vim.lsp.config("helm_ls", {
             settings = {
               ["helm-ls"] = {
                 yamlls = {
@@ -325,10 +330,20 @@
                 },
                 helmLint = {
                   enabled = true,
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          })
+
+          vim.lsp.enable("bashls")
+          vim.lsp.enable("gopls")
+          vim.lsp.enable("jsonls")
+          vim.lsp.enable("pyright")
+          vim.lsp.enable("terraformls")
+          vim.lsp.enable("gitlab_ci_ls")
+          vim.lsp.enable("yamlls")
+          vim.lsp.enable("nil_ls")
+          vim.lsp.enable("helm_ls")
 
           -- Global mappings.
           -- See `:help vim.diagnostic.*` for documentation on any of the below functions
