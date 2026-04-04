@@ -844,7 +844,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2026.3.2";
+        image = "ghcr.io/home-assistant/home-assistant:2026.4.1";
         extraOptions = [
           "--device=/dev/ttyUSB0"
           "--privileged"
