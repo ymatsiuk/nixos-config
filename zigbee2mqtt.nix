@@ -31,7 +31,7 @@ in
     # Z2M for Deconz USB stick
     zigbee2mqtt_deconz = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.9.2";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.10.1";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
@@ -97,7 +97,7 @@ in
     # Z2M for SLZB-06M
     zigbee2mqtt_slzb06m = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.9.2";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.10.1";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
