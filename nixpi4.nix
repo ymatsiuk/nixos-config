@@ -1,11 +1,26 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./cloudflared.nix
     ./grafana.nix
     ./homeassistant.nix
-    ./vector.nix
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.loader.generic-extlinux-compatible = {
+    useGenerationDeviceTree = true;
+    configurationLimit = 5;
+  };
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "uas" # required for booting from USB SSD
+  ];
+
+  hardware.enableRedistributableFirmware = true;
+  hardware.raspberry-pi.firmware = {
+    enable = true;
+    uboot.enable = true;
+  };
 
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom="NL"
@@ -16,7 +31,7 @@
       device = "/dev/disk/by-uuid/a58ae62a-1358-42cb-81c9-971fdef73510";
       fsType = "ext4";
     };
-    "/boot" = {
+    "/boot/firmware" = {
       device = "/dev/disk/by-uuid/1C3B-1E13";
       fsType = "vfat";
     };
