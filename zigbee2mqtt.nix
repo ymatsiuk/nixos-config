@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   secrets = import ./secrets.nix;
   yaml = pkgs.formats.yaml { };
@@ -25,13 +30,15 @@ in
       "d ${home}/mosquitto - - - -"
       "d ${home}/zigbee2mqtt/slzb06m - - - -"
       "d ${home}/zigbee2mqtt/deconz - - - -"
+      "d ${home}/home-assistant - - - -"
+      "d ${home}/postgresql - - - -"
     ];
 
   virtualisation.oci-containers.containers = {
     # Z2M for Deconz USB stick
     zigbee2mqtt_deconz = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.10.1";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.14.2";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
@@ -97,7 +104,7 @@ in
     # Z2M for SLZB-06M
     zigbee2mqtt_slzb06m = {
       dependsOn = [ "mosquitto" ];
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.10.1";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.14.2";
       environment.TZ = "Europe/Amsterdam";
       podman = {
         sdnotify = "healthy";
@@ -179,6 +186,78 @@ in
           "/home/${hassUser}/mosquitto:/mosquitto"
         ];
     };
+    # Home Assistant
+    home-assistant = {
+      autoStart = true;
+      # devices = [
+      #   "/dev/ttyUSB0:/dev/ttyUSB0" # meter reader
+      # ];
+      dependsOn = [
+        "mosquitto"
+        "postgresql"
+      ];
+      image = "ghcr.io/home-assistant/home-assistant:2026.10.4";
+      podman = {
+        sdnotify = "healthy";
+        user = hassUser;
+      };
+      environment = {
+        DB_URL = "postgresql://homeassistant@host.containers.internal:5432/homeassistant";
+      };
+      extraOptions =
+        let
+          uid = config.users.users."${hassUser}".uid;
+          gid = config.users.groups."${hassUser}".gid;
+        in
+        [
+          "--userns=keep-id:uid=${lib.toString uid},gid=${lib.toString gid}"
+          "--health-cmd"
+          "curl -f http://localhost:8123 || exit 1"
+          "--health-interval"
+          "30s"
+          "--health-retries"
+          "3"
+        ];
+      ports = [
+        "8123:8123/tcp"
+      ];
+      volumes = [
+        "/home/${hassUser}/home-assistant:/config"
+      ];
+    };
+    # Postgresql
+    postgresql = {
+      autoStart = true;
+      image = "postgres:18-alpine";
+      podman = {
+        sdnotify = "healthy";
+        user = hassUser;
+      };
+      environment = {
+        POSTGRES_HOST_AUTH_METHOD = "trust";
+        POSTGRES_DB = "homeassistant";
+        POSTGRES_USER = "homeassistant";
+      };
+      extraOptions =
+        let
+          uid = config.users.users."${hassUser}".uid;
+          gid = config.users.groups."${hassUser}".gid;
+        in
+        [
+          "--userns=keep-id:uid=${lib.toString uid},gid=${lib.toString gid}"
+          "--health-cmd"
+          "pg_isready -d homeassistant -h 127.0.0.1 -U homeassistant || exit 1"
+          "--health-interval"
+          "30s"
+          "--health-retries"
+          "3"
+        ];
+      ports = [
+        "5432:5432/tcp"
+      ];
+      volumes = [
+        "/home/${hassUser}/postgresql:/var/lib/postgresql"
+      ];
+    };
   };
-
 }

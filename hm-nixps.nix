@@ -25,11 +25,7 @@
     kind
     kubectl
     kustomize
-    postgresql # psql
-    redis # redis-cli
     sslscan
-    terraform
-    vault-bin
     yq-go
     wol
     (wrapHelm kubernetes-helm {

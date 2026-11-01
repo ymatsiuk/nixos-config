@@ -315,7 +315,7 @@ let
             percentage = 100;
           };
           target = {
-            entity_id = "fan.itho_wifi_itho_itho_fan";
+            entity_id = "fan.cve_silent_fan";
           };
         }
         {
@@ -342,7 +342,7 @@ let
             percentage = 0;
           };
           target = {
-            entity_id = "fan.itho_wifi_itho_itho_fan";
+            entity_id = "fan.cve_silent_fan";
           };
         }
       ];
@@ -452,15 +452,6 @@ let
     "script manual" = "!include scripts_manual.yaml";
     "script ui" = "!include scripts.yaml";
     default_config = { };
-    http = {
-      ip_ban_enabled = true;
-      login_attempts_threshold = 5;
-      server_port = 8124;
-      use_x_forwarded_for = true;
-      trusted_proxies = [
-        "127.0.0.1"
-      ];
-    };
     frontend.themes = "!include_dir_merge_named themes";
     cover = [
       {
@@ -507,7 +498,7 @@ let
       {
         platform = "derivative";
         name = "humidity_derivative";
-        source = "sensor.itho_wifi_itho_itho_humidity";
+        source = "sensor.cve_silent_hum";
         round = 0;
         unit_time = "min";
         time_window = "00:05:00";
@@ -548,27 +539,39 @@ let
         cycle = "daily";
       };
       daily_energy_offpeak = {
-        source = "sensor.energy_consumed_tariff_1";
+        source = "sensor.energy_offpeak_total";
         name = "Daily Energy (Offpeak)";
         cycle = "daily";
       };
       daily_energy_peak = {
-        source = "sensor.energy_consumed_tariff_2";
+        source = "sensor.energy_peak_total";
         name = "Daily Energy (Peak)";
         cycle = "daily";
       };
       daily_gas = {
-        source = "sensor.gas_consumed";
+        source = "sensor.gas_total";
         name = "Daily Gas";
         cycle = "daily";
       };
-      monthly_energy_offpeak = {
+      energy_offpeak_total = {
         source = "sensor.energy_consumed_tariff_1";
+        name = "Energy Consumption (Offpeak)";
+      };
+      energy_peak_total = {
+        source = "sensor.energy_consumed_tariff_2";
+        name = "Energy Consumption (Peak)";
+      };
+      gas_total = {
+        source = "sensor.gas_consumed";
+        name = "Gas Consumption";
+      };
+      monthly_energy_offpeak = {
+        source = "sensor.energy_offpeak_total";
         name = "Monthly Energy (Offpeak)";
         cycle = "monthly";
       };
       monthly_energy_peak = {
-        source = "sensor.energy_consumed_tariff_2";
+        source = "sensor.energy_peak_total";
         name = "Monthly Energy (Peak)";
         cycle = "monthly";
       };
@@ -581,6 +584,12 @@ let
     template = [
       {
         sensor = [
+          {
+            name = "Energy Total";
+            device_class = "energy";
+            unit_of_measurement = "kWh";
+            state = "{% if is_number(states('sensor.energy_offpeak_total')) and is_number(states('sensor.energy_peak_total')) %}\n  {{ states('sensor.energy_offpeak_total') | float + states('sensor.energy_peak_total') | float }}\n{% else %}\n  None\n{% endif %}\n";
+          }
           {
             name = "Daily Energy Total";
             device_class = "energy";
@@ -844,7 +853,7 @@ in
         environment = {
           TZ = "Europe/Amsterdam";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2026.5.1";
+        image = "ghcr.io/home-assistant/home-assistant:2026.10.4";
         extraOptions = [
           "--device=/dev/ttyUSB0"
           "--privileged"

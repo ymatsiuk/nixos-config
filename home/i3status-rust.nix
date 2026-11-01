@@ -8,66 +8,12 @@ in
       bottom = {
         blocks = [
           {
-            block = "custom";
-            command = "pactl list source-outputs | egrep -q '(Source Output #|State: RUNNING)' && echo '  ' || echo '  '";
-            interval = 1;
-          }
-          {
-            block = "custom";
-            command = "[ $(tailscale status --json | jq -r .Self.Online) = true ] && echo '  ' || echo '  '";
-            interval = 5;
-            click = [
-              {
-                button = "left";
-                sync = true;
-                update = true;
-                cmd = "sudo tailscale up";
-              }
-              {
-                button = "right";
-                sync = true;
-                update = true;
-                cmd = "sudo tailscale down";
-              }
-            ];
-          }
-          {
-            block = "bluetooth";
-            mac = "CC:98:8B:93:08:1F";
-            disconnected_format = "";
-            format = " $icon { $percentage|} ";
-          }
-          {
-            block = "bluetooth";
-            mac = "18:B9:6E:D8:41:A9";
-            disconnected_format = "";
-            format = " $icon { $percentage|} ";
-          }
-          {
-            block = "net";
-            device = "^eth0$";
-          }
-          {
-            block = "net";
-            device = "^wlan0$";
-          }
-          {
             block = "weather";
             service = {
               name = "openweathermap";
               city_id = secrets.i3status-rust.cityId;
               api_key = secrets.i3status-rust.openWeatherApiKey;
             };
-          }
-          {
-            block = "sound";
-            driver = "pulseaudio";
-            click = [
-              {
-                button = "left";
-                cmd = "pavucontrol";
-              }
-            ];
           }
           {
             block = "battery";

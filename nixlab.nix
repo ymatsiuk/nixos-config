@@ -40,7 +40,6 @@
         };
       };
       systemd = {
-        enable = true;
         emergencyAccess = true;
       };
     };

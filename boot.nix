@@ -21,7 +21,6 @@
     };
   };
   boot.initrd.systemd = {
-    enable = true;
     emergencyAccess = true;
   };
   boot.kernelModules = [ "kvm-intel" ];

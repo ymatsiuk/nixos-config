@@ -163,7 +163,7 @@ in
     docker = {
       enable = true;
       enableOnBoot = true;
-      extraOptions = ''--config-file=${
+      extraOptions = "--config-file=${
         pkgs.writeText "daemon.json" (
           builtins.toJSON {
             features = {
@@ -171,9 +171,8 @@ in
             };
           }
         )
-      }'';
+      }";
     };
     podman.enable = true;
   };
-
 }
