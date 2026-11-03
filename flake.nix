@@ -6,6 +6,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
@@ -14,6 +15,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-small,
       nur,
       home-manager,
       flake-utils,
@@ -23,8 +25,17 @@
       makeOpinionatedNixpkgs =
         system: overlays:
         import nixpkgs {
-          inherit system overlays;
+          inherit system;
           config.allowUnfree = true;
+          overlays = [
+            (final: prev: {
+              # use nixos-unstable-small as the most recent kernel source
+              linux_latest = nixpkgs-small.legacyPackages.${system}.linux_latest;
+              # global override for linuxPackages to use the latest kernel
+              linuxPackages = final.linuxPackagesFor final.linux_latest;
+            })
+          ]
+          ++ overlays;
         };
       makeOpinionatedNixosConfig =
         {

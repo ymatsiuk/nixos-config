@@ -6,7 +6,7 @@
     ./homeassistant.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages; # required to override nixos-hardware
   boot.loader.generic-extlinux-compatible = {
     useGenerationDeviceTree = true;
     configurationLimit = 5;
