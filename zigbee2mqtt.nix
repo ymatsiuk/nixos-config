@@ -259,5 +259,20 @@ in
         "/home/${hassUser}/postgresql:/var/lib/postgresql"
       ];
     };
+    # Cloudflared
+    cloudflared = {
+      image = "docker.io/cloudflare/cloudflared:2026.11.0";
+      autoStart = true;
+      podman = {
+        user = hassUser;
+      };
+      cmd = [
+        "tunnel"
+        "--no-autoupdate"
+        "run"
+        "--token"
+        secrets.cloudflared.podman.token
+      ];
+    };
   };
 }
