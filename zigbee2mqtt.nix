@@ -53,7 +53,7 @@ in
             };
             mqtt = {
               base_topic = "zigbee2mqtt_deconz";
-              server = "mqtt://nixlab.local:1883";
+              server = "mqtt://host.containers.internal:1883";
               version = 5;
             };
             permit_join = false;
@@ -69,7 +69,7 @@ in
             };
             version = 5;
             advanced = {
-              log_level = "debug";
+              log_level = "info";
               log_output = [ "console" ];
               channel = 25;
               last_seen = "ISO_8601";
@@ -114,7 +114,7 @@ in
         let
           slzb06m = yaml.generate "slzb06m.yaml" {
             advanced = {
-              log_level = "debug";
+              log_level = "info";
               log_output = [ "console" ];
               channel = 25;
               last_seen = "ISO_8601";
@@ -131,7 +131,7 @@ in
             };
             mqtt = {
               base_topic = "zigbee2mqtt_slzb06m";
-              server = "mqtt://nixlab.local:1883";
+              server = "mqtt://host.containers.internal:1883";
               version = 5;
             };
             serial = {
